@@ -196,38 +196,6 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Constructs and initializes a Matrix4f from the quaternion, translation, and scale values; the scale is applied only
-	 * to the rotational components of the matrix (upper 3x3) and not to the translational components.
-	 *
-	 * @param q1 the quaternion value representing the rotational component
-	 * @param t1 the translational component of the matrix
-	 * @param s the scale value applied to the rotational components
-	 */
-	public Matrix4f(Quat4f q1, Vector3f t1, float s) {
-		m00 = (float) (s * (1.0 - 2.0 * q1.y * q1.y - 2.0 * q1.z * q1.z));
-		m10 = (float) (s * (2.0 * (q1.x * q1.y + q1.w * q1.z)));
-		m20 = (float) (s * (2.0 * (q1.x * q1.z - q1.w * q1.y)));
-
-		m01 = (float) (s * (2.0 * (q1.x * q1.y - q1.w * q1.z)));
-		m11 = (float) (s * (1.0 - 2.0 * q1.x * q1.x - 2.0 * q1.z * q1.z));
-		m21 = (float) (s * (2.0 * (q1.y * q1.z + q1.w * q1.x)));
-
-		m02 = (float) (s * (2.0 * (q1.x * q1.z + q1.w * q1.y)));
-		m12 = (float) (s * (2.0 * (q1.y * q1.z - q1.w * q1.x)));
-		m22 = (float) (s * (1.0 - 2.0 * q1.x * q1.x - 2.0 * q1.y * q1.y));
-
-		m03 = t1.x;
-		m13 = t1.y;
-		m23 = t1.z;
-
-		m30 = 0.0f;
-		m31 = 0.0f;
-		m32 = 0.0f;
-		m33 = 1.0f;
-
-	}
-
-	/**
 	 * Constructs a new matrix with the same values as the Matrix4f parameter.
 	 *
 	 * @param m1 the source matrix
@@ -3170,4 +3138,58 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 		this.m33 = m33;
 		return this;
 	}
+
+	/**
+	 * Calculate a lookat matrix. This is the same as gluLookat()
+	 *
+	 * @param eye an array of 3 components for the eye position.
+	 * @param center an array of 3 components for the center position.
+	 * @param up an array of 3 components for the up direction.
+	 * @return this for chaining
+	 */
+	public Matrix4f setLookAt(Vector3f eye, Vector3f center, Vector3f up) {
+
+		Vector3f f = new Vector3f();
+		f.sub(center, eye);
+		f.normalize();
+
+		Vector3f up_n = new Vector3f();
+		up_n.normalize(up);
+
+		Vector3f s = new Vector3f();
+		s.cross(f, up_n);
+
+		Vector3f s_n = new Vector3f();
+		s_n.normalize(s);
+
+		Vector3f u = new Vector3f();
+		u.cross(s_n, f);
+
+		m00 = s.x;
+		m01 = s.y;
+		m02 = s.z;
+		m03 = 0;
+		m10 = u.x;
+		m11 = u.y;
+		m12 = u.z;
+		m13 = 0;
+		m20 = -f.x;
+		m21 = -f.y;
+		m22 = -f.z;
+		m23 = 0;
+		m30 = 0;
+		m31 = 0;
+		m32 = 0;
+		m33 = 1;
+
+		Vector3f e = new Vector3f(eye);
+		e.scale(-1);
+		Matrix4f t = new Matrix4f();
+		t.setIdentity();
+		t.setTranslation(e);
+		mul(t);
+		return this;
+
+	}
+
 }

@@ -31,9 +31,8 @@
 package javax.vecmath;
 
 /**
- * A 3-element vector that is represented by single-precision floating point
- * x,y,z coordinates. If this value represents a normal, then it should be
- * normalized.
+ * A 3-element vector that is represented by single-precision floating point x,y,z coordinates. If this value represents
+ * a normal, then it should be normalized.
  *
  */
 public class Vector3f extends Tuple3f implements java.io.Serializable {
@@ -92,7 +91,7 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 	 * @return the squared length of this vector
 	 */
 	public final float lengthSquared() {
-		return (this.x * this.x + this.y * this.y + this.z * this.z);
+		return (float) ((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
 	}
 
 	/**
@@ -101,7 +100,7 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 	 * @return the length of this vector
 	 */
 	public final float length() {
-		return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+		return (float) Math.sqrt((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 	 *
 	 * @param v1 the first vector
 	 * @param v2 the second vector
-	 * @return 
+	 * @return
 	 */
 	public final Vector3f cross(Vector3f v1, Vector3f v2) {
 		float tmp_x, tmp_y;
@@ -118,7 +117,8 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 		tmp_y = v2.x * v1.z - v2.z * v1.x;
 		this.z = v1.x * v2.y - v1.y * v2.x;
 		this.x = tmp_x;
-		this.y = tmp_y;return this;
+		this.y = tmp_y;
+		return this;
 	}
 
 	/**
@@ -140,29 +140,31 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 	public final Vector3f normalize(Vector3f v1) {
 		float norm;
 
-		norm = (float) (1.0 / Math.sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z));
+		norm = (1.0f / v1.length());
 		this.x = v1.x * norm;
 		this.y = v1.y * norm;
-		this.z = v1.z * norm;return this;
+		this.z = v1.z * norm;
+		return this;
 	}
 
 	/**
 	 * Normalizes this vector in place.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Vector3f normalize() {
 		float norm;
 
-		norm = (float) (1.0 / Math.sqrt(this.x * this.x + this.y * this.y + this.z *
-			this.z));
+		norm = (1.0f / length());
 		this.x *= norm;
 		this.y *= norm;
-		this.z *= norm;return this;
+		this.z *= norm;
+		return this;
 	}
 
 	/**
-	 * Returns the angle in radians between this vector and the vector parameter;
-	 * the return value is constrained to the range [0,PI].
+	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the
+	 * range [0,PI].
 	 *
 	 * @param v1 the other vector
 	 * @return the angle in radians in the range [0,PI]

@@ -1572,6 +1572,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 */
 	public final Matrix3f normalizeCP() {
+
 		float mag = 1.0f / (float) Math.sqrt(m00 * m00 + m10 * m10 + m20 * m20);
 		m00 = m00 * mag;
 		m10 = m10 * mag;
@@ -1837,9 +1838,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 		tmp[8] = m1.m22;
 
 		SingularValueDecomposition svd = new Matrix(tmp, 3).svd();
-
 		double[] singles = svd.getSingularValues();
-
 		scale.x = (float) (singles[0]);
 		scale.y = (float) (singles[1]);
 		scale.z = (float) (singles[2]);
@@ -1862,11 +1861,9 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 
 		SingularValueDecomposition svd = new Matrix(tmp, 3).svd();
 
-		double[] singles = svd.getSingularValues();
-
 		Matrix u = svd.getU();
 		Matrix vt = svd.getV().transpose();
-		Matrix uvt = u.times(vt);
+		Matrix R = u.times(vt);
 
 //		double det =
 //			(uvt.get(0, 0) * uvt.get(1, 1) * uvt.get(2, 2)) +
@@ -1875,19 +1872,20 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 //			(uvt.get(0, 2) * uvt.get(1, 1) * uvt.get(2, 0)) -
 //			(uvt.get(0, 1) * uvt.get(1, 0) * uvt.get(2, 2)) -
 //			(uvt.get(0, 0) * uvt.get(1, 2) * uvt.get(2, 1));
+		double[] singles = svd.getSingularValues();
 		scale.x = (float) (singles[0]);
 		scale.y = (float) (singles[1]);
 		scale.z = (float) (singles[2]);
 
-		rotate.m00 = (float) (uvt.get(0, 0));
-		rotate.m01 = (float) (uvt.get(0, 1));
-		rotate.m02 = (float) (uvt.get(0, 2));
-		rotate.m10 = (float) (uvt.get(1, 0));
-		rotate.m11 = (float) (uvt.get(1, 1));
-		rotate.m12 = (float) (uvt.get(1, 2));
-		rotate.m20 = (float) (uvt.get(2, 0));
-		rotate.m21 = (float) (uvt.get(2, 1));
-		rotate.m22 = (float) (uvt.get(2, 2));
+		rotate.m00 = (float) R.get(0, 0);
+		rotate.m01 = (float) R.get(0, 1);
+		rotate.m02 = (float) R.get(0, 2);
+		rotate.m10 = (float) R.get(1, 0);
+		rotate.m11 = (float) R.get(1, 1);
+		rotate.m12 = (float) R.get(1, 2);
+		rotate.m20 = (float) R.get(2, 0);
+		rotate.m21 = (float) R.get(2, 1);
+		rotate.m22 = (float) R.get(2, 2);
 	}
 
 	/**
@@ -2136,6 +2134,162 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 */
 	public final Matrix3f setM22(float m22) {
 		this.m22 = m22;
+		return this;
+	}
+
+	/**
+	 * Scale the columns of matrix m1 by the components of s and store the result in this matrix
+	 *
+	 * @param m1 the matrix to scale
+	 * @param s scale values
+	 * @return this for chaining
+	 */
+	public final Matrix3f mul(Matrix3f m1, Tuple3f s) {
+		scale(this, m1, s);
+		return this;
+	}
+
+	/**
+	 * Scale the columns of this matrix by the components of s and store the result in this matrix
+	 *
+	 * @param m1 the matrix to scale
+	 * @param s scale values
+	 * @return this for chaining
+	 */
+	public final Matrix3f mul(Tuple3f s) {
+		scale(this, this, s);
+		return this;
+	}
+
+	private static void scale(Matrix3f dest, Matrix3f mat, Tuple3f s) {
+		dest.m00 = mat.m00 * s.x;
+		dest.m01 = mat.m01 * s.y;
+		dest.m02 = mat.m02 * s.z;
+		dest.m10 = mat.m10 * s.x;
+		dest.m11 = mat.m11 * s.y;
+		dest.m12 = mat.m12 * s.z;
+		dest.m20 = mat.m20 * s.x;
+		dest.m21 = mat.m21 * s.y;
+		dest.m22 = mat.m22 * s.z;
+	}
+
+	/**
+	 * Set the elements of this matrix to the absolute value of the corresponding element in m1.
+	 * @param m1 the matrix to get values
+	 * @return this for chaining
+	 */
+	public final Matrix3f abs(Matrix3f m1)
+	{
+		absolute(this,m1);
+		return this;
+}
+	
+	/**
+	 * Set each element of this matrix to its absolute value
+	 * @return this for chaining.
+	 */
+	public final Matrix3f abs()
+	{
+		absolute(this,this);
+		return this;
+	}
+	
+	private static void absolute(Matrix3f dest,Matrix3f mat) {
+		dest.m00 = Math.abs(mat.m00);
+		dest.m01 = Math.abs(mat.m01);
+		dest.m02 = Math.abs(mat.m02);
+		dest.m10 = Math.abs(mat.m10);
+		dest.m11 = Math.abs(mat.m11);
+		dest.m12 = Math.abs(mat.m12);
+		dest.m20 = Math.abs(mat.m20);
+		dest.m21 = Math.abs(mat.m21);
+		dest.m22 = Math.abs(mat.m22);
+	}
+	
+	/**
+	 * Diagonalizes this matrix by the Jacobi method. rot stores the rotation
+	 * from the coordinate system in which the matrix is diagonal to the original
+	 * coordinate system, i.e., old_this = rot * new_this * rot^T. The iteration
+	 * stops when all off-diagonal elements are less than the threshold multiplied
+	 * by the sum of the absolute values of the diagonal, or when maxSteps have
+	 * been executed. Note that this matrix is assumed to be symmetric.
+	 */
+	// JAVA NOTE: diagonalize method from 2.71
+	
+	public final Matrix3f diagonalize(Matrix3f rot, float threshold, int maxSteps) {
+		Vector3f row = new Vector3f();
+
+		rot.setIdentity();
+		for (int step = maxSteps; step > 0; step--) {
+			// find off-diagonal element [p][q] with largest magnitude
+			int p = 0;
+			int q = 1;
+			int r = 2;
+			float max = Math.abs(m01);
+			float v = Math.abs(m02);
+			if (v > max) {
+				q = 2;
+				r = 1;
+				max = v;
+			}
+			v = Math.abs(m12);
+			if (v > max) {
+				p = 1;
+				q = 2;
+				r = 0;
+				max = v;
+			}
+
+			float t = threshold * (Math.abs(m00) + Math.abs(m11) + Math.abs(m22));
+			if (max <= t) {
+				if (max <= EPS * t) {
+					return this;
+				}
+				step = 1;
+			}
+
+			// compute Jacobi rotation J which leads to a zero for element [p][q]
+			float mpq = getElement(p, q);
+			float theta = (getElement(q, q) - getElement(p, p)) / (2 * mpq);
+			float theta2 = theta * theta;
+			float cos;
+			float sin;
+			if ((theta2 * theta2) < (10f / EPS)) {
+				t = (theta >= 0f) ? 1f / (theta + (float) Math.sqrt(1f + theta2))
+						: 1f / (theta - (float) Math.sqrt(1f + theta2));
+				cos = 1f / (float) Math.sqrt(1f + t * t);
+				sin = cos * t;
+			}
+			else {
+				// approximation for large theta-value, i.e., a nearly diagonal matrix
+				t = 1 / (theta * (2 + 0.5f / theta2));
+				cos = 1 - 0.5f * t * t;
+				sin = cos * t;
+			}
+
+			// apply rotation to matrix (this = J^T * this * J)
+			setElement(p, q, 0f);
+			setElement(q, p, 0f);
+			setElement(p, p, getElement(p, p) - t * mpq);
+			setElement(q, q, getElement(q, q) + t * mpq);
+			float mrp = getElement(r, p);
+			float mrq = getElement(r, q);
+			setElement(r, p, cos * mrp - sin * mrq);
+			setElement(p, r, cos * mrp - sin * mrq);
+			setElement(r, q, cos * mrq + sin * mrp);
+			setElement(q, r, cos * mrq + sin * mrp);
+
+			// apply rotation to rot (rot = rot * J)
+			for (int i=0; i<3; i++) {
+				rot.getRow(i, row);
+
+				mrp = row.get( p);
+				mrq = row.get(q);
+				row.set(p, cos * mrp - sin * mrq);
+				row.set( q, cos * mrq + sin * mrp);
+				rot.setRow(i, row);
+			}
+		}
 		return this;
 	}
 

@@ -695,4 +695,100 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 		this.z = z;
 		return this;
 	}
+
+	/**
+	 * Multiply each component of t1 with t2 and store the result in this tuple
+	 *
+	 * @param t1 left operand
+	 * @param t2 right operand
+	 * @return this for chaining
+	 */
+	public final Tuple3f mul(Tuple3f t1, Tuple3f t2) {
+		x = t1.x * t2.x;
+		y = t1.y * t2.y;
+		z = t1.z * t2.z;
+		return this;
+	}
+
+	/**
+	 * Divide each component of t1 by t2 and store the result in this tuple
+	 *
+	 * @param t1 left operand
+	 * @param t2 right operand
+	 * @return this for chaining
+	 */
+	public final Tuple3f div(Tuple3f t1, Tuple3f t2) {
+		x = t1.x / t2.x;
+		y = t1.y / t2.y;
+		z = t1.z / t2.z;
+		return this;
+	}
+
+	/**
+	 * Get an element of this tuple by index
+	 *
+	 * @param i 0 for x, 1 for y, 2 for z
+	 * @return
+	 */
+	public final float get(int i) {
+		switch (i) {
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
+	}
+
+	/**
+	 * Set an element of this tuple
+	 *
+	 * @param i 0 for x, 1 for y, 2 for z
+	 * @param value the new value
+	 * @return this for chaining
+	 */
+	public final Tuple3f set(int i, float value) {
+		switch (i) {
+			case 0:
+				x = value;
+				break;
+			case 1:
+				y = value;
+				break;
+			case 2:
+				z = value;
+				break;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
+		return this;
+	}
+
+	/**
+	 * Set each element to the minimum of this or another tuple
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple3f setMin(Tuple3f t1) {
+		x = Math.min(x, t1.x);
+		y = Math.min(y, t1.y);
+		z = Math.min(z, t1.z);
+		return this;
+	}
+
+	/**
+	 * Set each element to the maximum of this or another tuple
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple3f setMax(Tuple3f t1) {
+		x = Math.max(x, t1.x);
+		y = Math.max(y, t1.y);
+		z = Math.max(z, t1.z);
+		return this;
+	}
+
 }

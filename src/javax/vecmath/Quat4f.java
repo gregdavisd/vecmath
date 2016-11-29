@@ -41,7 +41,7 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	static final long serialVersionUID = 2675933778405442383L;
 
 	final static float EPS = 0.00001f;
-private final static int X = 0;
+	private final static int X = 0;
 	private final static int Y = 1;
 	private final static int Z = 2;
 	private final static int[] NXT = new int[]{Y, Z, X};
@@ -122,17 +122,20 @@ private final static int X = 0;
 		this.x = -q1.x;
 		this.y = -q1.y;
 		this.z = -q1.z;
-		this.w = q1.w;return this;
+		this.w = q1.w;
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to the conjugate of itself.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Quat4f conjugate() {
 		this.x = -this.x;
 		this.y = -this.y;
-		this.z = -this.z;return this;
+		this.z = -this.z;
+		return this;
 	}
 
 	/**
@@ -141,7 +144,7 @@ private final static int X = 0;
 	 *
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f mul(Quat4f q1, Quat4f q2) {
 		if (this != q1 && this != q2) {
@@ -159,14 +162,15 @@ private final static int X = 0;
 			this.w = temp_w;
 			this.x = tmp_x;
 			this.y = tmp_y;
-		}return this;
+		}
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to the quaternion product of itself and q1 (this = this * q1).
 	 *
 	 * @param q1 the other quaternion
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f mul(Quat4f q1) {
 		float tmp_x, temp_y, temp_w;
@@ -177,7 +181,8 @@ private final static int X = 0;
 		this.z = this.w * q1.z + q1.w * this.z + this.x * q1.y - this.y * q1.x;
 		this.w = temp_w;
 		this.x = tmp_x;
-		this.y = temp_y;return this;
+		this.y = temp_y;
+		return this;
 	}
 
 	/**
@@ -196,13 +201,14 @@ private final static int X = 0;
 	 *
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f mulInverse(Quat4f q1, Quat4f q2) {
 		Quat4f tempQuat = new Quat4f(q2);
 
 		tempQuat.inverse();
-		this.mul(q1, tempQuat);return this;
+		this.mul(q1, tempQuat);
+		return this;
 	}
 
 	/**
@@ -210,20 +216,21 @@ private final static int X = 0;
 	 * the argument quaternion is preserved (this = this * q^-1).
 	 *
 	 * @param q1 the other quaternion
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f mulInverse(Quat4f q1) {
 		Quat4f tempQuat = new Quat4f(q1);
 
 		tempQuat.inverse();
-		this.mul(tempQuat);return this;
+		this.mul(tempQuat);
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to quaternion inverse of quaternion q1.
 	 *
 	 * @param q1 the quaternion to be inverted
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f inverse(Quat4f q1) {
 		float norm;
@@ -232,12 +239,14 @@ private final static int X = 0;
 		this.w = norm * q1.w;
 		this.x = -norm * q1.x;
 		this.y = -norm * q1.y;
-		this.z = -norm * q1.z;return this;
+		this.z = -norm * q1.z;
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to the quaternion inverse of itself.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Quat4f inverse() {
 		float norm;
@@ -247,14 +256,15 @@ private final static int X = 0;
 		this.w *= norm;
 		this.x *= -norm;
 		this.y *= -norm;
-		this.z *= -norm;return this;
+		this.z *= -norm;
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to the normalized value of quaternion q1.
 	 *
 	 * @param q1 the quaternion to be normalized.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f normalize(Quat4f q1) {
 		float norm;
@@ -272,12 +282,14 @@ private final static int X = 0;
 			this.y = (float) 0.0;
 			this.z = (float) 0.0;
 			this.w = (float) 0.0;
-		}return this;
+		}
+		return this;
 	}
 
 	/**
 	 * Normalizes the value of this quaternion in place.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Quat4f normalize() {
 		float norm;
@@ -299,7 +311,6 @@ private final static int X = 0;
 		return this;
 	}
 
-	
 	/**
 	 * Sets the value of this quaternion to the rotational component of the passed matrix.
 	 *
@@ -307,6 +318,63 @@ private final static int X = 0;
 	 * @return this for chaining
 	 */
 	public final Quat4f set(Matrix4f m1) {
+		return set(new Matrix3f(m1));
+	}
+
+	/**
+	 *
+	 * @param i
+	 * @param f
+	 * @return this for chaining
+	 */
+	public final Quat4f setElement(int i, float f) {
+		switch (i) {
+			case 0:
+				x = f;
+				break;
+			case 1:
+				y = f;
+				break;
+			case 2:
+				z = f;
+				break;
+			case 3:
+				w = f;
+				break;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
+		return this;
+	}
+
+	/**
+	 *
+	 * @param i
+	 * @return the element value
+	 */
+	public final float getElement(int i) {
+		switch (i) {
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
+
+	}
+
+	/**
+	 * Sets the value of this quaternion to the rotational component of the passed matrix.
+	 *
+	 * @param m1 the Matrix3f
+	 * @return this for chaining
+	 */
+	public final Quat4f set(Matrix3f m1) {
 		/*
 		 * From Watt & Watt Advanced Animation and Rendering Techniques pp. 363-364
 		 *
@@ -338,102 +406,15 @@ private final static int X = 0;
 			this.w = (m1.getElement(j, k) - m1.getElement(k, j)) * s;
 			this.setElement(j, (m1.getElement(i, j) + m1.getElement(j, i)) * s);
 			this.setElement(k, (m1.getElement(i, k) + m1.getElement(k, i)) * s);
-		}return this;
-	}
-
-	/**
-	 *
-	 * @param i
-	 * @param f
-	 * @return this for chaining
-	 */
-	public final Quat4f setElement(int i, float f) {
-		switch (i) {
-			case 0:
-				x = f;
-				break;
-			case 1:
-				y = f;
-				break;
-			case 2:
-				z = f;
-				break;
-			case 3:
-				w = f;
-				break;
-			default:
-				throw new IndexOutOfBoundsException();
-		}return this;
-	}
-
-	/**
-	 *
-	 * @param i
-	 * @return the element value
-	 */
-	public final float getElement(int i) {
-		switch (i) {
-			case 0:
-				return x;
-			case 1:
-				return y;
-			case 2:
-				return z;
-			case 3:
-				return w;
-			default:
-				throw new IndexOutOfBoundsException();
 		}
-
-	}
-
-	/**
-	 * Sets the value of this quaternion to the rotational component of the passed matrix.
-	 *
-	 * @param m1 the Matrix3f
-	 * @return this for chaining
-	 */
-	public final Quat4f set(Matrix3f m1) {
-				/*
-		 * From Watt & Watt Advanced Animation and Rendering Techniques pp. 363-364
-		 *
-		 */
-		float tr, s;
-		int i, j, k;
-
-		tr = m1.m00 + m1.m11 + m1.m22;
-		if (tr > 0.0f) {
-			s = (float) Math.sqrt(tr + 1.0f);
-			this.w = s * 0.5f;
-			s = 0.5f / s;
-			this.x = (m1.m12 - m1.m21) * s;
-			this.y = (m1.m20 - m1.m02) * s;
-			this.z = (m1.m01 - m1.m10) * s;
-		} else {
-			i = X;
-			if (m1.m11 > m1.m00) {
-				i = Y;
-			}
-			if (m1.m22 > m1.getElement(i, i)) {
-				i = Z;
-			}
-			j = NXT[i];
-			k = NXT[j];
-			s = (float) Math.sqrt(m1.getElement(i, i) - (m1.getElement(j, j) + m1.getElement(k, k)) + 1.0f);
-			this.setElement(i, s * 0.5f);
-			s = 0.5f / s;
-			this.w = (m1.getElement(j, k) - m1.getElement(k, j)) * s;
-			this.setElement(j, (m1.getElement(i, j) + m1.getElement(j, i)) * s);
-			this.setElement(k, (m1.getElement(i, k) + m1.getElement(k, i)) * s);
-		}
-return this;
+		return this;
 	}
 
 	/**
 	 * Sets the value of this quaternion to the equivalent rotation of the AxisAngle argument.
 	 *
 	 * @param a the AxisAngle to be emulated
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f set(AxisAngle4f a) {
 		float mag, amag;
@@ -451,7 +432,8 @@ return this;
 			x = a.x * amag * mag;
 			y = a.y * amag * mag;
 			z = a.z * amag * mag;
-		}return this;
+		}
+		return this;
 	}
 
 	/**
@@ -460,11 +442,12 @@ return this;
 	 *
 	 * @param q1 the other quaternion
 	 * @param alpha the alpha interpolation parameter
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f interpolate(Quat4f q1, float alpha) {
 		Quat4f q = new Quat4f(this);
-		interpolate(q, q1, alpha);return this;
+		interpolate(q, q1, alpha);
+		return this;
 	}
 
 	/**
@@ -474,7 +457,7 @@ return this;
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
 	 * @param alpha the alpha interpolation parameter
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Quat4f interpolate(Quat4f q1, Quat4f q2, float alpha) {
 		/*
@@ -511,7 +494,8 @@ return this;
 			for (i = 0; i < 3; ++i) {
 				this.setElement(i, (sclp * q1.getElement(i)) + (sclq * this.getElement(i)));
 			}
-		}return this;
+		}
+		return this;
 	}
 
 }

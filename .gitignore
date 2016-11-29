@@ -46,3 +46,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.class
+*.properties
+*.netbeans_automatic_build
+build/classes/.netbeans_update_resources
+*.xml
+/dist/
+*.xml
+nbproject/genfiles.properties
+*.properties
+nbproject/private/private.xml
