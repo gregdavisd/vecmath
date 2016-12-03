@@ -746,7 +746,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Decompose the matrix and return the scale components
+	 * Decompose the 3x3 portion of this matrix and return the scale components
 	 *
 	 * @param scale x,y,z scale components
 	 * @return scale for chaining.
@@ -1692,10 +1692,27 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 * @param trans the translational component
 	 * @return this for chaining
 	 */
-	public final Matrix4f setTranslation(Vector3f trans) {
+	public final Matrix4f setTranslation(Tuple3f trans) {
 		m03 = trans.x;
 		m13 = trans.y;
 		m23 = trans.z;
+		return this;
+
+	}
+	
+	/**
+	 * Modifies the translational components of this matrix to the values of the x,y,z arguments; the other values of
+	 * this matrix are not modified.
+	 *
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return this for chaining
+	 */
+	public final Matrix4f setTranslation(float x, float y, float z) {
+		m03 = x;
+		m13 = y;
+		m23 = z;
 		return this;
 
 	}

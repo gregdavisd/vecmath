@@ -11,6 +11,8 @@ package javax.vecmath;
  */
 public class Spherical2f extends Tuple2f {
 
+	private static final float TWO_PI = 2.0f * (float) Math.PI;
+
 	/**
 	 * Construct a Polar2f object
 	 *
@@ -78,8 +80,32 @@ public class Spherical2f extends Tuple2f {
 		return this;
 	}
 
+	/**
+	 * Calculates a rotation matrix that will transform a point to the direction of this spherical coordinate and stores
+	 * the result in m1
+	 *
+	 * @param m1 matrix to store the rotation in
+	 * @return m1 for chaining
+	 */
 	public Matrix3f yup_get(Matrix3f m1) {
 		return m1.rotY(x).mul(new Matrix3f().rotZ(y));
 	}
+
+	/**
+	 * Changes both x and y angles to be between 0 and 2pi
+	 *
+	 * @return this for chaining
+	 */
+//	public Spherical2f normalize() {
+//		x = x % TWO_PI;
+//		if (x < 0) {
+//			x = TWO_PI + x;
+//		}
+//		y = y % TWO_PI;
+//		if (y < 0) {
+//			y = TWO_PI + y;
+//		}
+//		return this;
+//	}
 
 }

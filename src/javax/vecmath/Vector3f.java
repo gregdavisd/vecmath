@@ -85,82 +85,6 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 		super();
 	}
 
-	/**
-	 * Returns the squared length of this vector.
-	 *
-	 * @return the squared length of this vector
-	 */
-	public final float lengthSquared() {
-		return (float) ((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
-	}
-
-	/**
-	 * Returns the length of this vector.
-	 *
-	 * @return the length of this vector
-	 */
-	public final float length() {
-		return (float) Math.sqrt((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
-	}
-
-	/**
-	 * Sets this vector to be the vector cross product of vectors v1 and v2.
-	 *
-	 * @param v1 the first vector
-	 * @param v2 the second vector
-	 * @return
-	 */
-	public final Vector3f cross(Vector3f v1, Vector3f v2) {
-		float tmp_x, tmp_y;
-
-		tmp_x = v1.y * v2.z - v1.z * v2.y;
-		tmp_y = v2.x * v1.z - v2.z * v1.x;
-		this.z = v1.x * v2.y - v1.y * v2.x;
-		this.x = tmp_x;
-		this.y = tmp_y;
-		return this;
-	}
-
-	/**
-	 * Computes the dot product of this vector and vector v1.
-	 *
-	 * @param v1 the other vector
-	 * @return the dot product of this vector and v1
-	 */
-	public final float dot(Vector3f v1) {
-		return (this.x * v1.x + this.y * v1.y + this.z * v1.z);
-	}
-
-	/**
-	 * Sets the value of this vector to the normalization of vector v1.
-	 *
-	 * @param v1 the un-normalized vector
-	 * @return this for chaining
-	 */
-	public final Vector3f normalize(Vector3f v1) {
-		float norm;
-
-		norm = (1.0f / v1.length());
-		this.x = v1.x * norm;
-		this.y = v1.y * norm;
-		this.z = v1.z * norm;
-		return this;
-	}
-
-	/**
-	 * Normalizes this vector in place.
-	 *
-	 * @return this for chaining
-	 */
-	public final Vector3f normalize() {
-		float norm;
-
-		norm = (1.0f / length());
-		this.x *= norm;
-		this.y *= norm;
-		this.z *= norm;
-		return this;
-	}
 
 	/**
 	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the
@@ -180,17 +104,4 @@ public class Vector3f extends Tuple3f implements java.io.Serializable {
 		return ((float) (Math.acos(vDot)));
 	}
 
-	public float max3() {
-		if (x > y) {
-			if (x > z) {
-				return x;
-			} else {
-				return (y);
-			}
-		} else if (y > z) {
-			return y;
-		} else {
-			return z;
-		}
-	}
 }

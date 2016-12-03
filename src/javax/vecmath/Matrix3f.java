@@ -119,7 +119,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	/**
 	 * Constructs and initializes a Matrix3f from the specified nine-element array. this.m00 =v[0], this.m01=v[1], etc.
 	 *
-	 * @param v the array of length 9 containing in order
+	 * @param v the array of length 9 containing in column order
 	 */
 	public Matrix3f(float[] v) {
 		this.m00 = v[0];
@@ -206,7 +206,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets this Matrix3f to identity.
+	 * Sets this matrix to identity.
 	 *
 	 * @return this for chaining
 	 */
@@ -281,7 +281,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the specified element of this matrix3f to the value provided.
+	 * Sets the specified element of this matrix  to the value provided.
 	 *
 	 * @param row the row number to be modified (zero indexed)
 	 * @param column the column number to be modified (zero indexed)
@@ -1325,43 +1325,11 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 */
 	public final Matrix3f mul(Matrix3f m1, Matrix3f m2) {
 		if (this != m1 && this != m2) {
-			this.m00 = m1.m00 * m2.m00 + m1.m01 * m2.m10 + m1.m02 * m2.m20;
-			this.m01 = m1.m00 * m2.m01 + m1.m01 * m2.m11 + m1.m02 * m2.m21;
-			this.m02 = m1.m00 * m2.m02 + m1.m01 * m2.m12 + m1.m02 * m2.m22;
-
-			this.m10 = m1.m10 * m2.m00 + m1.m11 * m2.m10 + m1.m12 * m2.m20;
-			this.m11 = m1.m10 * m2.m01 + m1.m11 * m2.m11 + m1.m12 * m2.m21;
-			this.m12 = m1.m10 * m2.m02 + m1.m11 * m2.m12 + m1.m12 * m2.m22;
-
-			this.m20 = m1.m20 * m2.m00 + m1.m21 * m2.m10 + m1.m22 * m2.m20;
-			this.m21 = m1.m20 * m2.m01 + m1.m21 * m2.m11 + m1.m22 * m2.m21;
-			this.m22 = m1.m20 * m2.m02 + m1.m21 * m2.m12 + m1.m22 * m2.m22;
+			set(m1)
+				.mul(m2);
 		} else {
-			float n00, n01, n02,
-				n10, n11, n12,
-				n20, n21, n22;
-
-			n00 = m1.m00 * m2.m00 + m1.m01 * m2.m10 + m1.m02 * m2.m20;
-			n01 = m1.m00 * m2.m01 + m1.m01 * m2.m11 + m1.m02 * m2.m21;
-			n02 = m1.m00 * m2.m02 + m1.m01 * m2.m12 + m1.m02 * m2.m22;
-
-			n10 = m1.m10 * m2.m00 + m1.m11 * m2.m10 + m1.m12 * m2.m20;
-			n11 = m1.m10 * m2.m01 + m1.m11 * m2.m11 + m1.m12 * m2.m21;
-			n12 = m1.m10 * m2.m02 + m1.m11 * m2.m12 + m1.m12 * m2.m22;
-
-			n20 = m1.m20 * m2.m00 + m1.m21 * m2.m10 + m1.m22 * m2.m20;
-			n21 = m1.m20 * m2.m01 + m1.m21 * m2.m11 + m1.m22 * m2.m21;
-			n22 = m1.m20 * m2.m02 + m1.m21 * m2.m12 + m1.m22 * m2.m22;
-
-			this.m00 = n00;
-			this.m01 = n01;
-			this.m02 = n02;
-			this.m10 = n10;
-			this.m11 = n11;
-			this.m12 = n12;
-			this.m20 = n20;
-			this.m21 = n21;
-			this.m22 = n22;
+			set(new Matrix3f(m1)
+				.mul(m2));
 		}
 		return this;
 	}
@@ -2174,27 +2142,27 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Set the elements of this matrix to the absolute value of the corresponding element in m1.
+	 * Set the elements of this matrix to the abs value of the corresponding element in m1.
+	 *
 	 * @param m1 the matrix to get values
 	 * @return this for chaining
 	 */
-	public final Matrix3f abs(Matrix3f m1)
-	{
-		absolute(this,m1);
-		return this;
-}
-	
-	/**
-	 * Set each element of this matrix to its absolute value
-	 * @return this for chaining.
-	 */
-	public final Matrix3f abs()
-	{
-		absolute(this,this);
+	public final Matrix3f abs(Matrix3f m1) {
+		abs(this, m1);
 		return this;
 	}
-	
-	private static void absolute(Matrix3f dest,Matrix3f mat) {
+
+	/**
+	 * Set each element of this matrix to its abs value
+	 *
+	 * @return this for chaining.
+	 */
+	public final Matrix3f abs() {
+		abs(this, this);
+		return this;
+	}
+
+	private static void abs(Matrix3f dest, Matrix3f mat) {
 		dest.m00 = Math.abs(mat.m00);
 		dest.m01 = Math.abs(mat.m01);
 		dest.m02 = Math.abs(mat.m02);
@@ -2205,92 +2173,88 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 		dest.m21 = Math.abs(mat.m21);
 		dest.m22 = Math.abs(mat.m22);
 	}
-	
+
 	/**
-	 * Diagonalizes this matrix by the Jacobi method. rot stores the rotation
-	 * from the coordinate system in which the matrix is diagonal to the original
-	 * coordinate system, i.e., old_this = rot * new_this * rot^T. The iteration
-	 * stops when all off-diagonal elements are less than the threshold multiplied
-	 * by the sum of the absolute values of the diagonal, or when maxSteps have
-	 * been executed. Note that this matrix is assumed to be symmetric.
+	 * Diagonalizes this matrix by the Jacobi method. rot stores the rotation from the coordinate system in which the
+	 * matrix is diagonal to the original coordinate system, i.e., old_this = rot * new_this * rot^T. The iteration stops
+	 * when all off-diagonal elements are less than the threshold multiplied by the sum of the abs values of the diagonal,
+	 * or when maxSteps have been executed. Note that this matrix is assumed to be symmetric.
 	 */
 	// JAVA NOTE: diagonalize method from 2.71
-	
-	public final Matrix3f diagonalize(Matrix3f rot, float threshold, int maxSteps) {
-		Vector3f row = new Vector3f();
-
-		rot.setIdentity();
-		for (int step = maxSteps; step > 0; step--) {
-			// find off-diagonal element [p][q] with largest magnitude
-			int p = 0;
-			int q = 1;
-			int r = 2;
-			float max = Math.abs(m01);
-			float v = Math.abs(m02);
-			if (v > max) {
-				q = 2;
-				r = 1;
-				max = v;
-			}
-			v = Math.abs(m12);
-			if (v > max) {
-				p = 1;
-				q = 2;
-				r = 0;
-				max = v;
-			}
-
-			float t = threshold * (Math.abs(m00) + Math.abs(m11) + Math.abs(m22));
-			if (max <= t) {
-				if (max <= EPS * t) {
-					return this;
-				}
-				step = 1;
-			}
-
-			// compute Jacobi rotation J which leads to a zero for element [p][q]
-			float mpq = getElement(p, q);
-			float theta = (getElement(q, q) - getElement(p, p)) / (2 * mpq);
-			float theta2 = theta * theta;
-			float cos;
-			float sin;
-			if ((theta2 * theta2) < (10f / EPS)) {
-				t = (theta >= 0f) ? 1f / (theta + (float) Math.sqrt(1f + theta2))
-						: 1f / (theta - (float) Math.sqrt(1f + theta2));
-				cos = 1f / (float) Math.sqrt(1f + t * t);
-				sin = cos * t;
-			}
-			else {
-				// approximation for large theta-value, i.e., a nearly diagonal matrix
-				t = 1 / (theta * (2 + 0.5f / theta2));
-				cos = 1 - 0.5f * t * t;
-				sin = cos * t;
-			}
-
-			// apply rotation to matrix (this = J^T * this * J)
-			setElement(p, q, 0f);
-			setElement(q, p, 0f);
-			setElement(p, p, getElement(p, p) - t * mpq);
-			setElement(q, q, getElement(q, q) + t * mpq);
-			float mrp = getElement(r, p);
-			float mrq = getElement(r, q);
-			setElement(r, p, cos * mrp - sin * mrq);
-			setElement(p, r, cos * mrp - sin * mrq);
-			setElement(r, q, cos * mrq + sin * mrp);
-			setElement(q, r, cos * mrq + sin * mrp);
-
-			// apply rotation to rot (rot = rot * J)
-			for (int i=0; i<3; i++) {
-				rot.getRow(i, row);
-
-				mrp = row.get( p);
-				mrq = row.get(q);
-				row.set(p, cos * mrp - sin * mrq);
-				row.set( q, cos * mrq + sin * mrp);
-				rot.setRow(i, row);
-			}
-		}
-		return this;
-	}
+//	public final Matrix3f diagonalize(Matrix3f rot, float threshold, int maxSteps) {
+//		Vector3f row = new Vector3f();
+//
+//		rot.setIdentity();
+//		for (int step = maxSteps; step > 0; step--) {
+//			// find off-diagonal element [p][q] with largest magnitude
+//			int p = 0;
+//			int q = 1;
+//			int r = 2;
+//			float max = Math.abs(m01);
+//			float v = Math.abs(m02);
+//			if (v > max) {
+//				q = 2;
+//				r = 1;
+//				max = v;
+//			}
+//			v = Math.abs(m12);
+//			if (v > max) {
+//				p = 1;
+//				q = 2;
+//				r = 0;
+//				max = v;
+//			}
+//
+//			float t = threshold * (Math.abs(m00) + Math.abs(m11) + Math.abs(m22));
+//			if (max <= t) {
+//				if (max <= EPS * t) {
+//					return this;
+//				}
+//				step = 1;
+//			}
+//
+//			// compute Jacobi rotation J which leads to a zero for element [p][q]
+//			float mpq = getElement(p, q);
+//			float theta = (getElement(q, q) - getElement(p, p)) / (2 * mpq);
+//			float theta2 = theta * theta;
+//			float cos;
+//			float sin;
+//			if ((theta2 * theta2) < (10f / EPS)) {
+//				t = (theta >= 0f) ? 1f / (theta + (float) Math.sqrt(1f + theta2)) :
+//					 1f / (theta - (float) Math.sqrt(1f + theta2));
+//				cos = 1f / (float) Math.sqrt(1f + t * t);
+//				sin = cos * t;
+//			} else {
+//				// approximation for large theta-value, i.e., a nearly diagonal matrix
+//				t = 1 / (theta * (2 + 0.5f / theta2));
+//				cos = 1 - 0.5f * t * t;
+//				sin = cos * t;
+//			}
+//
+//			// apply rotation to matrix (this = J^T * this * J)
+//			setElement(p, q, 0f);
+//			setElement(q, p, 0f);
+//			setElement(p, p, getElement(p, p) - t * mpq);
+//			setElement(q, q, getElement(q, q) + t * mpq);
+//			float mrp = getElement(r, p);
+//			float mrq = getElement(r, q);
+//			setElement(r, p, cos * mrp - sin * mrq);
+//			setElement(p, r, cos * mrp - sin * mrq);
+//			setElement(r, q, cos * mrq + sin * mrp);
+//			setElement(q, r, cos * mrq + sin * mrp);
+//
+//			// apply rotation to rot (rot = rot * J)
+//			for (int i = 0; i < 3; i++) {
+//				rot.getRow(i, row);
+//
+//				mrp = row.get(p);
+//				mrq = row.get(q);
+//				row.set(p, cos * mrp - sin * mrq);
+//				row.set(q, cos * mrq + sin * mrp);
+//				rot.setRow(i, row);
+//			}
+//		}
+//		return this;
+//	}
 
 }

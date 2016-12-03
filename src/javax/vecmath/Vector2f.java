@@ -83,59 +83,6 @@ public class Vector2f extends Tuple2f implements java.io.Serializable {
 		super();
 	}
 
-	/**
-	 * Computes the dot product of the this vector and vector v1.
-	 *
-	 * @param v1 the other vector
-	 */
-	public final float dot(Vector2f v1) {
-		return (this.x * v1.x + this.y * v1.y);
-	}
-
-	/**
-	 * Returns the length of this vector.
-	 *
-	 * @return the length of this vector
-	 */
-	public final float length() {
-		return (float) Math.sqrt(this.x * this.x + this.y * this.y);
-	}
-
-	/**
-	 * Returns the squared length of this vector.
-	 *
-	 * @return the squared length of this vector
-	 */
-	public final float lengthSquared() {
-		return (this.x * this.x + this.y * this.y);
-	}
-
-	/**
-	 * Sets the value of this vector to the normalization of vector v1.
-	 *
-	 * @param v1 the un-normalized vector
-	 * @return this for chaining
-	 */
-	public final Vector2f normalize(Vector2f v1) {
-		float norm;
-
-		norm = (float) (1.0 / Math.sqrt(v1.x * v1.x + v1.y * v1.y));
-		this.x = v1.x * norm;
-		this.y = v1.y * norm;
-		return this;
-	}
-
-	/**
-	 * Normalizes this vector in place.
-	 */
-	final Vector2f normalize() {
-		float norm;
-
-		norm = (float) (1.0 / Math.sqrt(this.x * this.x + this.y * this.y));
-		this.x *= norm;
-		this.y *= norm;
-		return this;
-	}
 
 	/**
 	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the
@@ -154,5 +101,7 @@ public class Vector2f extends Tuple2f implements java.io.Serializable {
 		}
 		return ((float) (Math.acos(vDot)));
 	}
+
+
 
 }

@@ -485,12 +485,12 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 * Sets each component of the tuple parameter to its abs value and places the modified values into this tuple.
 	 *
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple3f absolute(Tuple3f t) {
+	public final Tuple3f abs(Tuple3f t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
 		z = Math.abs(t.z);
@@ -564,11 +564,11 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets each component of this tuple to its absolute value.
+	 * Sets each component of this tuple to its abs value.
 	 *
 	 * @return this for chaining
 	 */
-	public final Tuple3f absolute() {
+	public final Tuple3f abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
 		z = Math.abs(z);
@@ -769,6 +769,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Set each element to the minimum of this or another tuple
+	 *
 	 * @param t1
 	 * @return this for chaining
 	 */
@@ -780,7 +781,21 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Set each element to the minimum of of two tuples
+	 *
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple3f setMin(Tuple3f t1, Tuple3f t2) {
+		x = Math.min(t2.x, t1.x);
+		y = Math.min(t2.y, t1.y);
+		z = Math.min(t2.z, t1.z);
+		return this;
+	}
+
+	/**
 	 * Set each element to the maximum of this or another tuple
+	 *
 	 * @param t1
 	 * @return this for chaining
 	 */
@@ -791,4 +806,117 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 		return this;
 	}
 
+	/**
+	 * Set each element to the maximum of of two tuples
+	 *
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple3f setMax(Tuple3f t1, Tuple3f t2) {
+		x = Math.max(t2.x, t1.x);
+		y = Math.max(t2.y, t1.y);
+		z = Math.max(t2.z, t1.z);
+		return this;
+	}
+
+	/**
+	 * Set  x,y,z of this vector to zero
+	 *
+	 * @return this for chaining
+	 */
+	public final Tuple3f setZero() {
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+		return this;
+	}
+
+	/**
+	 * Sets this vector to be the vector cross product of vectors v1 and v2.
+	 *
+	 * @param v1 the first vector
+	 * @param v2 the second vector
+	 * @return
+	 */
+	public final Tuple3f cross(Tuple3f v1, Tuple3f v2) {
+		float tmp_x;
+		float tmp_y;
+		tmp_x = v1.y * v2.z - v1.z * v2.y;
+		tmp_y = v2.x * v1.z - v2.z * v1.x;
+		this.z = v1.x * v2.y - v1.y * v2.x;
+		this.x = tmp_x;
+		this.y = tmp_y;
+		return this;
+	}
+
+	/**
+	 * Computes the dot product of this vector and vector v1.
+	 *
+	 * @param v1 the other vector
+	 * @return the dot product of this vector and v1
+	 */
+	public final float dot(Tuple3f v1) {
+		return this.x * v1.x + this.y * v1.y + this.z * v1.z;
+	}
+
+	/**
+	 * Returns the length of this vector.
+	 *
+	 * @return the length of this vector
+	 */
+	public final float length() {
+		return (float) Math.sqrt((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
+	}
+
+	/**
+	 * Returns the squared length of this vector.
+	 *
+	 * @return the squared length of this vector
+	 */
+	public final float lengthSquared() {
+		return (float) ((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
+	}
+
+	public float max3() {
+		if (x > y) {
+			if (x > z) {
+				return x;
+			} else {
+				return y;
+			}
+		} else if (y > z) {
+			return y;
+		} else {
+			return z;
+		}
+	}
+
+	/**
+	 * Normalizes this vector in place.
+	 *
+	 * @return this for chaining
+	 */
+	public final Tuple3f normalize() {
+		float norm;
+		norm = (1.0F / length());
+		this.x *= norm;
+		this.y *= norm;
+		this.z *= norm;
+		return this;
+	}
+
+	/**
+	 * Sets the value of this vector to the normalization of vector v1.
+	 *
+	 * @param v1 the un-normalized vector
+	 * @return this for chaining
+	 */
+	public final Tuple3f normalize(Vector3f v1) {
+		float norm;
+		norm = (1.0F / v1.length());
+		this.x = v1.x * norm;
+		this.y = v1.y * norm;
+		this.z = v1.z * norm;
+		return this;
+	}
 }

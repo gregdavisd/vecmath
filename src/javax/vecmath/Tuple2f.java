@@ -590,4 +590,143 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		this.y = y;
 		return this;
 	}
+	
+	/**
+	 * Set both x and y of this vector to zero
+	 * @return this for chaining
+	 */
+	public final Tuple2f setZero()
+	{
+		x=0.0f;
+		y=0.0f;
+		return this;
+	}
+	/**
+	 * Set each element to the minimum of this or another tuple
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple2f setMin(Tuple2f t1) {
+		x = Math.min(x, t1.x);
+		y = Math.min(y, t1.y);
+		return this;
+	}
+	/**
+	 * Set each element to the minimum of of two tuples
+	 * @param t1
+	 * @param t2
+	 * @return this for chaining
+	 */
+	public final Tuple2f setMin(Tuple2f t1,Tuple2f t2) {
+		x = Math.min(t2.x, t1.x);
+		y = Math.min(t2.y, t1.y);
+		return this;
+	}
+
+	/**
+	 * Set each element to the maximum of this or another tuple
+	 * @param t1
+	 * @return this for chaining
+	 */
+	public final Tuple2f setMax(Tuple2f t1) {
+		x = Math.max(x, t1.x);
+		y = Math.max(y, t1.y);
+		return this;
+	}
+	/**
+	 * Set each element to the maximum of of two tuples
+	 * @param t1
+	 * @param t2
+	 * @return this for chaining
+	 */
+	public final Tuple2f setMax(Tuple2f t1,Tuple2f t2) {
+		x = Math.max(t2.x, t1.x);
+		y = Math.max(t2.y, t1.y);
+		return this;
+	}
+
+	/**
+	 * Computes the dot product of the this vector and vector v1.
+	 *
+	 * @param v1 the other vector
+	 */
+	public final float dot(Tuple2f v1) {
+		return this.x * v1.x + this.y * v1.y;
+	}
+
+	/**
+	 * Returns the length of this vector.
+	 *
+	 * @return the length of this vector
+	 */
+	public final float length() {
+		return (float) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
+	}
+
+	/**
+	 * Returns the squared length of this vector.
+	 *
+	 * @return the squared length of this vector
+	 */
+	public final float lengthSquared() {
+		return (float) ((double) this.x * (double) this.x + (double) this.y * (double) this.y);
+	}
+
+	/**
+	 * Normalizes this vector in place.
+	 */
+	public final Tuple2f normalize() {
+		float norm;
+		norm = (float) (1.0 / length());
+		this.x *= norm;
+		this.y *= norm;
+		return this;
+	}
+
+	/**
+	 * Sets the value of this vector to the normalization of vector v1.
+	 *
+	 * @param v1 the un-normalized vector
+	 * @return this for chaining
+	 */
+	public final Tuple2f normalize(Vector2f v1) {
+		float norm;
+		norm = (float) (1.0 / v1.length());
+		this.x = v1.x * norm;
+		this.y = v1.y * norm;
+		return this;
+	}
+
+	/**
+	 * Rotate the vector 90 degrees clockwise, scale and store in this vector
+	 *
+	 * @param s the amount to scale by
+	 * @return
+	 */
+	public final Tuple2f setLeftPerpendicular(float s) {
+		set(s * y, s * -x);
+		return this;
+	}
+
+	/**
+	 * Rotate the vector 90 degrees counter-clockwise, scale and store in this vector
+	 *
+	 * @param s the amount to scale by
+	 * @return
+	 */
+	public final Tuple2f setRightPerpendicular(float s) {
+		set(s * -y, s * x);
+		return this;
+	}
+
+	/**
+	 * Calculate the cross product of this vector and another. In two dimensions the cross product is the same as the
+	 * determinant.
+	 *
+	 * @param v1
+	 * @return
+	 */
+	public final float cross(Tuple2f v1) {
+		return x * v1.y - y * v1.x;
+	}
 }

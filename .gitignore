@@ -55,3 +55,5 @@ build/classes/.netbeans_update_resources
 nbproject/genfiles.properties
 *.properties
 nbproject/private/private.xml
+*.xml
+*.xml

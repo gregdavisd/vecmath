@@ -539,12 +539,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 * Sets each component of the tuple parameter to its abs value and places the modified values into this tuple.
 	 *
 	 * @param t the source tuple, which will not be modified
 	 * @return  this for chaining
 	 */
-	public final Tuple4f absolute(Tuple4f t) {
+	public final Tuple4f abs(Tuple4f t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
 		z = Math.abs(t.z);
@@ -631,10 +631,10 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets each component of this tuple to its absolute value.
+	 * Sets each component of this tuple to its abs value.
 	 * @return  this for chaining
 	 */
-	public final Tuple4f absolute() {
+	public final Tuple4f abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
 		z = Math.abs(z);
