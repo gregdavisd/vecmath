@@ -395,12 +395,12 @@ return this;
 	 */
 	@Override
 	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(x);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(y);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(z);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(angle);
-		return (int) (bits ^ (bits >> 32));
+		int hash = 3;
+		hash = 59 * hash + Float.floatToIntBits(this.x);
+		hash = 59 * hash + Float.floatToIntBits(this.y);
+		hash = 59 * hash + Float.floatToIntBits(this.z);
+		hash = 59 * hash + Float.floatToIntBits(this.angle);
+		return hash;
 	}
 
 	/**

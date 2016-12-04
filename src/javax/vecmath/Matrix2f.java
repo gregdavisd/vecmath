@@ -2,7 +2,7 @@
  * Copyright Gregery Barton
  * All rights reserved
  */
-/*
+ /*
  * $RCSfile: Matrix3f.java,v $
  *
  * Copyright 1996-2008 Sun Microsystems, Inc.  All Rights Reserved.
@@ -38,7 +38,7 @@ package javax.vecmath;
  *
  * @author Gregery Barton
  */
-public class Matrix2f {
+public class Matrix2f implements java.io.Serializable, Cloneable {
 
 	/**
 	 * The first matrix element in the first row.
@@ -789,6 +789,37 @@ public class Matrix2f {
 				throw new ArrayIndexOutOfBoundsException();
 		}
 		return this;
+	}
+
+	/**
+	 * Returns a string that contains the values of this Matrix3f.
+	 *
+	 * @return the String representation
+	 */
+	@Override
+	public String toString() {
+		return this.m00 + ", " + this.m01 + "\n" +
+			this.m10 + ", " + this.m11 + "\n";
+	}
+
+	/**
+	 * Creates a new object of the same class as this object.
+	 *
+	 * @return a clone of this instance.
+	 * @exception OutOfMemoryError if there is not enough memory.
+	 * @see java.lang.Cloneable
+	 * @since vecmath 1.3
+	 */
+	@Override
+	public Object clone() {
+		Matrix2f m1 = null;
+		try {
+			m1 = (Matrix2f) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// this shouldn't happen, since we are Cloneable
+			throw new InternalError();
+		}
+		return m1;
 	}
 
 }

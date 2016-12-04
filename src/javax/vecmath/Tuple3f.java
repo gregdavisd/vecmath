@@ -379,21 +379,6 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple3f objects with identical data
-	 * values (i.e., Tuple3f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
-	 *
-	 * @return the integer hash code value
-	 */
-	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(x);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(y);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(z);
-		return (int) (bits ^ (bits >> 32));
-	}
-
-	/**
 	 * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
 	 *
 	 * @param min the lowest value in the tuple after clamping
@@ -820,7 +805,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Set  x,y,z of this vector to zero
+	 * Set x,y,z of this vector to zero
 	 *
 	 * @return this for chaining
 	 */
@@ -918,5 +903,21 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 		this.y = v1.y * norm;
 		this.z = v1.z * norm;
 		return this;
+	}
+
+	/**
+	 * Returns a hash code value based on the data values in this object. Two different Tuple3f objects with identical data
+	 * values (i.e., Tuple3f.equals returns true) will return the same hash code value. Two objects with different data
+	 * members may return the same hash value, although this is not likely.
+	 *
+	 * @return the integer hash code value
+	 */
+	@Override
+	public int hashCode() {
+		int hash = 3;
+		hash = 29 * hash + Float.floatToIntBits(this.x);
+		hash = 29 * hash + Float.floatToIntBits(this.y);
+		hash = 29 * hash + Float.floatToIntBits(this.z);
+		return hash;
 	}
 }

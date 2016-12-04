@@ -410,22 +410,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 		return (diff < 0 ? -diff : diff) <= epsilon;
 	}
 
-	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple4f objects with identical data
-	 * values (i.e., Tuple4f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
-	 *
-	 * @return the integer hash code value
-	 */
-	@Override
-	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(x);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(y);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(z);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(w);
-		return (int) (bits ^ (bits >> 32));
-	}
+
 
 	/**
 	 * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
@@ -789,5 +774,22 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	public final Tuple4f setW(float w) {
 		this.w = w;
 		return this;
+	}
+
+		/**
+	 * Returns a hash code value based on the data values in this object. Two different Tuple4f objects with identical data
+	 * values (i.e., Tuple4f.equals returns true) will return the same hash code value. Two objects with different data
+	 * members may return the same hash value, although this is not likely.
+	 *
+	 * @return the integer hash code value
+	 */
+@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 13 * hash + Float.floatToIntBits(this.x);
+		hash = 13 * hash + Float.floatToIntBits(this.y);
+		hash = 13 * hash + Float.floatToIntBits(this.z);
+		hash = 13 * hash + Float.floatToIntBits(this.w);
+		return hash;
 	}
 }

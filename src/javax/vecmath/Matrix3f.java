@@ -281,7 +281,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the specified element of this matrix  to the value provided.
+	 * Sets the specified element of this matrix to the value provided.
 	 *
 	 * @param row the row number to be modified (zero indexed)
 	 * @param column the column number to be modified (zero indexed)
@@ -1675,17 +1675,17 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m00);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m01);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m02);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m10);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m11);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m12);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m20);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m21);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m22);
-		return (int) (bits ^ (bits >> 32));
+		int hash = 3;
+		hash = 37 * hash + Float.floatToIntBits(this.m00);
+		hash = 37 * hash + Float.floatToIntBits(this.m01);
+		hash = 37 * hash + Float.floatToIntBits(this.m02);
+		hash = 37 * hash + Float.floatToIntBits(this.m10);
+		hash = 37 * hash + Float.floatToIntBits(this.m11);
+		hash = 37 * hash + Float.floatToIntBits(this.m12);
+		hash = 37 * hash + Float.floatToIntBits(this.m20);
+		hash = 37 * hash + Float.floatToIntBits(this.m21);
+		hash = 37 * hash + Float.floatToIntBits(this.m22);
+		return hash;
 	}
 
 	/**
@@ -2256,5 +2256,4 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 //		}
 //		return this;
 //	}
-
 }

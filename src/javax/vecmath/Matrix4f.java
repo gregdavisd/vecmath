@@ -2420,34 +2420,6 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 
 	}
 
-	/**
-	 * Returns a hash code value based on the data values in this object. Two different Matrix4f objects with identical
-	 * data values (i.e., Matrix4f.equals returns true) will return the same hash code value. Two objects with different
-	 * data members may return the same hash value, although this is not likely.
-	 *
-	 * @return the integer hash code value
-	 */
-	@Override
-	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m00);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m01);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m02);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m03);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m10);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m11);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m12);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m13);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m20);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m21);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m22);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m23);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m30);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m31);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m32);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(m33);
-		return (int) (bits ^ (bits >> 32));
-	}
 
 	/**
 	 * Transform the vector vec using this Matrix4f and place the result into vecOut.
@@ -3207,6 +3179,36 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 		mul(t);
 		return this;
 
+	}
+
+	
+	/**
+	 * Returns a hash code value based on the data values in this object. Two different Matrix4f objects with identical
+	 * data values (i.e., Matrix4f.equals returns true) will return the same hash code value. Two objects with different
+	 * data members may return the same hash value, although this is not likely.
+	 *
+	 * @return the integer hash code value
+	 */
+@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 67 * hash + Float.floatToIntBits(this.m00);
+		hash = 67 * hash + Float.floatToIntBits(this.m01);
+		hash = 67 * hash + Float.floatToIntBits(this.m02);
+		hash = 67 * hash + Float.floatToIntBits(this.m03);
+		hash = 67 * hash + Float.floatToIntBits(this.m10);
+		hash = 67 * hash + Float.floatToIntBits(this.m11);
+		hash = 67 * hash + Float.floatToIntBits(this.m12);
+		hash = 67 * hash + Float.floatToIntBits(this.m13);
+		hash = 67 * hash + Float.floatToIntBits(this.m20);
+		hash = 67 * hash + Float.floatToIntBits(this.m21);
+		hash = 67 * hash + Float.floatToIntBits(this.m22);
+		hash = 67 * hash + Float.floatToIntBits(this.m23);
+		hash = 67 * hash + Float.floatToIntBits(this.m30);
+		hash = 67 * hash + Float.floatToIntBits(this.m31);
+		hash = 67 * hash + Float.floatToIntBits(this.m32);
+		hash = 67 * hash + Float.floatToIntBits(this.m33);
+		return hash;
 	}
 
 }

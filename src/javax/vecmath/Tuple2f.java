@@ -261,20 +261,6 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		return this;
 	}
 
-	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple2f objects with identical data
-	 * values (i.e., Tuple2f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
-	 *
-	 * @return the integer hash code value
-	 */
-	@Override
-	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(x);
-		bits = 31L * bits + (long) VecMathUtil.floatToIntBits(y);
-		return (int) (bits ^ (bits >> 32));
-	}
 
 	/**
 	 * Returns true if all of the data members of Tuple2f t1 are equal to the corresponding data members in this Tuple2f.
@@ -728,5 +714,20 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	 */
 	public final float cross(Tuple2f v1) {
 		return x * v1.y - y * v1.x;
+	}
+
+		/**
+	 * Returns a hash code value based on the data values in this object. Two different Tuple2f objects with identical data
+	 * values (i.e., Tuple2f.equals returns true) will return the same hash code value. Two objects with different data
+	 * members may return the same hash value, although this is not likely.
+	 *
+	 * @return the integer hash code value
+	 */
+@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 97 * hash + Float.floatToIntBits(this.x);
+		hash = 97 * hash + Float.floatToIntBits(this.y);
+		return hash;
 	}
 }
