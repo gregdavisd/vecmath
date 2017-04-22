@@ -31,8 +31,7 @@
 package javax.vecmath;
 
 /**
- * A 2 element point that is represented by single precision floating point x,y
- * coordinates.
+ * A 2 element point that is represented by single precision floating point x,y coordinates.
  *
  */
 public class Point2f extends Tuple2f implements java.io.Serializable {
@@ -113,8 +112,7 @@ public class Point2f extends Tuple2f implements java.io.Serializable {
 	}
 
 	/**
-	 * Computes the L-1 (Manhattan) distance between this point and point p1. The
-	 * L-1 distance is equal to abs(x1-x2) + abs(y1-y2).
+	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to abs(x1-x2) + abs(y1-y2).
 	 *
 	 * @param p1 the other point
 	 * @return L-1 distance
@@ -124,8 +122,8 @@ public class Point2f extends Tuple2f implements java.io.Serializable {
 	}
 
 	/**
-	 * Computes the L-infinite distance between this point and point p1. The
-	 * L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2)].
+	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to MAX[abs(x1-x2),
+	 * abs(y1-y2)].
 	 *
 	 * @param p1 the other point
 	 * @return L-infinite distance

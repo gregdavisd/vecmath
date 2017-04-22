@@ -98,8 +98,8 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Sets the x,y,z components of this point to the corresponding components of tuple t1. The w component of this point
-	 * is set to 1.
+	 * Sets the x,y,z components of this point to the corresponding components of tuple t1. The w component of this point is set to
+	 * 1.
 	 *
 	 * @param t1 the tuple to be copied
 	 * @return this for chaining
@@ -147,20 +147,20 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to: abs(x1-x2) +
-	 * abs(y1-y2) + abs(z1-z2) + abs(w1-w2).
+	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to: abs(x1-x2) + abs(y1-y2) +
+	 * abs(z1-z2) + abs(w1-w2).
 	 *
 	 * @param p1 the other point
 	 * @return the L-1 distance
 	 */
 	public final float distanceL1(Point4f p1) {
-		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z -
-			p1.z) + Math.abs(this.w - p1.w));
+		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
+			- p1.z) + Math.abs(this.w - p1.w));
 	}
 
 	/**
-	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to
-	 * MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2), abs(w1-w2)].
+	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to MAX[abs(x1-x2),
+	 * abs(y1-y2), abs(z1-z2), abs(w1-w2)].
 	 *
 	 * @param p1 the other point
 	 * @return the L-infinite distance
@@ -175,8 +175,8 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Multiplies each of the x,y,z components of the Point4f parameter by 1/w, places the projected values into this
-	 * point, and places a 1 as the w parameter of this point.
+	 * Multiplies each of the x,y,z components of the Point4f parameter by 1/w, places the projected values into this point, and
+	 * places a 1 as the w parameter of this point.
 	 *
 	 * @param p1 the source Point4f, which is not modified
 	 * @return this for chaining

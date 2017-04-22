@@ -285,8 +285,8 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple2i and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple2i.
+	 * Returns true if the Object t1 is of type Tuple2i and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple2i.
 	 *
 	 * @param t1 the object with which the comparison is made
 	 */
@@ -301,9 +301,9 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple2i objects with identical data
-	 * values (i.e., Tuple2i.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Tuple2i objects with identical data values
+	 * (i.e., Tuple2i.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */

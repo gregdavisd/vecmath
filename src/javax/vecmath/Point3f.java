@@ -115,20 +115,20 @@ public class Point3f extends Tuple3f implements java.io.Serializable {
 	}
 
 	/**
-	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to: abs(x1-x2) +
-	 * abs(y1-y2) + abs(z1-z2).
+	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to: abs(x1-x2) + abs(y1-y2) +
+	 * abs(z1-z2).
 	 *
 	 * @param p1 the other point
 	 * @return the L-1 distance
 	 */
 	public final float distanceL1(Point3f p1) {
-		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z -
-			p1.z));
+		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
+			- p1.z));
 	}
 
 	/**
-	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to
-	 * MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2)].
+	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to MAX[abs(x1-x2),
+	 * abs(y1-y2), abs(z1-z2)].
 	 *
 	 * @param p1 the other point
 	 * @return the L-infinite distance
@@ -141,8 +141,7 @@ public class Point3f extends Tuple3f implements java.io.Serializable {
 	}
 
 	/**
-	 * Multiplies each of the x,y,z components of the Point4f parameter by 1/w and places the projected values into this
-	 * point.
+	 * Multiplies each of the x,y,z components of the Point4f parameter by 1/w and places the projected values into this point.
 	 *
 	 * @param p1 the source Point4f, which is not modified
 	 * @return this for chaining

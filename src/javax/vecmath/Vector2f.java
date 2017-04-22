@@ -83,10 +83,9 @@ public class Vector2f extends Tuple2f implements java.io.Serializable {
 		super();
 	}
 
-
 	/**
-	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the
-	 * range [0,PI].
+	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the range
+	 * [0,PI].
 	 *
 	 * @param v1 the other vector
 	 * @return the angle in radians in the range [0,PI]
@@ -101,7 +100,5 @@ public class Vector2f extends Tuple2f implements java.io.Serializable {
 		}
 		return ((float) (Math.acos(vDot)));
 	}
-
-
 
 }

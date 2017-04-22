@@ -9,17 +9,15 @@ import java.io.PrintWriter;
 /**
  * Jama = Java Matrix class.
  * <P>
- * The Java Matrix Class provides the fundamental operations of numerical linear algebra. Various constructors create
- * Matrices from two dimensional arrays of double precision floating point numbers. Various "gets" and "sets" provide
- * access to submatrices and matrix elements. Several methods implement basic matrix arithmetic, including matrix
- * addition and multiplication, matrix norms, and element-by-element array operations. Methods for reading and printing
- * matrices are also included. All the operations in this version of the Matrix Class involve real matrices. Complex
- * matrices may be handled in a future version.
+ * The Java Matrix Class provides the fundamental operations of numerical linear algebra. Various constructors create Matrices
+ * from two dimensional arrays of double precision floating point numbers. Various "gets" and "sets" provide access to submatrices
+ * and matrix elements. Several methods implement basic matrix arithmetic, including matrix addition and multiplication, matrix
+ * norms, and element-by-element array operations. Methods for reading and printing matrices are also included. All the operations
+ * in this version of the Matrix Class involve real matrices. Complex matrices may be handled in a future version.
  * <P>
- * Five fundamental matrix decompositions, which consist of pairs or triples of matrices, permutation vectors, and the
- * like, produce results in five decomposition classes. These decompositions are accessed by the Matrix class to compute
- * solutions of simultaneous linear equations, determinants, inverses and other matrix functions. The five
- * decompositions are:
+ * Five fundamental matrix decompositions, which consist of pairs or triples of matrices, permutation vectors, and the like,
+ * produce results in five decomposition classes. These decompositions are accessed by the Matrix class to compute solutions of
+ * simultaneous linear equations, determinants, inverses and other matrix functions. The five decompositions are:
  * <P>
  * <UL>
  * <LI>Cholesky Decomposition of symmetric, positive definite matrices.
@@ -33,13 +31,10 @@ import java.io.PrintWriter;
  * <P>
  * <DD>Solve a linear system A x = b and compute the residual norm, ||b - A x||.
  * <P>
- * <PRE>
- * double[][] vals = {{1.,2.,3},{4.,5.,6.},{7.,8.,10.}};
- * Matrix A = new Matrix(vals);
- * Matrix b = Matrix.random(3,1);
- * Matrix x = A.solve(b);
- * Matrix r = A.times(x).minus(b);
- * double rnorm = r.normInf();
+ * <
+ * PRE>
+ * double[][] vals = {{1.,2.,3},{4.,5.,6.},{7.,8.,10.}}; Matrix A = new Matrix(vals); Matrix b = Matrix.random(3,1); Matrix x =
+ * A.solve(b); Matrix r = A.times(x).minus(b); double rnorm = r.normInf();
  * </PRE></DD>
  * </DL>
  *
@@ -48,6 +43,7 @@ import java.io.PrintWriter;
  */
 public class Matrix implements Cloneable, java.io.Serializable {
 
+	static final long serialVersionUID = 1L;
 	/*
 	 * ------------------------ Class variables ------------------------
 	 */
@@ -487,7 +483,6 @@ public class Matrix implements Cloneable, java.io.Serializable {
 		return X;
 	}
 
-
 	/**
 	 * C = A + B
 	 *
@@ -764,9 +759,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
 	}
 
 	/**
-	 * Print the matrix to stdout. Line the elements up in columns. Use the format object, and right justify within columns
-	 * of width characters. Note that is the matrix is to be read back in, you probably will want to use a NumberFormat
-	 * that is set to US Locale.
+	 * Print the matrix to stdout. Line the elements up in columns. Use the format object, and right justify within columns of width
+	 * characters. Note that is the matrix is to be read back in, you probably will want to use a NumberFormat that is set to US
+	 * Locale.
 	 *
 	 * @param format A Formatting object for individual elements.
 	 * @param width Field width for each column.
@@ -781,9 +776,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
 	// widths.  Consequently, we'll pass the desired column width in as an
 	// argument and do the extra padding ourselves.
 	/**
-	 * Print the matrix to the output stream. Line the elements up in columns. Use the format object, and right justify
-	 * within columns of width characters. Note that is the matrix is to be read back in, you probably will want to use a
-	 * NumberFormat that is set to US Locale.
+	 * Print the matrix to the output stream. Line the elements up in columns. Use the format object, and right justify within
+	 * columns of width characters. Note that is the matrix is to be read back in, you probably will want to use a NumberFormat that
+	 * is set to US Locale.
 	 *
 	 * @param output the output stream.
 	 * @param format A formatting object to format the matrix elements
@@ -818,23 +813,4 @@ public class Matrix implements Cloneable, java.io.Serializable {
 		}
 	}
 
-	private static final long serialVersionUID = 1;
-
-	/**
-	 * sqrt(a^2 + b^2) without under/overflow. *
-	 */
-
-	private static double hypot(double a, double b) {
-		double r;
-		if (Math.abs(a) > Math.abs(b)) {
-			r = b / a;
-			r = Math.abs(a) * Math.sqrt(1 + r * r);
-		} else if (b != 0) {
-			r = a / b;
-			r = Math.abs(b) * Math.sqrt(1 + r * r);
-		} else {
-			r = 0.0;
-		}
-		return r;
-	}
 }

@@ -200,9 +200,9 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return this.m00 + ", " + this.m01 + ", " + this.m02 + "\n" +
-			this.m10 + ", " + this.m11 + ", " + this.m12 + "\n" +
-			this.m20 + ", " + this.m21 + ", " + this.m22;
+		return this.m00 + ", " + this.m01 + ", " + this.m02 + "\n"
+			+ this.m10 + ", " + this.m11 + ", " + this.m12 + "\n"
+			+ this.m20 + ", " + this.m21 + ", " + this.m22;
 	}
 
 	/**
@@ -226,8 +226,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) and multiplying
-	 * by the new scale.
+	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) and multiplying by the new
+	 * scale.
 	 *
 	 * @param scale the new scale amount
 	 * @return this for chaining
@@ -252,8 +252,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) and multiplying
-	 * by the new scale.
+	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) and multiplying by the new
+	 * scale.
 	 *
 	 * @param x scale component
 	 * @param y scale component
@@ -721,9 +721,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Performs an SVD normalization of this matrix to calculate and return the uniform scale factor. If the matrix has
-	 * non-uniform scale factors, the largest of the x, y, and z scale factors will be returned. This matrix is not
-	 * modified.
+	 * Performs an SVD normalization of this matrix to calculate and return the uniform scale factor. If the matrix has non-uniform
+	 * scale factors, the largest of the x, y, and z scale factors will be returned. This matrix is not modified.
 	 *
 	 * @return the scale factor of this matrix
 	 */
@@ -1007,8 +1006,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the values in this Matrix3f equal to the row-major array parameter (ie, the first three elements of the array
-	 * will be copied into the first row of this matrix, etc.).
+	 * Sets the values in this Matrix3f equal to the row-major array parameter (ie, the first three elements of the array will be
+	 * copied into the first row of this matrix, etc.).
 	 *
 	 * @param m the single precision array of length 9
 	 * @return this for chaining
@@ -1095,8 +1094,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the "this"
-	 * version and the non-"this" version.
+	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the "this" version and
+	 * the non-"this" version.
 	 *
 	 * Also note that since this routine is slow anyway, we won't worry about allocating a little bit of garbage.
 	 */
@@ -1133,9 +1132,9 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 */
 	public final float determinant() {
 		float total;
-		total = this.m00 * (this.m11 * this.m22 - this.m12 * this.m21) +
-			this.m01 * (this.m12 * this.m20 - this.m10 * this.m22) +
-			this.m02 * (this.m10 * this.m21 - this.m11 * this.m20);
+		total = this.m00 * (this.m11 * this.m22 - this.m12 * this.m21)
+			+ this.m01 * (this.m12 * this.m20 - this.m10 * this.m22)
+			+ this.m02 * (this.m10 * this.m21 - this.m11 * this.m20);
 		return total;
 	}
 
@@ -1335,8 +1334,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Multiplies this matrix by matrix m1, does an SVD normalization of the result, and places the result back into this
-	 * matrix. this = SVDnorm(this*m1).
+	 * Multiplies this matrix by matrix m1, does an SVD normalization of the result, and places the result back into this matrix.
+	 * this = SVDnorm(this*m1).
 	 *
 	 * @param m1 the matrix on the right hand side of the multiplication
 	 * @return this for chaining
@@ -1349,8 +1348,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Multiplies matrix m1 by matrix m2, does an SVD normalization of the result, and places the result into this matrix.
-	 * this = SVDnorm(m1*m2).
+	 * Multiplies matrix m1 by matrix m2, does an SVD normalization of the result, and places the result into this matrix. this =
+	 * SVDnorm(m1*m2).
 	 *
 	 * @param m1 the matrix on the left hand side of the multiplication
 	 * @param m2 the matrix on the right hand side of the multiplication
@@ -1564,14 +1563,14 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 */
 	public final Matrix3f normalizeCP(Matrix3f m1) {
-		float mag = 1.0f / (float) Math.sqrt(m1.m00 * m1.m00 + m1.m10 * m1.m10 +
-			m1.m20 * m1.m20);
+		float mag = 1.0f / (float) Math.sqrt(m1.m00 * m1.m00 + m1.m10 * m1.m10
+			+ m1.m20 * m1.m20);
 		m00 = m1.m00 * mag;
 		m10 = m1.m10 * mag;
 		m20 = m1.m20 * mag;
 
-		mag = 1.0f / (float) Math.sqrt(m1.m01 * m1.m01 + m1.m11 * m1.m11 + m1.m21 *
-			m1.m21);
+		mag = 1.0f / (float) Math.sqrt(m1.m01 * m1.m01 + m1.m11 * m1.m11 + m1.m21
+			* m1.m21);
 		m01 = m1.m01 * mag;
 		m11 = m1.m11 * mag;
 		m21 = m1.m21 * mag;
@@ -1591,9 +1590,9 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	public boolean equals(Matrix3f m1) {
 		try {
 
-			return (this.m00 == m1.m00 && this.m01 == m1.m01 && this.m02 == m1.m02 &&
-				this.m10 == m1.m10 && this.m11 == m1.m11 && this.m12 == m1.m12 &&
-				this.m20 == m1.m20 && this.m21 == m1.m21 && this.m22 == m1.m22);
+			return (this.m00 == m1.m00 && this.m01 == m1.m01 && this.m02 == m1.m02
+				&& this.m10 == m1.m10 && this.m11 == m1.m11 && this.m12 == m1.m12
+				&& this.m20 == m1.m20 && this.m21 == m1.m21 && this.m22 == m1.m22);
 		} catch (NullPointerException e2) {
 			return false;
 		}
@@ -1601,8 +1600,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object o1 is of type Matrix3f and all of the data members of o1 are equal to the corresponding
-	 * data members in this Matrix3f.
+	 * Returns true if the Object o1 is of type Matrix3f and all of the data members of o1 are equal to the corresponding data
+	 * members in this Matrix3f.
 	 *
 	 * @param o1 the object with which the comparison is made
 	 * @return true or false
@@ -1612,18 +1611,17 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 		try {
 
 			Matrix3f m2 = (Matrix3f) o1;
-			return (this.m00 == m2.m00 && this.m01 == m2.m01 && this.m02 == m2.m02 &&
-				this.m10 == m2.m10 && this.m11 == m2.m11 && this.m12 == m2.m12 &&
-				this.m20 == m2.m20 && this.m21 == m2.m21 && this.m22 == m2.m22);
+			return (this.m00 == m2.m00 && this.m01 == m2.m01 && this.m02 == m2.m02
+				&& this.m10 == m2.m10 && this.m11 == m2.m11 && this.m12 == m2.m12
+				&& this.m20 == m2.m20 && this.m21 == m2.m21 && this.m22 == m2.m22);
 		} catch (ClassCastException | NullPointerException e1) {
 			return false;
 		}
 	}
 
 	/**
-	 * Returns true if the L-infinite distance between this matrix and matrix m1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2 ; j=0,1,2 ; abs(this.m(i,j) -
-	 * m1.m(i,j)]
+	 * Returns true if the L-infinite distance between this matrix and matrix m1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2 ; j=0,1,2 ; abs(this.m(i,j) - m1.m(i,j)]
 	 *
 	 * @param m1 the matrix to be compared to this matrix
 	 * @param epsilon the threshold value
@@ -1667,9 +1665,9 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Matrix3f objects with identical
-	 * data values (i.e., Matrix3f.equals returns true) will return the same hash code value. Two objects with different
-	 * data members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Matrix3f objects with identical data values
+	 * (i.e., Matrix3f.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
@@ -2174,86 +2172,4 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 		dest.m22 = Math.abs(mat.m22);
 	}
 
-	/**
-	 * Diagonalizes this matrix by the Jacobi method. rot stores the rotation from the coordinate system in which the
-	 * matrix is diagonal to the original coordinate system, i.e., old_this = rot * new_this * rot^T. The iteration stops
-	 * when all off-diagonal elements are less than the threshold multiplied by the sum of the abs values of the diagonal,
-	 * or when maxSteps have been executed. Note that this matrix is assumed to be symmetric.
-	 */
-	// JAVA NOTE: diagonalize method from 2.71
-//	public final Matrix3f diagonalize(Matrix3f rot, float threshold, int maxSteps) {
-//		Vector3f row = new Vector3f();
-//
-//		rot.setIdentity();
-//		for (int step = maxSteps; step > 0; step--) {
-//			// find off-diagonal element [p][q] with largest magnitude
-//			int p = 0;
-//			int q = 1;
-//			int r = 2;
-//			float max = Math.abs(m01);
-//			float v = Math.abs(m02);
-//			if (v > max) {
-//				q = 2;
-//				r = 1;
-//				max = v;
-//			}
-//			v = Math.abs(m12);
-//			if (v > max) {
-//				p = 1;
-//				q = 2;
-//				r = 0;
-//				max = v;
-//			}
-//
-//			float t = threshold * (Math.abs(m00) + Math.abs(m11) + Math.abs(m22));
-//			if (max <= t) {
-//				if (max <= EPS * t) {
-//					return this;
-//				}
-//				step = 1;
-//			}
-//
-//			// compute Jacobi rotation J which leads to a zero for element [p][q]
-//			float mpq = getElement(p, q);
-//			float theta = (getElement(q, q) - getElement(p, p)) / (2 * mpq);
-//			float theta2 = theta * theta;
-//			float cos;
-//			float sin;
-//			if ((theta2 * theta2) < (10f / EPS)) {
-//				t = (theta >= 0f) ? 1f / (theta + (float) Math.sqrt(1f + theta2)) :
-//					 1f / (theta - (float) Math.sqrt(1f + theta2));
-//				cos = 1f / (float) Math.sqrt(1f + t * t);
-//				sin = cos * t;
-//			} else {
-//				// approximation for large theta-value, i.e., a nearly diagonal matrix
-//				t = 1 / (theta * (2 + 0.5f / theta2));
-//				cos = 1 - 0.5f * t * t;
-//				sin = cos * t;
-//			}
-//
-//			// apply rotation to matrix (this = J^T * this * J)
-//			setElement(p, q, 0f);
-//			setElement(q, p, 0f);
-//			setElement(p, p, getElement(p, p) - t * mpq);
-//			setElement(q, q, getElement(q, q) + t * mpq);
-//			float mrp = getElement(r, p);
-//			float mrq = getElement(r, q);
-//			setElement(r, p, cos * mrp - sin * mrq);
-//			setElement(p, r, cos * mrp - sin * mrq);
-//			setElement(r, q, cos * mrq + sin * mrp);
-//			setElement(q, r, cos * mrq + sin * mrp);
-//
-//			// apply rotation to rot (rot = rot * J)
-//			for (int i = 0; i < 3; i++) {
-//				rot.getRow(i, row);
-//
-//				mrp = row.get(p);
-//				mrq = row.get(q);
-//				row.set(p, cos * mrp - sin * mrq);
-//				row.set(q, cos * mrq + sin * mrp);
-//				rot.setRow(i, row);
-//			}
-//		}
-//		return this;
-//	}
 }

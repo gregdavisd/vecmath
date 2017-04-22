@@ -128,7 +128,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the specified coordinates in the array of length 4.
 	 *
 	 * @param t the array of length 4 containing xyzw in order
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f set(float[] t) {
 		this.x = t[0];
@@ -142,7 +142,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the value of tuple t1.
 	 *
 	 * @param t1 the tuple to be copied
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f set(Tuple4f t1) {
 		this.x = t1.x;
@@ -185,7 +185,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f add(Tuple4f t1, Tuple4f t2) {
 		this.x = t1.x + t2.x;
@@ -199,7 +199,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the sum of itself and t1.
 	 *
 	 * @param t1 the other tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f add(Tuple4f t1) {
 		this.x += t1.x;
@@ -214,7 +214,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f sub(Tuple4f t1, Tuple4f t2) {
 		this.x = t1.x - t2.x;
@@ -228,7 +228,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the difference of itself and t1 (this = this - t1).
 	 *
 	 * @param t1 the other tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f sub(Tuple4f t1) {
 		this.x -= t1.x;
@@ -242,7 +242,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the negation of tuple t1.
 	 *
 	 * @param t1 the source tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f negate(Tuple4f t1) {
 		this.x = -t1.x;
@@ -254,7 +254,8 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Negates the value of this tuple in place.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Tuple4f negate() {
 		this.x = -this.x;
@@ -269,7 +270,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param s the scalar value
 	 * @param t1 the source tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f scale(float s, Tuple4f t1) {
 		this.x = s * t1.x;
@@ -299,7 +300,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param s the scalar value
 	 * @param t1 the tuple to be multipled
 	 * @param t2 the tuple to be added
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f scaleAdd(float s, Tuple4f t1, Tuple4f t2) {
 		this.x = s * t1.x + t2.x;
@@ -314,7 +315,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param s the scalar value
 	 * @param t1 the tuple to be added
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f scaleAdd(float s, Tuple4f t1) {
 		this.x = s * this.x + t1.x;
@@ -342,16 +343,16 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 */
 	public boolean equals(Tuple4f t1) {
 		try {
-			return (this.x == t1.x && this.y == t1.y && this.z == t1.z &&
-				this.w == t1.w);
+			return (this.x == t1.x && this.y == t1.y && this.z == t1.z
+				&& this.w == t1.w);
 		} catch (NullPointerException e2) {
 			return false;
 		}
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple4f and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple4f.
+	 * Returns true if the Object t1 is of type Tuple4f and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple4f.
 	 *
 	 * @param t1 the object with which the comparison is made
 	 * @return true or false
@@ -360,17 +361,16 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	public boolean equals(Object t1) {
 		try {
 			Tuple4f t2 = (Tuple4f) t1;
-			return (this.x == t2.x && this.y == t2.y &&
-				this.z == t2.z && this.w == t2.w);
+			return (this.x == t2.x && this.y == t2.y
+				&& this.z == t2.z && this.w == t2.w);
 		} catch (NullPointerException | ClassCastException e2) {
 			return false;
 		}
 	}
 
 	/**
-	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2),
-	 * abs(w1-w2)].
+	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2), abs(w1-w2)].
 	 *
 	 * @param t1 the tuple to be compared to this tuple
 	 * @param epsilon the threshold value
@@ -410,15 +410,13 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 		return (diff < 0 ? -diff : diff) <= epsilon;
 	}
 
-
-
 	/**
 	 * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
 	 *
 	 * @param min the lowest value in the tuple after clamping
 	 * @param max the highest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clamp(float min, float max, Tuple4f t) {
 		if (t.x > max) {
@@ -460,7 +458,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param min the lowest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clampMin(float min, Tuple4f t) {
 		if (t.x < min) {
@@ -494,7 +492,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param max the highest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clampMax(float max, Tuple4f t) {
 		if (t.x > max) {
@@ -527,7 +525,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Sets each component of the tuple parameter to its abs value and places the modified values into this tuple.
 	 *
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f abs(Tuple4f t) {
 		x = Math.abs(t.x);
@@ -542,7 +540,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @param min the lowest value in this tuple after clamping
 	 * @param max the highest value in this tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clamp(float min, float max) {
 		if (x > max) {
@@ -575,7 +573,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Clamps the minimum value of this tuple to the min parameter.
 	 *
 	 * @param min the lowest value in this tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clampMin(float min) {
 		if (x < min) {
@@ -597,7 +595,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Clamps the maximum value of this tuple to the max parameter.
 	 *
 	 * @param max the highest value in the tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4f clampMax(float max) {
 		if (x > max) {
@@ -617,7 +615,8 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Sets each component of this tuple to its abs value.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Tuple4f abs() {
 		x = Math.abs(x);
@@ -628,13 +627,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 +
-	 * alpha*t2.
+	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 + alpha*t2.
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
 	 * @param alpha the alpha interpolation parameter
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public Tuple4f interpolate(Tuple4f t1, Tuple4f t2, float alpha) {
 		this.x = (1 - alpha) * t1.x + alpha * t2.x;
@@ -646,12 +644,11 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this +
-	 * alpha*t1.
+	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this + alpha*t1.
 	 *
 	 * @param t1 the first tuple
 	 * @param alpha the alpha interpolation parameter
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public Tuple4f interpolate(Tuple4f t1, float alpha) {
 		this.x = (1 - alpha) * this.x + alpha * t1.x;
@@ -695,7 +692,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Set the <i>x</i> coordinate.
 	 *
 	 * @param x value to <i>x</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -719,7 +716,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Set the <i>y</i> coordinate.
 	 *
 	 * @param y value to <i>y</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -743,7 +740,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Set the <i>z</i> coordinate.
 	 *
 	 * @param z value to <i>z</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -767,7 +764,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * Set the <i>w</i> coordinate.
 	 *
 	 * @param w value to <i>w</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -776,14 +773,30 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 		return this;
 	}
 
-		/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple4f objects with identical data
-	 * values (i.e., Tuple4f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t2
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return
+	 */
+	public final Tuple4f mix(Tuple4f t1, Tuple4f t2, float t) {
+		this.x = t1.x * (1 - t) + t2.x * t;
+		this.y = t1.y * (1 - t) + t2.y * t;
+		this.z = t1.z * (1 - t) + t2.z * t;
+		this.w = t1.w * (1 - t) + t2.w * t;
+		return this;
+	}
+
+	/**
+	 * Returns a hash code value based on the data values in this object. Two different Tuple4f objects with identical data values
+	 * (i.e., Tuple4f.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
-@Override
+	@Override
 	public int hashCode() {
 		int hash = 7;
 		hash = 13 * hash + Float.floatToIntBits(this.x);

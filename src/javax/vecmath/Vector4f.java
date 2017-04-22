@@ -98,8 +98,8 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Sets the x,y,z components of this vector to the corresponding components of tuple t1. The w component of this vector
-	 * is set to 0.
+	 * Sets the x,y,z components of this vector to the corresponding components of tuple t1. The w component of this vector is set to
+	 * 0.
 	 *
 	 * @param t1 the tuple to be copied
 	 * @return this for chaining
@@ -120,8 +120,8 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	 * @return the length of this vector as a float
 	 */
 	public final float length() {
-		return (float) Math.sqrt(this.x * this.x + this.y * this.y +
-			this.z * this.z + this.w * this.w);
+		return (float) Math.sqrt(this.x * this.x + this.y * this.y
+			+ this.z * this.z + this.w * this.w);
 	}
 
 	/**
@@ -130,8 +130,8 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	 * @return the squared length of this vector as a float
 	 */
 	public final float lengthSquared() {
-		return (this.x * this.x + this.y * this.y +
-			this.z * this.z + this.w * this.w);
+		return (this.x * this.x + this.y * this.y
+			+ this.z * this.z + this.w * this.w);
 	}
 
 	/**
@@ -148,29 +148,27 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	 * Sets the value of this vector to the normalization of vector v1.
 	 *
 	 * @param v1 the un-normalized vector
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Vector4f normalize(Vector4f v1) {
-		float norm;
-
-		norm = (float) (1.0 / Math.sqrt(v1.x * v1.x + v1.y * v1.y +
-			v1.z * v1.z + v1.w * v1.w));
-		this.x = v1.x * norm;
-		this.y = v1.y * norm;
-		this.z = v1.z * norm;
-		this.w = v1.w * norm;
+		set(v1);
+		normalize();
 		return this;
 	}
 
 	/**
 	 * Normalizes this vector in place.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Vector4f normalize() {
 		float norm;
 
-		norm = (float) (1.0 / Math.sqrt(this.x * this.x + this.y * this.y +
-			this.z * this.z + this.w * this.w));
+		norm = (float) (1.0 / Math.sqrt(this.x * this.x + this.y * this.y
+			+ this.z * this.z + this.w * this.w));
+		if (Float.isInfinite(norm)) {
+			return this;
+		}
 		this.x *= norm;
 		this.y *= norm;
 		this.z *= norm;
@@ -179,8 +177,8 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the (4-space) angle in radians between this vector and the vector parameter; the return value is constrained
-	 * to the range [0,PI].
+	 * Returns the (4-space) angle in radians between this vector and the vector parameter; the return value is constrained to the
+	 * range [0,PI].
 	 *
 	 * @param v1 the other vector
 	 * @return the angle in radians in the range [0,PI]

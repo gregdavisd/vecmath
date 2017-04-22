@@ -102,6 +102,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return the String representation
 	 */
+	@Override
 	public String toString() {
 		return "(" + this.x + ", " + this.y + ", " + this.z + ")";
 	}
@@ -267,6 +268,19 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Scales each component of this tuple by the corresponding components of t1 and stores the result in this tuple.
+	 *
+	 * @param t1 the source tuple
+	 * @return this for chaining
+	 */
+	public final Tuple3f scale(Tuple3f t1) {
+		this.x *= t1.x;
+		this.y *= t1.y;
+		this.z *= t1.z;
+		return this;
+	}
+
+	/**
 	 * Sets the value of this tuple to the scalar multiplication of the scale factor with this.
 	 *
 	 * @param s the scalar value
@@ -309,8 +323,8 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple3f and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple3f.
+	 * Returns true if the Object t1 is of type Tuple3f and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple3f.
 	 *
 	 * @param t1 the vector with which the comparison is made
 	 * @return true or false
@@ -324,12 +338,13 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple3f and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple3f.
+	 * Returns true if the Object t1 is of type Tuple3f and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple3f.
 	 *
 	 * @param t1 the Object with which the comparison is made
 	 * @return true or false
 	 */
+	@Override
 	public boolean equals(Object t1) {
 		try {
 			Tuple3f t2 = (Tuple3f) t1;
@@ -340,8 +355,8 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2)].
+	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2)].
 	 *
 	 * @param t1 the tuple to be compared to this tuple
 	 * @param epsilon the threshold value
@@ -370,11 +385,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 		if (Float.isNaN(diff)) {
 			return false;
 		}
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		return true;
+		return (diff < 0 ? -diff : diff) <= epsilon;
 
 	}
 
@@ -530,6 +541,21 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp the components of tuple t to between min and max, store the result in this tuple.
+	 *
+	 * @param min tuple with the minimum component values
+	 * @param max tuplie with the maximum component values
+	 * @param t
+	 * @return this for chaining
+	 */
+	public final Tuple3f clamp(Tuple3f min, Tuple3f max, Tuple3f t) {
+		x = Math.min(Math.max(t.x, min.x), max.x);
+		y = Math.min(Math.max(t.y, min.y), max.y);
+		z = Math.min(Math.max(t.z, min.z), max.z);
+		return this;
+	}
+
+	/**
 	 * Clamps the maximum value of this tuple to the max parameter.
 	 *
 	 * @param max the highest value in the tuple after clamping
@@ -561,8 +587,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 +
-	 * alpha*t2.
+	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 + alpha*t2.
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
@@ -577,8 +602,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this +
-	 * alpha*t1.
+	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this + alpha*t1.
 	 *
 	 * @param t1 the first tuple
 	 * @param alpha the alpha interpolation parameter
@@ -599,6 +623,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 * @see java.lang.Cloneable
 	 * @since vecmath 1.3
 	 */
+	@Override
 	public Object clone() {
 		// Since there are no arrays we can just use Object.clone()
 		try {
@@ -769,6 +794,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 * Set each element to the minimum of of two tuples
 	 *
 	 * @param t1
+	 * @param t2
 	 * @return this for chaining
 	 */
 	public final Tuple3f setMin(Tuple3f t1, Tuple3f t2) {
@@ -795,6 +821,7 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 * Set each element to the maximum of of two tuples
 	 *
 	 * @param t1
+	 * @param t2
 	 * @return this for chaining
 	 */
 	public final Tuple3f setMax(Tuple3f t1, Tuple3f t2) {
@@ -850,7 +877,30 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 * @return the length of this vector
 	 */
 	public final float length() {
-		return (float) Math.sqrt((double) x * (double) x + (double) y * (double) y + (double) z * (double) z);
+		return (float) Math.sqrt(lengthSquared());
+	}
+
+	/**
+	 * Calculate the distance squared between this tuple and the argument
+	 *
+	 * @param t1
+	 * @return
+	 */
+	public final float distanceSquared(Tuple3f t1) {
+		double dx = (double) t1.x - (double) x;
+		double dy = (double) t1.y - (double) y;
+		double dz = (double) t1.z - (double) z;
+		return (float) (dx * dx + dy * dy + dz * dz);
+	}
+
+	/**
+	 * Calculate the distance between this tuple and the argument
+	 *
+	 * @param t1
+	 * @return
+	 */
+	public final float distance(Tuple3f t1) {
+		return (float) Math.sqrt(distanceSquared(t1));
 	}
 
 	/**
@@ -884,6 +934,9 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	public final Tuple3f normalize() {
 		float norm;
 		norm = (1.0F / length());
+		if (Float.isInfinite(norm)) {
+			return this;
+		}
 		this.x *= norm;
 		this.y *= norm;
 		this.z *= norm;
@@ -896,19 +949,16 @@ public abstract class Tuple3f implements java.io.Serializable, Cloneable {
 	 * @param v1 the un-normalized vector
 	 * @return this for chaining
 	 */
-	public final Tuple3f normalize(Vector3f v1) {
-		float norm;
-		norm = (1.0F / v1.length());
-		this.x = v1.x * norm;
-		this.y = v1.y * norm;
-		this.z = v1.z * norm;
+	public final Tuple3f normalize(Tuple3f v1) {
+		set(v1);
+		normalize();
 		return this;
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple3f objects with identical data
-	 * values (i.e., Tuple3f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Tuple3f objects with identical data values
+	 * (i.e., Tuple3f.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */

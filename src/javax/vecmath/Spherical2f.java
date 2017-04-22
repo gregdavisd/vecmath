@@ -11,6 +11,7 @@ package javax.vecmath;
  */
 public class Spherical2f extends Tuple2f {
 
+	static final long serialVersionUID = 1L;
 	private static final float TWO_PI = 2.0f * (float) Math.PI;
 
 	/**
@@ -48,14 +49,14 @@ public class Spherical2f extends Tuple2f {
 	}
 
 	/**
-	 * Convert this normalized spherical coordinate into a vector with length and store the result in t1. Uses a y-up
-	 * coordinate system.
+	 * Convert this normalized spherical coordinate into a vector with length and store the result in t1. Uses a y-up coordinate
+	 * system.
 	 *
 	 * @param length the length to give the new vector
 	 * @param t1 the tuple3f where the results are stored.
 	 * @return
 	 */
-	public Tuple3f yup_get(float length, Tuple3f t1) {
+	public final Tuple3f yup_get(float length, Tuple3f t1) {
 		float cx = (float) Math.cos(x);
 		float sx = (float) Math.sin(x);
 		float cy = (float) Math.cos(y);
@@ -67,13 +68,12 @@ public class Spherical2f extends Tuple2f {
 	}
 
 	/**
-	 * Set this Spherical2f with the angles calculated by the direction from the arigin to t1. Uses a y-up coordinate
-	 * system.
+	 * Set this Spherical2f with the angles calculated by the direction from the arigin to t1. Uses a y-up coordinate system.
 	 *
 	 * @param t1 x,y,z of the reference point
 	 * @return
 	 */
-	public Spherical2f yup_set(Tuple3f t1) {
+	public final Spherical2f yup_set(Tuple3f t1) {
 		float length = new Vector3f(t1).length();
 		x = (float) Math.atan2(-t1.z, t1.x);
 		y = (float) Math.asin(t1.y / length);
@@ -81,31 +81,25 @@ public class Spherical2f extends Tuple2f {
 	}
 
 	/**
-	 * Calculates a rotation matrix that will transform a point to the direction of this spherical coordinate and stores
-	 * the result in m1
+	 * Calculates a rotation matrix that will transform a point to the direction of this spherical coordinate and stores the result
+	 * in m1
 	 *
 	 * @param m1 matrix to store the rotation in
 	 * @return m1 for chaining
 	 */
-	public Matrix3f yup_get(Matrix3f m1) {
+	public final Matrix3f yup_get(Matrix3f m1) {
 		return m1.rotY(x).mul(new Matrix3f().rotZ(y));
 	}
 
 	/**
-	 * Changes both x and y angles to be between 0 and 2pi
+	 * Changes both x and y angles to be between -pi and pi
 	 *
 	 * @return this for chaining
 	 */
-//	public Spherical2f normalize() {
-//		x = x % TWO_PI;
-//		if (x < 0) {
-//			x = TWO_PI + x;
-//		}
-//		y = y % TWO_PI;
-//		if (y < 0) {
-//			y = TWO_PI + y;
-//		}
-//		return this;
-//	}
+	public final Spherical2f bound() {
+		x = x % TWO_PI;
+		y = y % TWO_PI;
+		return this;
+	}
 
 }

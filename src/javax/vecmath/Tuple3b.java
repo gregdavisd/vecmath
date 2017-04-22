@@ -31,13 +31,13 @@
 package javax.vecmath;
 
 /**
- * A three byte tuple. Note that Java defines a byte as a signed integer in the range [-128, 127]. However, colors are
- * more typically represented by values in the range [0, 255]. Java 3D recognizes this and, in those cases where Tuple3b
- * is used to represent color, treats the bytes as if the range were [0, 255]---in other words, as if the bytes were
- * unsigned. Values greater than 127 can be assigned to a byte variable using a type cast. For example:
+ * A three byte tuple. Note that Java defines a byte as a signed integer in the range [-128, 127]. However, colors are more
+ * typically represented by values in the range [0, 255]. Java 3D recognizes this and, in those cases where Tuple3b is used to
+ * represent color, treats the bytes as if the range were [0, 255]---in other words, as if the bytes were unsigned. Values greater
+ * than 127 can be assigned to a byte variable using a type cast. For example:
  * <ul>byteVariable = (byte) intValue; // intValue can be > 127</ul>
- * If intValue is greater than 127, then byteVariable will be negative. The correct value will be extracted when it is
- * used (by masking off the upper bits).
+ * If intValue is greater than 127, then byteVariable will be negative. The correct value will be extracted when it is used (by
+ * masking off the upper bits).
  */
 public abstract class Tuple3b implements java.io.Serializable, Cloneable {
 
@@ -109,9 +109,9 @@ public abstract class Tuple3b implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return ("(" + ((int) this.x & 0xff) +
-			", " + ((int) this.y & 0xff) +
-			", " + ((int) this.z & 0xff) + ")");
+		return ("(" + ((int) this.x & 0xff)
+			+ ", " + ((int) this.y & 0xff)
+			+ ", " + ((int) this.z & 0xff) + ")");
 	}
 
 	/**
@@ -183,8 +183,8 @@ public abstract class Tuple3b implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple3b and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple3b.
+	 * Returns true if the Object t1 is of type Tuple3b and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple3b.
 	 *
 	 * @param t1 the object with which the comparison is made
 	 */
@@ -200,17 +200,17 @@ public abstract class Tuple3b implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple3b objects with identical data
-	 * values (i.e., Tuple3b.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Tuple3b objects with identical data values
+	 * (i.e., Tuple3b.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
 	@Override
 	public int hashCode() {
-		return ((((int) x & 0xff)) |
-			(((int) y & 0xff) << 8) |
-			(((int) z & 0xff) << 16));
+		return ((((int) x & 0xff))
+			| (((int) y & 0xff) << 8)
+			| (((int) z & 0xff) << 16));
 	}
 
 	/**

@@ -30,20 +30,15 @@
  */
 package javax.vecmath;
 
-import java.awt.Color;
-
 /**
- * A four-byte color value represented by byte x, y, z, and w values. The x, y,
- * z, and w values represent the red, green, blue, and alpha values,
- * respectively.
+ * A four-byte color value represented by byte x, y, z, and w values. The x, y, z, and w values represent the red, green, blue,
+ * and alpha values, respectively.
  * <p>
- * Note that Java defines a byte as a signed integer in the range [-128, 127].
- * However, colors are more typically represented by values in the range [0,
- * 255]. Java 3D recognizes this and for color treats the bytes as if the range
- * were [0, 255]---in other words, as if the bytes were unsigned.
+ * Note that Java defines a byte as a signed integer in the range [-128, 127]. However, colors are more typically represented by
+ * values in the range [0, 255]. Java 3D recognizes this and for color treats the bytes as if the range were [0, 255]---in other
+ * words, as if the bytes were unsigned.
  * <p>
- * Java 3D assumes that a linear (gamma-corrected) visual is used for all
- * colors.
+ * Java 3D assumes that a linear (gamma-corrected) visual is used for all colors.
  *
  */
 public class Color4b extends Tuple4b implements java.io.Serializable {
@@ -91,60 +86,10 @@ public class Color4b extends Tuple4b implements java.io.Serializable {
 	}
 
 	/**
-	 * Constructs and initializes a Color4b from the specified AWT Color object. No
-	 * conversion is done on the color to compensate for gamma correction.
-	 *
-	 * @param color the AWT color with which to initialize this Color4b object
-	 *
-	 * @since vecmath 1.2
-	 */
-	public Color4b(Color color) {
-		super((byte) color.getRed(),
-			(byte) color.getGreen(),
-			(byte) color.getBlue(),
-			(byte) color.getAlpha());
-	}
-
-	/**
 	 * Constructs and initializes a Color4b to (0,0,0,0).
 	 */
 	public Color4b() {
 		super();
-	}
-
-	/**
-	 * Sets the r,g,b,a values of this Color4b object to those of the specified AWT
-	 * Color object. No conversion is done on the color to compensate for gamma
-	 * correction.
-	 *
-	 * @param color the AWT color to copy into this Color4b object
-	 * @return  this for chaining
-	 *
-	 * @since vecmath 1.2
-	 */
-	public final Color4b set(Color color) {
-		x = (byte) color.getRed();
-		y = (byte) color.getGreen();
-		z = (byte) color.getBlue();
-		w = (byte) color.getAlpha();
-		return this;
-	}
-
-	/**
-	 * Returns a new AWT color object initialized with the r,g,b,a values of this
-	 * Color4b object.
-	 *
-	 * @return a new AWT Color object
-	 *
-	 * @since vecmath 1.2
-	 */
-	public final Color get() {
-		int r = (int) x & 0xff;
-		int g = (int) y & 0xff;
-		int b = (int) z & 0xff;
-		int a = (int) w & 0xff;
-
-		return new Color(r, g, b, a);
 	}
 
 }

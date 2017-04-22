@@ -119,8 +119,6 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public float m33;
 
-	private static final double EPS = 1.0E-12f;
-
 	/**
 	 * Constructs and initializes a Matrix4f from the specified 16 values.
 	 *
@@ -224,8 +222,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Constructs and initializes a Matrix4f from the rotation matrix, translation, and scale values; the scale is applied
-	 * only to the rotational components of the matrix (upper 3x3) and not to the translational components of the matrix.
+	 * Constructs and initializes a Matrix4f from the rotation matrix, translation, and scale values; the scale is applied only to
+	 * the rotational components of the matrix (upper 3x3) and not to the translational components of the matrix.
 	 *
 	 * @param m1 the rotation matrix representing the rotational components
 	 * @param t1 the translational components of the matrix
@@ -246,6 +244,34 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 		this.m21 = m1.m21 * s;
 		this.m22 = m1.m22 * s;
 		this.m23 = t1.z;
+
+		this.m30 = 0.0f;
+		this.m31 = 0.0f;
+		this.m32 = 0.0f;
+		this.m33 = 1.0f;
+
+	}
+
+	/**
+	 * Constructs and initializes a Matrix4f from the rotation matrix.
+	 *
+	 * @param m1 the rotation matrix representing the rotational components
+	 */
+	public Matrix4f(Matrix3f m1) {
+		this.m00 = m1.m00;
+		this.m01 = m1.m01;
+		this.m02 = m1.m02;
+		this.m03 = 0;
+
+		this.m10 = m1.m10;
+		this.m11 = m1.m11;
+		this.m12 = m1.m12;
+		this.m13 = 0;
+
+		this.m20 = m1.m20;
+		this.m21 = m1.m21;
+		this.m22 = m1.m22;
+		this.m23 = 0;
 
 		this.m30 = 0.0f;
 		this.m31 = 0.0f;
@@ -287,10 +313,10 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return this.m00 + ", " + this.m01 + ", " + this.m02 + ", " + this.m03 + "\n" +
-			this.m10 + ", " + this.m11 + ", " + this.m12 + ", " + this.m13 + "\n" +
-			this.m20 + ", " + this.m21 + ", " + this.m22 + ", " + this.m23 + "\n" +
-			this.m30 + ", " + this.m31 + ", " + this.m32 + ", " + this.m33;
+		return this.m00 + ", " + this.m01 + ", " + this.m02 + ", " + this.m03 + "\n"
+			+ this.m10 + ", " + this.m11 + ", " + this.m12 + ", " + this.m13 + "\n"
+			+ this.m20 + ", " + this.m21 + ", " + this.m22 + ", " + this.m23 + "\n"
+			+ this.m30 + ", " + this.m31 + ", " + this.m32 + ", " + this.m33;
 	}
 
 	/**
@@ -640,8 +666,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) from the
-	 * rotational component and multiplying by the new scale.
+	 * Sets the scale component of the current matrix by factoring out the current scale (by doing an SVD) from the rotational
+	 * component and multiplying by the new scale.
 	 *
 	 * @param scale the new scale amount
 	 * @return this for chaining
@@ -676,8 +702,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Performs an SVD normalization of this matrix to calculate the rotation as a 3x3 matrix, the translation, and the
-	 * scale. None of the matrix values are modified.
+	 * Performs an SVD normalization of this matrix to calculate the rotation as a 3x3 matrix, the translation, and the scale. None
+	 * of the matrix values are modified.
 	 *
 	 * @param m1 the normalized matrix representing the rotation
 	 * @param t1 the translation component
@@ -693,8 +719,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Performs an SVD normalization of this matrix in order to acquire the normalized rotational component; the values are
-	 * placed into the Quat4f parameter.
+	 * Performs an SVD normalization of this matrix in order to acquire the normalized rotational component; the values are placed
+	 * into the Quat4f parameter.
 	 *
 	 * @param q1 quaternion into which the rotation component is placed
 	 */
@@ -735,9 +761,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Performs an SVD normalization of this matrix to calculate and return the uniform scale factor. If the matrix has
-	 * non-uniform scale factors, the largest of the x, y, and z scale factors will be returned. This matrix is not
-	 * modified.
+	 * Performs an SVD normalization of this matrix to calculate and return the uniform scale factor. If the matrix has non-uniform
+	 * scale factors, the largest of the x, y, and z scale factors will be returned. This matrix is not modified.
 	 *
 	 * @return the scale factor of this matrix
 	 */
@@ -1164,8 +1189,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Performs an element-by-element subtraction of matrix m2 from matrix m1 and places the result into matrix this (this
-	 * = m2 - m1).
+	 * Performs an element-by-element subtraction of matrix m2 from matrix m1 and places the result into matrix this (this = m2 -
+	 * m1).
 	 *
 	 * @param m1 the first matrix
 	 * @param m2 the second matrix
@@ -1403,8 +1428,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the "this"
-	 * version and the non-"this" version.
+	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the "this" version and
+	 * the non-"this" version.
 	 *
 	 *
 	 */
@@ -1460,22 +1485,22 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 		float det;
 
 		// cofactor exapainsion along first row 
-		det = m00 * (m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 -
-			m13 * m22 * m31 - m11 * m23 * m32 - m12 * m21 * m33);
-		det -= m01 * (m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 -
-			m13 * m22 * m30 - m10 * m23 * m32 - m12 * m20 * m33);
-		det += m02 * (m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 -
-			m13 * m21 * m30 - m10 * m23 * m31 - m11 * m20 * m33);
-		det -= m03 * (m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31 -
-			m12 * m21 * m30 - m10 * m22 * m31 - m11 * m20 * m32);
+		det = m00 * (m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32
+			- m13 * m22 * m31 - m11 * m23 * m32 - m12 * m21 * m33);
+		det -= m01 * (m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32
+			- m13 * m22 * m30 - m10 * m23 * m32 - m12 * m20 * m33);
+		det += m02 * (m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31
+			- m13 * m21 * m30 - m10 * m23 * m31 - m11 * m20 * m33);
+		det -= m03 * (m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31
+			- m12 * m21 * m30 - m10 * m22 * m31 - m11 * m20 * m32);
 
 		return (det);
 	}
 
 	/**
-	 * Sets the rotational component (upper 3x3) of this matrix to the matrix values in the single precision Matrix3f
-	 * argument; the other elements of this matrix are initialized as if this were an identity matrix (i.e., affine matrix
-	 * with no translational component).
+	 * Sets the rotational component (upper 3x3) of this matrix to the matrix values in the single precision Matrix3f argument; the
+	 * other elements of this matrix are initialized as if this were an identity matrix (i.e., affine matrix with no translational
+	 * component).
 	 *
 	 * @param m1 the single-precision 3x3 matrix
 	 * @return this for chaining
@@ -1531,8 +1556,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the values in this Matrix4f equal to the row-major array parameter (ie, the first four elements of the array
-	 * will be copied into the first row of this matrix, etc.).
+	 * Sets the values in this Matrix4f equal to the row-major array parameter (ie, the first four elements of the array will be
+	 * copied into the first row of this matrix, etc.).
 	 *
 	 * @param m the single precision array of length 16
 	 * @return this for chaining
@@ -1589,8 +1614,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this transform to a scale and translation matrix; the scale is not applied to the translation and
-	 * all of the matrix values are modified.
+	 * Sets the value of this transform to a scale and translation matrix; the scale is not applied to the translation and all of the
+	 * matrix values are modified.
 	 *
 	 * @param scale the scale factor for the matrix
 	 * @param t1 the translation amount
@@ -1621,8 +1646,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this transform to a scale and translation matrix; the translation is scaled by the scale factor
-	 * and all of the matrix values are modified.
+	 * Sets the value of this transform to a scale and translation matrix; the translation is scaled by the scale factor and all of
+	 * the matrix values are modified.
 	 *
 	 * @param t1 the translation amount
 	 * @param scale the scale factor for the matrix
@@ -1653,8 +1678,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this matrix from the rotation expressed by the rotation matrix m1, the translation t1, and the
-	 * scale factor. The translation is not modified by the scale.
+	 * Sets the value of this matrix from the rotation expressed by the rotation matrix m1, the translation t1, and the scale factor.
+	 * The translation is not modified by the scale.
 	 *
 	 * @param m1 the rotation component
 	 * @param t1 the translation component
@@ -1686,8 +1711,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Modifies the translational components of this matrix to the values of the Vector3f argument; the other values of
-	 * this matrix are not modified.
+	 * Modifies the translational components of this matrix to the values of the Vector3f argument; the other values of this matrix
+	 * are not modified.
 	 *
 	 * @param trans the translational component
 	 * @return this for chaining
@@ -1699,10 +1724,10 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 		return this;
 
 	}
-	
+
 	/**
-	 * Modifies the translational components of this matrix to the values of the x,y,z arguments; the other values of
-	 * this matrix are not modified.
+	 * Modifies the translational components of this matrix to the values of the x,y,z arguments; the other values of this matrix are
+	 * not modified.
 	 *
 	 * @param x
 	 * @param y
@@ -1889,41 +1914,41 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 			n20, n21, n22, n23,
 			n30, n31, n32, n33;  // vars for temp result matrix
 
-		n00 = this.m00 * m1.m00 + this.m01 * m1.m10 +
-			this.m02 * m1.m20 + this.m03 * m1.m30;
-		n01 = this.m00 * m1.m01 + this.m01 * m1.m11 +
-			this.m02 * m1.m21 + this.m03 * m1.m31;
-		n02 = this.m00 * m1.m02 + this.m01 * m1.m12 +
-			this.m02 * m1.m22 + this.m03 * m1.m32;
-		n03 = this.m00 * m1.m03 + this.m01 * m1.m13 +
-			this.m02 * m1.m23 + this.m03 * m1.m33;
+		n00 = this.m00 * m1.m00 + this.m01 * m1.m10
+			+ this.m02 * m1.m20 + this.m03 * m1.m30;
+		n01 = this.m00 * m1.m01 + this.m01 * m1.m11
+			+ this.m02 * m1.m21 + this.m03 * m1.m31;
+		n02 = this.m00 * m1.m02 + this.m01 * m1.m12
+			+ this.m02 * m1.m22 + this.m03 * m1.m32;
+		n03 = this.m00 * m1.m03 + this.m01 * m1.m13
+			+ this.m02 * m1.m23 + this.m03 * m1.m33;
 
-		n10 = this.m10 * m1.m00 + this.m11 * m1.m10 +
-			this.m12 * m1.m20 + this.m13 * m1.m30;
-		n11 = this.m10 * m1.m01 + this.m11 * m1.m11 +
-			this.m12 * m1.m21 + this.m13 * m1.m31;
-		n12 = this.m10 * m1.m02 + this.m11 * m1.m12 +
-			this.m12 * m1.m22 + this.m13 * m1.m32;
-		n13 = this.m10 * m1.m03 + this.m11 * m1.m13 +
-			this.m12 * m1.m23 + this.m13 * m1.m33;
+		n10 = this.m10 * m1.m00 + this.m11 * m1.m10
+			+ this.m12 * m1.m20 + this.m13 * m1.m30;
+		n11 = this.m10 * m1.m01 + this.m11 * m1.m11
+			+ this.m12 * m1.m21 + this.m13 * m1.m31;
+		n12 = this.m10 * m1.m02 + this.m11 * m1.m12
+			+ this.m12 * m1.m22 + this.m13 * m1.m32;
+		n13 = this.m10 * m1.m03 + this.m11 * m1.m13
+			+ this.m12 * m1.m23 + this.m13 * m1.m33;
 
-		n20 = this.m20 * m1.m00 + this.m21 * m1.m10 +
-			this.m22 * m1.m20 + this.m23 * m1.m30;
-		n21 = this.m20 * m1.m01 + this.m21 * m1.m11 +
-			this.m22 * m1.m21 + this.m23 * m1.m31;
-		n22 = this.m20 * m1.m02 + this.m21 * m1.m12 +
-			this.m22 * m1.m22 + this.m23 * m1.m32;
-		n23 = this.m20 * m1.m03 + this.m21 * m1.m13 +
-			this.m22 * m1.m23 + this.m23 * m1.m33;
+		n20 = this.m20 * m1.m00 + this.m21 * m1.m10
+			+ this.m22 * m1.m20 + this.m23 * m1.m30;
+		n21 = this.m20 * m1.m01 + this.m21 * m1.m11
+			+ this.m22 * m1.m21 + this.m23 * m1.m31;
+		n22 = this.m20 * m1.m02 + this.m21 * m1.m12
+			+ this.m22 * m1.m22 + this.m23 * m1.m32;
+		n23 = this.m20 * m1.m03 + this.m21 * m1.m13
+			+ this.m22 * m1.m23 + this.m23 * m1.m33;
 
-		n30 = this.m30 * m1.m00 + this.m31 * m1.m10 +
-			this.m32 * m1.m20 + this.m33 * m1.m30;
-		n31 = this.m30 * m1.m01 + this.m31 * m1.m11 +
-			this.m32 * m1.m21 + this.m33 * m1.m31;
-		n32 = this.m30 * m1.m02 + this.m31 * m1.m12 +
-			this.m32 * m1.m22 + this.m33 * m1.m32;
-		n33 = this.m30 * m1.m03 + this.m31 * m1.m13 +
-			this.m32 * m1.m23 + this.m33 * m1.m33;
+		n30 = this.m30 * m1.m00 + this.m31 * m1.m10
+			+ this.m32 * m1.m20 + this.m33 * m1.m30;
+		n31 = this.m30 * m1.m01 + this.m31 * m1.m11
+			+ this.m32 * m1.m21 + this.m33 * m1.m31;
+		n32 = this.m30 * m1.m02 + this.m31 * m1.m12
+			+ this.m32 * m1.m22 + this.m33 * m1.m32;
+		n33 = this.m30 * m1.m03 + this.m31 * m1.m13
+			+ this.m32 * m1.m23 + this.m33 * m1.m33;
 
 		this.m00 = n00;
 		this.m01 = n01;
@@ -1955,41 +1980,41 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	public final Matrix4f mul(Matrix4f m1, Matrix4f m2) {
 		if (this != m1 && this != m2) {
 
-			this.m00 = m1.m00 * m2.m00 + m1.m01 * m2.m10 +
-				m1.m02 * m2.m20 + m1.m03 * m2.m30;
-			this.m01 = m1.m00 * m2.m01 + m1.m01 * m2.m11 +
-				m1.m02 * m2.m21 + m1.m03 * m2.m31;
-			this.m02 = m1.m00 * m2.m02 + m1.m01 * m2.m12 +
-				m1.m02 * m2.m22 + m1.m03 * m2.m32;
-			this.m03 = m1.m00 * m2.m03 + m1.m01 * m2.m13 +
-				m1.m02 * m2.m23 + m1.m03 * m2.m33;
+			this.m00 = m1.m00 * m2.m00 + m1.m01 * m2.m10
+				+ m1.m02 * m2.m20 + m1.m03 * m2.m30;
+			this.m01 = m1.m00 * m2.m01 + m1.m01 * m2.m11
+				+ m1.m02 * m2.m21 + m1.m03 * m2.m31;
+			this.m02 = m1.m00 * m2.m02 + m1.m01 * m2.m12
+				+ m1.m02 * m2.m22 + m1.m03 * m2.m32;
+			this.m03 = m1.m00 * m2.m03 + m1.m01 * m2.m13
+				+ m1.m02 * m2.m23 + m1.m03 * m2.m33;
 
-			this.m10 = m1.m10 * m2.m00 + m1.m11 * m2.m10 +
-				m1.m12 * m2.m20 + m1.m13 * m2.m30;
-			this.m11 = m1.m10 * m2.m01 + m1.m11 * m2.m11 +
-				m1.m12 * m2.m21 + m1.m13 * m2.m31;
-			this.m12 = m1.m10 * m2.m02 + m1.m11 * m2.m12 +
-				m1.m12 * m2.m22 + m1.m13 * m2.m32;
-			this.m13 = m1.m10 * m2.m03 + m1.m11 * m2.m13 +
-				m1.m12 * m2.m23 + m1.m13 * m2.m33;
+			this.m10 = m1.m10 * m2.m00 + m1.m11 * m2.m10
+				+ m1.m12 * m2.m20 + m1.m13 * m2.m30;
+			this.m11 = m1.m10 * m2.m01 + m1.m11 * m2.m11
+				+ m1.m12 * m2.m21 + m1.m13 * m2.m31;
+			this.m12 = m1.m10 * m2.m02 + m1.m11 * m2.m12
+				+ m1.m12 * m2.m22 + m1.m13 * m2.m32;
+			this.m13 = m1.m10 * m2.m03 + m1.m11 * m2.m13
+				+ m1.m12 * m2.m23 + m1.m13 * m2.m33;
 
-			this.m20 = m1.m20 * m2.m00 + m1.m21 * m2.m10 +
-				m1.m22 * m2.m20 + m1.m23 * m2.m30;
-			this.m21 = m1.m20 * m2.m01 + m1.m21 * m2.m11 +
-				m1.m22 * m2.m21 + m1.m23 * m2.m31;
-			this.m22 = m1.m20 * m2.m02 + m1.m21 * m2.m12 +
-				m1.m22 * m2.m22 + m1.m23 * m2.m32;
-			this.m23 = m1.m20 * m2.m03 + m1.m21 * m2.m13 +
-				m1.m22 * m2.m23 + m1.m23 * m2.m33;
+			this.m20 = m1.m20 * m2.m00 + m1.m21 * m2.m10
+				+ m1.m22 * m2.m20 + m1.m23 * m2.m30;
+			this.m21 = m1.m20 * m2.m01 + m1.m21 * m2.m11
+				+ m1.m22 * m2.m21 + m1.m23 * m2.m31;
+			this.m22 = m1.m20 * m2.m02 + m1.m21 * m2.m12
+				+ m1.m22 * m2.m22 + m1.m23 * m2.m32;
+			this.m23 = m1.m20 * m2.m03 + m1.m21 * m2.m13
+				+ m1.m22 * m2.m23 + m1.m23 * m2.m33;
 
-			this.m30 = m1.m30 * m2.m00 + m1.m31 * m2.m10 +
-				m1.m32 * m2.m20 + m1.m33 * m2.m30;
-			this.m31 = m1.m30 * m2.m01 + m1.m31 * m2.m11 +
-				m1.m32 * m2.m21 + m1.m33 * m2.m31;
-			this.m32 = m1.m30 * m2.m02 + m1.m31 * m2.m12 +
-				m1.m32 * m2.m22 + m1.m33 * m2.m32;
-			this.m33 = m1.m30 * m2.m03 + m1.m31 * m2.m13 +
-				m1.m32 * m2.m23 + m1.m33 * m2.m33;
+			this.m30 = m1.m30 * m2.m00 + m1.m31 * m2.m10
+				+ m1.m32 * m2.m20 + m1.m33 * m2.m30;
+			this.m31 = m1.m30 * m2.m01 + m1.m31 * m2.m11
+				+ m1.m32 * m2.m21 + m1.m33 * m2.m31;
+			this.m32 = m1.m30 * m2.m02 + m1.m31 * m2.m12
+				+ m1.m32 * m2.m22 + m1.m33 * m2.m32;
+			this.m33 = m1.m30 * m2.m03 + m1.m31 * m2.m13
+				+ m1.m32 * m2.m23 + m1.m33 * m2.m33;
 		} else {
 			float n00, n01, n02, n03,
 				n10, n11, n12, n13,
@@ -2045,41 +2070,41 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public final Matrix4f mulTransposeBoth(Matrix4f m1, Matrix4f m2) {
 		if (this != m1 && this != m2) {
-			this.m00 = m1.m00 * m2.m00 + m1.m10 * m2.m01 + m1.m20 * m2.m02 + m1.m30 *
-				m2.m03;
-			this.m01 = m1.m00 * m2.m10 + m1.m10 * m2.m11 + m1.m20 * m2.m12 + m1.m30 *
-				m2.m13;
-			this.m02 = m1.m00 * m2.m20 + m1.m10 * m2.m21 + m1.m20 * m2.m22 + m1.m30 *
-				m2.m23;
-			this.m03 = m1.m00 * m2.m30 + m1.m10 * m2.m31 + m1.m20 * m2.m32 + m1.m30 *
-				m2.m33;
+			this.m00 = m1.m00 * m2.m00 + m1.m10 * m2.m01 + m1.m20 * m2.m02 + m1.m30
+				* m2.m03;
+			this.m01 = m1.m00 * m2.m10 + m1.m10 * m2.m11 + m1.m20 * m2.m12 + m1.m30
+				* m2.m13;
+			this.m02 = m1.m00 * m2.m20 + m1.m10 * m2.m21 + m1.m20 * m2.m22 + m1.m30
+				* m2.m23;
+			this.m03 = m1.m00 * m2.m30 + m1.m10 * m2.m31 + m1.m20 * m2.m32 + m1.m30
+				* m2.m33;
 
-			this.m10 = m1.m01 * m2.m00 + m1.m11 * m2.m01 + m1.m21 * m2.m02 + m1.m31 *
-				m2.m03;
-			this.m11 = m1.m01 * m2.m10 + m1.m11 * m2.m11 + m1.m21 * m2.m12 + m1.m31 *
-				m2.m13;
-			this.m12 = m1.m01 * m2.m20 + m1.m11 * m2.m21 + m1.m21 * m2.m22 + m1.m31 *
-				m2.m23;
-			this.m13 = m1.m01 * m2.m30 + m1.m11 * m2.m31 + m1.m21 * m2.m32 + m1.m31 *
-				m2.m33;
+			this.m10 = m1.m01 * m2.m00 + m1.m11 * m2.m01 + m1.m21 * m2.m02 + m1.m31
+				* m2.m03;
+			this.m11 = m1.m01 * m2.m10 + m1.m11 * m2.m11 + m1.m21 * m2.m12 + m1.m31
+				* m2.m13;
+			this.m12 = m1.m01 * m2.m20 + m1.m11 * m2.m21 + m1.m21 * m2.m22 + m1.m31
+				* m2.m23;
+			this.m13 = m1.m01 * m2.m30 + m1.m11 * m2.m31 + m1.m21 * m2.m32 + m1.m31
+				* m2.m33;
 
-			this.m20 = m1.m02 * m2.m00 + m1.m12 * m2.m01 + m1.m22 * m2.m02 + m1.m32 *
-				m2.m03;
-			this.m21 = m1.m02 * m2.m10 + m1.m12 * m2.m11 + m1.m22 * m2.m12 + m1.m32 *
-				m2.m13;
-			this.m22 = m1.m02 * m2.m20 + m1.m12 * m2.m21 + m1.m22 * m2.m22 + m1.m32 *
-				m2.m23;
-			this.m23 = m1.m02 * m2.m30 + m1.m12 * m2.m31 + m1.m22 * m2.m32 + m1.m32 *
-				m2.m33;
+			this.m20 = m1.m02 * m2.m00 + m1.m12 * m2.m01 + m1.m22 * m2.m02 + m1.m32
+				* m2.m03;
+			this.m21 = m1.m02 * m2.m10 + m1.m12 * m2.m11 + m1.m22 * m2.m12 + m1.m32
+				* m2.m13;
+			this.m22 = m1.m02 * m2.m20 + m1.m12 * m2.m21 + m1.m22 * m2.m22 + m1.m32
+				* m2.m23;
+			this.m23 = m1.m02 * m2.m30 + m1.m12 * m2.m31 + m1.m22 * m2.m32 + m1.m32
+				* m2.m33;
 
-			this.m30 = m1.m03 * m2.m00 + m1.m13 * m2.m01 + m1.m23 * m2.m02 + m1.m33 *
-				m2.m03;
-			this.m31 = m1.m03 * m2.m10 + m1.m13 * m2.m11 + m1.m23 * m2.m12 + m1.m33 *
-				m2.m13;
-			this.m32 = m1.m03 * m2.m20 + m1.m13 * m2.m21 + m1.m23 * m2.m22 + m1.m33 *
-				m2.m23;
-			this.m33 = m1.m03 * m2.m30 + m1.m13 * m2.m31 + m1.m23 * m2.m32 + m1.m33 *
-				m2.m33;
+			this.m30 = m1.m03 * m2.m00 + m1.m13 * m2.m01 + m1.m23 * m2.m02 + m1.m33
+				* m2.m03;
+			this.m31 = m1.m03 * m2.m10 + m1.m13 * m2.m11 + m1.m23 * m2.m12 + m1.m33
+				* m2.m13;
+			this.m32 = m1.m03 * m2.m20 + m1.m13 * m2.m21 + m1.m23 * m2.m22 + m1.m33
+				* m2.m23;
+			this.m33 = m1.m03 * m2.m30 + m1.m13 * m2.m31 + m1.m23 * m2.m32 + m1.m33
+				* m2.m33;
 		} else {
 			float n00, n01, n02, n03,
 				n10, n11, n12, n13,
@@ -2136,41 +2161,41 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public final Matrix4f mulTransposeRight(Matrix4f m1, Matrix4f m2) {
 		if (this != m1 && this != m2) {
-			this.m00 = m1.m00 * m2.m00 + m1.m01 * m2.m01 + m1.m02 * m2.m02 + m1.m03 *
-				m2.m03;
-			this.m01 = m1.m00 * m2.m10 + m1.m01 * m2.m11 + m1.m02 * m2.m12 + m1.m03 *
-				m2.m13;
-			this.m02 = m1.m00 * m2.m20 + m1.m01 * m2.m21 + m1.m02 * m2.m22 + m1.m03 *
-				m2.m23;
-			this.m03 = m1.m00 * m2.m30 + m1.m01 * m2.m31 + m1.m02 * m2.m32 + m1.m03 *
-				m2.m33;
+			this.m00 = m1.m00 * m2.m00 + m1.m01 * m2.m01 + m1.m02 * m2.m02 + m1.m03
+				* m2.m03;
+			this.m01 = m1.m00 * m2.m10 + m1.m01 * m2.m11 + m1.m02 * m2.m12 + m1.m03
+				* m2.m13;
+			this.m02 = m1.m00 * m2.m20 + m1.m01 * m2.m21 + m1.m02 * m2.m22 + m1.m03
+				* m2.m23;
+			this.m03 = m1.m00 * m2.m30 + m1.m01 * m2.m31 + m1.m02 * m2.m32 + m1.m03
+				* m2.m33;
 
-			this.m10 = m1.m10 * m2.m00 + m1.m11 * m2.m01 + m1.m12 * m2.m02 + m1.m13 *
-				m2.m03;
-			this.m11 = m1.m10 * m2.m10 + m1.m11 * m2.m11 + m1.m12 * m2.m12 + m1.m13 *
-				m2.m13;
-			this.m12 = m1.m10 * m2.m20 + m1.m11 * m2.m21 + m1.m12 * m2.m22 + m1.m13 *
-				m2.m23;
-			this.m13 = m1.m10 * m2.m30 + m1.m11 * m2.m31 + m1.m12 * m2.m32 + m1.m13 *
-				m2.m33;
+			this.m10 = m1.m10 * m2.m00 + m1.m11 * m2.m01 + m1.m12 * m2.m02 + m1.m13
+				* m2.m03;
+			this.m11 = m1.m10 * m2.m10 + m1.m11 * m2.m11 + m1.m12 * m2.m12 + m1.m13
+				* m2.m13;
+			this.m12 = m1.m10 * m2.m20 + m1.m11 * m2.m21 + m1.m12 * m2.m22 + m1.m13
+				* m2.m23;
+			this.m13 = m1.m10 * m2.m30 + m1.m11 * m2.m31 + m1.m12 * m2.m32 + m1.m13
+				* m2.m33;
 
-			this.m20 = m1.m20 * m2.m00 + m1.m21 * m2.m01 + m1.m22 * m2.m02 + m1.m23 *
-				m2.m03;
-			this.m21 = m1.m20 * m2.m10 + m1.m21 * m2.m11 + m1.m22 * m2.m12 + m1.m23 *
-				m2.m13;
-			this.m22 = m1.m20 * m2.m20 + m1.m21 * m2.m21 + m1.m22 * m2.m22 + m1.m23 *
-				m2.m23;
-			this.m23 = m1.m20 * m2.m30 + m1.m21 * m2.m31 + m1.m22 * m2.m32 + m1.m23 *
-				m2.m33;
+			this.m20 = m1.m20 * m2.m00 + m1.m21 * m2.m01 + m1.m22 * m2.m02 + m1.m23
+				* m2.m03;
+			this.m21 = m1.m20 * m2.m10 + m1.m21 * m2.m11 + m1.m22 * m2.m12 + m1.m23
+				* m2.m13;
+			this.m22 = m1.m20 * m2.m20 + m1.m21 * m2.m21 + m1.m22 * m2.m22 + m1.m23
+				* m2.m23;
+			this.m23 = m1.m20 * m2.m30 + m1.m21 * m2.m31 + m1.m22 * m2.m32 + m1.m23
+				* m2.m33;
 
-			this.m30 = m1.m30 * m2.m00 + m1.m31 * m2.m01 + m1.m32 * m2.m02 + m1.m33 *
-				m2.m03;
-			this.m31 = m1.m30 * m2.m10 + m1.m31 * m2.m11 + m1.m32 * m2.m12 + m1.m33 *
-				m2.m13;
-			this.m32 = m1.m30 * m2.m20 + m1.m31 * m2.m21 + m1.m32 * m2.m22 + m1.m33 *
-				m2.m23;
-			this.m33 = m1.m30 * m2.m30 + m1.m31 * m2.m31 + m1.m32 * m2.m32 + m1.m33 *
-				m2.m33;
+			this.m30 = m1.m30 * m2.m00 + m1.m31 * m2.m01 + m1.m32 * m2.m02 + m1.m33
+				* m2.m03;
+			this.m31 = m1.m30 * m2.m10 + m1.m31 * m2.m11 + m1.m32 * m2.m12 + m1.m33
+				* m2.m13;
+			this.m32 = m1.m30 * m2.m20 + m1.m31 * m2.m21 + m1.m32 * m2.m22 + m1.m33
+				* m2.m23;
+			this.m33 = m1.m30 * m2.m30 + m1.m31 * m2.m31 + m1.m32 * m2.m32 + m1.m33
+				* m2.m33;
 		} else {
 			float n00, n01, n02, n03,
 				n10, n11, n12, n13,
@@ -2227,41 +2252,41 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public final Matrix4f mulTransposeLeft(Matrix4f m1, Matrix4f m2) {
 		if (this != m1 && this != m2) {
-			this.m00 = m1.m00 * m2.m00 + m1.m10 * m2.m10 + m1.m20 * m2.m20 + m1.m30 *
-				m2.m30;
-			this.m01 = m1.m00 * m2.m01 + m1.m10 * m2.m11 + m1.m20 * m2.m21 + m1.m30 *
-				m2.m31;
-			this.m02 = m1.m00 * m2.m02 + m1.m10 * m2.m12 + m1.m20 * m2.m22 + m1.m30 *
-				m2.m32;
-			this.m03 = m1.m00 * m2.m03 + m1.m10 * m2.m13 + m1.m20 * m2.m23 + m1.m30 *
-				m2.m33;
+			this.m00 = m1.m00 * m2.m00 + m1.m10 * m2.m10 + m1.m20 * m2.m20 + m1.m30
+				* m2.m30;
+			this.m01 = m1.m00 * m2.m01 + m1.m10 * m2.m11 + m1.m20 * m2.m21 + m1.m30
+				* m2.m31;
+			this.m02 = m1.m00 * m2.m02 + m1.m10 * m2.m12 + m1.m20 * m2.m22 + m1.m30
+				* m2.m32;
+			this.m03 = m1.m00 * m2.m03 + m1.m10 * m2.m13 + m1.m20 * m2.m23 + m1.m30
+				* m2.m33;
 
-			this.m10 = m1.m01 * m2.m00 + m1.m11 * m2.m10 + m1.m21 * m2.m20 + m1.m31 *
-				m2.m30;
-			this.m11 = m1.m01 * m2.m01 + m1.m11 * m2.m11 + m1.m21 * m2.m21 + m1.m31 *
-				m2.m31;
-			this.m12 = m1.m01 * m2.m02 + m1.m11 * m2.m12 + m1.m21 * m2.m22 + m1.m31 *
-				m2.m32;
-			this.m13 = m1.m01 * m2.m03 + m1.m11 * m2.m13 + m1.m21 * m2.m23 + m1.m31 *
-				m2.m33;
+			this.m10 = m1.m01 * m2.m00 + m1.m11 * m2.m10 + m1.m21 * m2.m20 + m1.m31
+				* m2.m30;
+			this.m11 = m1.m01 * m2.m01 + m1.m11 * m2.m11 + m1.m21 * m2.m21 + m1.m31
+				* m2.m31;
+			this.m12 = m1.m01 * m2.m02 + m1.m11 * m2.m12 + m1.m21 * m2.m22 + m1.m31
+				* m2.m32;
+			this.m13 = m1.m01 * m2.m03 + m1.m11 * m2.m13 + m1.m21 * m2.m23 + m1.m31
+				* m2.m33;
 
-			this.m20 = m1.m02 * m2.m00 + m1.m12 * m2.m10 + m1.m22 * m2.m20 + m1.m32 *
-				m2.m30;
-			this.m21 = m1.m02 * m2.m01 + m1.m12 * m2.m11 + m1.m22 * m2.m21 + m1.m32 *
-				m2.m31;
-			this.m22 = m1.m02 * m2.m02 + m1.m12 * m2.m12 + m1.m22 * m2.m22 + m1.m32 *
-				m2.m32;
-			this.m23 = m1.m02 * m2.m03 + m1.m12 * m2.m13 + m1.m22 * m2.m23 + m1.m32 *
-				m2.m33;
+			this.m20 = m1.m02 * m2.m00 + m1.m12 * m2.m10 + m1.m22 * m2.m20 + m1.m32
+				* m2.m30;
+			this.m21 = m1.m02 * m2.m01 + m1.m12 * m2.m11 + m1.m22 * m2.m21 + m1.m32
+				* m2.m31;
+			this.m22 = m1.m02 * m2.m02 + m1.m12 * m2.m12 + m1.m22 * m2.m22 + m1.m32
+				* m2.m32;
+			this.m23 = m1.m02 * m2.m03 + m1.m12 * m2.m13 + m1.m22 * m2.m23 + m1.m32
+				* m2.m33;
 
-			this.m30 = m1.m03 * m2.m00 + m1.m13 * m2.m10 + m1.m23 * m2.m20 + m1.m33 *
-				m2.m30;
-			this.m31 = m1.m03 * m2.m01 + m1.m13 * m2.m11 + m1.m23 * m2.m21 + m1.m33 *
-				m2.m31;
-			this.m32 = m1.m03 * m2.m02 + m1.m13 * m2.m12 + m1.m23 * m2.m22 + m1.m33 *
-				m2.m32;
-			this.m33 = m1.m03 * m2.m03 + m1.m13 * m2.m13 + m1.m23 * m2.m23 + m1.m33 *
-				m2.m33;
+			this.m30 = m1.m03 * m2.m00 + m1.m13 * m2.m10 + m1.m23 * m2.m20 + m1.m33
+				* m2.m30;
+			this.m31 = m1.m03 * m2.m01 + m1.m13 * m2.m11 + m1.m23 * m2.m21 + m1.m33
+				* m2.m31;
+			this.m32 = m1.m03 * m2.m02 + m1.m13 * m2.m12 + m1.m23 * m2.m22 + m1.m33
+				* m2.m32;
+			this.m33 = m1.m03 * m2.m03 + m1.m13 * m2.m13 + m1.m23 * m2.m23 + m1.m33
+				* m2.m33;
 		} else {
 			float n00, n01, n02, n03,
 				n10, n11, n12, n13,
@@ -2317,12 +2342,12 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public boolean equals(Matrix4f m1) {
 		try {
-			return (this.m00 == m1.m00 && this.m01 == m1.m01 && this.m02 == m1.m02 &&
-				this.m03 == m1.m03 && this.m10 == m1.m10 && this.m11 == m1.m11 &&
-				this.m12 == m1.m12 && this.m13 == m1.m13 && this.m20 == m1.m20 &&
-				this.m21 == m1.m21 && this.m22 == m1.m22 && this.m23 == m1.m23 &&
-				this.m30 == m1.m30 && this.m31 == m1.m31 && this.m32 == m1.m32 &&
-				this.m33 == m1.m33);
+			return (this.m00 == m1.m00 && this.m01 == m1.m01 && this.m02 == m1.m02
+				&& this.m03 == m1.m03 && this.m10 == m1.m10 && this.m11 == m1.m11
+				&& this.m12 == m1.m12 && this.m13 == m1.m13 && this.m20 == m1.m20
+				&& this.m21 == m1.m21 && this.m22 == m1.m22 && this.m23 == m1.m23
+				&& this.m30 == m1.m30 && this.m31 == m1.m31 && this.m32 == m1.m32
+				&& this.m33 == m1.m33);
 		} catch (NullPointerException e2) {
 			return false;
 		}
@@ -2330,8 +2355,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Matrix4f and all of the data members of t1 are equal to the corresponding
-	 * data members in this Matrix4f.
+	 * Returns true if the Object t1 is of type Matrix4f and all of the data members of t1 are equal to the corresponding data
+	 * members in this Matrix4f.
 	 *
 	 * @param t1 the matrix with which the comparison is made.
 	 * @return true or false
@@ -2340,21 +2365,20 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	public boolean equals(Object t1) {
 		try {
 			Matrix4f m2 = (Matrix4f) t1;
-			return (this.m00 == m2.m00 && this.m01 == m2.m01 && this.m02 == m2.m02 &&
-				this.m03 == m2.m03 && this.m10 == m2.m10 && this.m11 == m2.m11 &&
-				this.m12 == m2.m12 && this.m13 == m2.m13 && this.m20 == m2.m20 &&
-				this.m21 == m2.m21 && this.m22 == m2.m22 && this.m23 == m2.m23 &&
-				this.m30 == m2.m30 && this.m31 == m2.m31 && this.m32 == m2.m32 &&
-				this.m33 == m2.m33);
+			return (this.m00 == m2.m00 && this.m01 == m2.m01 && this.m02 == m2.m02
+				&& this.m03 == m2.m03 && this.m10 == m2.m10 && this.m11 == m2.m11
+				&& this.m12 == m2.m12 && this.m13 == m2.m13 && this.m20 == m2.m20
+				&& this.m21 == m2.m21 && this.m22 == m2.m22 && this.m23 == m2.m23
+				&& this.m30 == m2.m30 && this.m31 == m2.m31 && this.m32 == m2.m32
+				&& this.m33 == m2.m33);
 		} catch (ClassCastException | NullPointerException e1) {
 			return false;
 		}
 	}
 
 	/**
-	 * Returns true if the L-infinite distance between this matrix and matrix m1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2,3 ; j=0,1,2,3 ; abs(this.m(i,j)
-	 * - m1.m(i,j)]
+	 * Returns true if the L-infinite distance between this matrix and matrix m1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2,3 ; j=0,1,2,3 ; abs(this.m(i,j) - m1.m(i,j)]
 	 *
 	 * @param m1 the matrix to be compared to this matrix
 	 * @param epsilon the threshold value
@@ -2420,7 +2444,6 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 
 	}
 
-
 	/**
 	 * Transform the vector vec using this Matrix4f and place the result into vecOut.
 	 *
@@ -2430,14 +2453,14 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 */
 	public final Tuple4f transform(Tuple4f vec, Tuple4f vecOut) {
 		float x, y, z;
-		x = m00 * vec.x + m01 * vec.y +
-			m02 * vec.z + m03 * vec.w;
-		y = m10 * vec.x + m11 * vec.y +
-			m12 * vec.z + m13 * vec.w;
-		z = m20 * vec.x + m21 * vec.y +
-			m22 * vec.z + m23 * vec.w;
-		vecOut.w = m30 * vec.x + m31 * vec.y +
-			m32 * vec.z + m33 * vec.w;
+		x = m00 * vec.x + m01 * vec.y
+			+ m02 * vec.z + m03 * vec.w;
+		y = m10 * vec.x + m11 * vec.y
+			+ m12 * vec.z + m13 * vec.w;
+		z = m20 * vec.x + m21 * vec.y
+			+ m22 * vec.z + m23 * vec.w;
+		vecOut.w = m30 * vec.x + m31 * vec.y
+			+ m32 * vec.z + m33 * vec.w;
 		vecOut.x = x;
 		vecOut.y = y;
 		vecOut.z = z;
@@ -2453,14 +2476,14 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	public final Tuple4f transform(Tuple4f vec) {
 		float x, y, z;
 
-		x = m00 * vec.x + m01 * vec.y +
-			m02 * vec.z + m03 * vec.w;
-		y = m10 * vec.x + m11 * vec.y +
-			m12 * vec.z + m13 * vec.w;
-		z = m20 * vec.x + m21 * vec.y +
-			m22 * vec.z + m23 * vec.w;
-		vec.w = m30 * vec.x + m31 * vec.y +
-			m32 * vec.z + m33 * vec.w;
+		x = m00 * vec.x + m01 * vec.y
+			+ m02 * vec.z + m03 * vec.w;
+		y = m10 * vec.x + m11 * vec.y
+			+ m12 * vec.z + m13 * vec.w;
+		z = m20 * vec.x + m21 * vec.y
+			+ m22 * vec.z + m23 * vec.w;
+		vec.w = m30 * vec.x + m31 * vec.y
+			+ m32 * vec.z + m33 * vec.w;
 		vec.x = x;
 		vec.y = y;
 		vec.z = z;
@@ -2468,8 +2491,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Transforms the point parameter with this Matrix4f and places the result into pointOut. The fourth element of the
-	 * point input paramter is assumed to be one.
+	 * Transforms the point parameter with this Matrix4f and places the result into pointOut. The fourth element of the point input
+	 * paramter is assumed to be one.
 	 *
 	 * @param point the input point to be transformed.
 	 * @param pointOut the transformed point
@@ -2486,8 +2509,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Transforms the point parameter with this Matrix4f and places the result back into point. The fourth element of the
-	 * point input paramter is assumed to be one.
+	 * Transforms the point parameter with this Matrix4f and places the result back into point. The fourth element of the point input
+	 * paramter is assumed to be one.
 	 *
 	 * @param point the input point to be transformed.
 	 * @return point for chaining
@@ -2503,8 +2526,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Transforms the normal parameter by this Matrix4f and places the value into normalOut. The fourth element of the
-	 * normal is assumed to be zero.
+	 * Transforms the normal parameter by this Matrix4f and places the value into normalOut. The fourth element of the normal is
+	 * assumed to be zero.
 	 *
 	 * @param normal the input normal to be transformed.
 	 * @param normalOut the transformed normal
@@ -2521,8 +2544,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Transforms the normal parameter by this transform and places the value back into normal. The fourth element of the
-	 * normal is assumed to be zero.
+	 * Transforms the normal parameter by this transform and places the value back into normal. The fourth element of the normal is
+	 * assumed to be zero.
 	 *
 	 * @param normal the input normal to be transformed.
 	 * @return normal for chaining
@@ -2539,10 +2562,10 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the rotational component (upper 3x3) of this matrix to the matrix values in the single precision Matrix3f
-	 * argument; the other elements of this matrix are unchanged; a singular value decomposition is performed on this
-	 * object's upper 3x3 matrix to factor out the scale, then this object's upper 3x3 matrix components are replaced by
-	 * the passed rotation components, and then the scale is reapplied to the rotational components.
+	 * Sets the rotational component (upper 3x3) of this matrix to the matrix values in the single precision Matrix3f argument; the
+	 * other elements of this matrix are unchanged; a singular value decomposition is performed on this object's upper 3x3 matrix to
+	 * factor out the scale, then this object's upper 3x3 matrix components are replaced by the passed rotation components, and then
+	 * the scale is reapplied to the rotational components.
 	 *
 	 * @param m1 single precision 3x3 matrix
 	 * @return this for chaining
@@ -2567,10 +2590,10 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the rotational component (upper 3x3) of this matrix to the matrix equivalent values of the quaternion argument;
-	 * the other elements of this matrix are unchanged; a singular value decomposition is performed on this object's upper
-	 * 3x3 matrix to factor out the scale, then this object's upper 3x3 matrix components are replaced by the matrix
-	 * equivalent of the quaternion, and then the scale is reapplied to the rotational components.
+	 * Sets the rotational component (upper 3x3) of this matrix to the matrix equivalent values of the quaternion argument; the other
+	 * elements of this matrix are unchanged; a singular value decomposition is performed on this object's upper 3x3 matrix to factor
+	 * out the scale, then this object's upper 3x3 matrix components are replaced by the matrix equivalent of the quaternion, and
+	 * then the scale is reapplied to the rotational components.
 	 *
 	 * @param q1 the quaternion that specifies the rotation
 	 * @return this for chaining
@@ -2598,10 +2621,10 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the rotational component (upper 3x3) of this matrix to the matrix equivalent values of the axis-angle argument;
-	 * the other elements of this matrix are unchanged; a singular value decomposition is performed on this object's upper
-	 * 3x3 matrix to factor out the scale, then this object's upper 3x3 matrix components are replaced by the matrix
-	 * equivalent of the axis-angle, and then the scale is reapplied to the rotational components.
+	 * Sets the rotational component (upper 3x3) of this matrix to the matrix equivalent values of the axis-angle argument; the other
+	 * elements of this matrix are unchanged; a singular value decomposition is performed on this object's upper 3x3 matrix to factor
+	 * out the scale, then this object's upper 3x3 matrix components are replaced by the matrix equivalent of the axis-angle, and
+	 * then the scale is reapplied to the rotational components.
 	 *
 	 * @param a1 the axis-angle to be converted (x, y, z, angle)
 	 * @return this for chaining
@@ -3136,7 +3159,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 	 * @param up an array of 3 components for the up direction.
 	 * @return this for chaining
 	 */
-	public Matrix4f setLookAt(Vector3f eye, Vector3f center, Vector3f up) {
+	public Matrix4f setLookAt(Tuple3f eye, Tuple3f center, Tuple3f up) {
 
 		Vector3f f = new Vector3f();
 		f.sub(center, eye);
@@ -3181,15 +3204,14 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 
 	}
 
-	
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Matrix4f objects with identical
-	 * data values (i.e., Matrix4f.equals returns true) will return the same hash code value. Two objects with different
-	 * data members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Matrix4f objects with identical data values
+	 * (i.e., Matrix4f.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
-@Override
+	@Override
 	public int hashCode() {
 		int hash = 7;
 		hash = 67 * hash + Float.floatToIntBits(this.m00);

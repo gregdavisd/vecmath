@@ -41,8 +41,7 @@ public class Point4i extends Tuple4i implements java.io.Serializable {
 	static final long serialVersionUID = 620124780244617983L;
 
 	/**
-	 * Constructs and initializes a Point4i from the specified x, y, z, and w
-	 * coordinates.
+	 * Constructs and initializes a Point4i from the specified x, y, z, and w coordinates.
 	 *
 	 * @param x the x coordinate
 	 * @param y the y coordinate

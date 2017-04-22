@@ -129,7 +129,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the specified coordinates in the array of length 4.
 	 *
 	 * @param t the array of length 4 containing x, y, z, and w in order.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i set(int[] t) {
 		this.x = t[0];
@@ -143,7 +143,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the value of tuple t1.
 	 *
 	 * @param t1 the tuple to be copied
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i set(Tuple4i t1) {
 		this.x = t1.x;
@@ -171,7 +171,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Copies the values of this tuple into the tuple t.
 	 *
 	 * @param t the target tuple
-	 * @return  t for chaining
+	 * @return t for chaining
 	 */
 	public final Tuple4i get(Tuple4i t) {
 		t.x = this.x;
@@ -186,7 +186,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i add(Tuple4i t1, Tuple4i t2) {
 		this.x = t1.x + t2.x;
@@ -200,7 +200,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the sum of itself and t1.
 	 *
 	 * @param t1 the other tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i add(Tuple4i t1) {
 		this.x += t1.x;
@@ -215,7 +215,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i sub(Tuple4i t1, Tuple4i t2) {
 		this.x = t1.x - t2.x;
@@ -229,7 +229,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the difference of itself and t1 (this = this - t1).
 	 *
 	 * @param t1 the other tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i sub(Tuple4i t1) {
 		this.x -= t1.x;
@@ -243,7 +243,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the negation of tuple t1.
 	 *
 	 * @param t1 the source tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i negate(Tuple4i t1) {
 		this.x = -t1.x;
@@ -255,7 +255,8 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Negates the value of this tuple in place.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Tuple4i negate() {
 		this.x = -this.x;
@@ -270,7 +271,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param s the scalar value
 	 * @param t1 the source tuple
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i scale(int s, Tuple4i t1) {
 		this.x = s * t1.x;
@@ -284,7 +285,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets the value of this tuple to the scalar multiplication of the scale factor with this.
 	 *
 	 * @param s the scalar value
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i scale(int s) {
 		this.x *= s;
@@ -300,7 +301,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * @param s the scalar value
 	 * @param t1 the tuple to be multipled
 	 * @param t2 the tuple to be added
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i scaleAdd(int s, Tuple4i t1, Tuple4i t2) {
 		this.x = s * t1.x + t2.x;
@@ -315,7 +316,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param s the scalar value
 	 * @param t1 the tuple to be added
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i scaleAdd(int s, Tuple4i t1) {
 		this.x = s * this.x + t1.x;
@@ -336,8 +337,8 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple4i and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple4i.
+	 * Returns true if the Object t1 is of type Tuple4i and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple4i.
 	 *
 	 * @param t1 the object with which the comparison is made
 	 * @return true or false
@@ -346,17 +347,17 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	public boolean equals(Object t1) {
 		try {
 			Tuple4i t2 = (Tuple4i) t1;
-			return (this.x == t2.x && this.y == t2.y &&
-				this.z == t2.z && this.w == t2.w);
+			return (this.x == t2.x && this.y == t2.y
+				&& this.z == t2.z && this.w == t2.w);
 		} catch (NullPointerException | ClassCastException e2) {
 			return false;
 		}
 	}
 
 	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple4i objects with identical data
-	 * values (i.e., Tuple4i.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	 * Returns a hash code value based on the data values in this object. Two different Tuple4i objects with identical data values
+	 * (i.e., Tuple4i.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
@@ -376,7 +377,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * @param min the lowest value in the tuple after clamping
 	 * @param max the highest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clamp(int min, int max, Tuple4i t) {
 		if (t.x > max) {
@@ -418,7 +419,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param min the lowest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clampMin(int min, Tuple4i t) {
 		if (t.x < min) {
@@ -452,7 +453,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param max the highest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clampMax(int max, Tuple4i t) {
 		if (t.x > max) {
@@ -485,7 +486,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
 	 *
 	 * @param t the source tuple, which will not be modified
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i absolute(Tuple4i t) {
 		x = Math.abs(t.x);
@@ -500,7 +501,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 *
 	 * @param min the lowest value in this tuple after clamping
 	 * @param max the highest value in this tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clamp(int min, int max) {
 		if (x > max) {
@@ -533,7 +534,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Clamps the minimum value of this tuple to the min parameter.
 	 *
 	 * @param min the lowest value in this tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clampMin(int min) {
 		if (x < min) {
@@ -558,7 +559,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Clamps the maximum value of this tuple to the max parameter.
 	 *
 	 * @param max the highest value in the tuple after clamping
-	 * @return  this for chaining
+	 * @return this for chaining
 	 */
 	public final Tuple4i clampMax(int max) {
 		if (x > max) {
@@ -581,7 +582,8 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Sets each component of this tuple to its absolute value.
-	 * @return  this for chaining
+	 *
+	 * @return this for chaining
 	 */
 	public final Tuple4i absolute() {
 		x = Math.abs(x);
@@ -625,7 +627,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Set the <i>x</i> coordinate.
 	 *
 	 * @param x value to <i>x</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -649,7 +651,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Set the <i>y</i> coordinate.
 	 *
 	 * @param y value to <i>y</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -673,7 +675,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Set the <i>z</i> coordinate.
 	 *
 	 * @param z value to <i>z</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */
@@ -696,7 +698,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Set the <i>w</i> coordinate.
 	 *
 	 * @param w value to <i>w</i> coordinate.
-	 * @return  this for chaining
+	 * @return this for chaining
 	 *
 	 * @since vecmath 1.5
 	 */

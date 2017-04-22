@@ -162,6 +162,19 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Sets the value of this tuple to the vector sum of itself and (dx,dy).
+	 *
+	 * @param dx
+	 * @param dy
+	 * @return this for chaining
+	 */
+	public final Tuple2f add(float dx, float dy) {
+		this.x += dx;
+		this.y += dy;
+		return this;
+	}
+
+	/**
 	 * Sets the value of this tuple to the vector difference of tuple t1 and t2 (this = t1 - t2).
 	 *
 	 * @param t1 the first tuple
@@ -261,7 +274,6 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		return this;
 	}
 
-
 	/**
 	 * Returns true if all of the data members of Tuple2f t1 are equal to the corresponding data members in this Tuple2f.
 	 *
@@ -278,8 +290,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the Object t1 is of type Tuple2f and all of the data members of t1 are equal to the corresponding
-	 * data members in this Tuple2f.
+	 * Returns true if the Object t1 is of type Tuple2f and all of the data members of t1 are equal to the corresponding data members
+	 * in this Tuple2f.
 	 *
 	 * @param t1 the object with which the comparison is made
 	 * @return true or false
@@ -296,8 +308,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2)].
+	 * Returns true if the L-infinite distance between this tuple and tuple t1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2)].
 	 *
 	 * @param t1 the tuple to be compared to this tuple
 	 * @param epsilon the threshold value
@@ -480,8 +492,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 +
-	 * alpha*t2.
+	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 + alpha*t2.
 	 *
 	 * @param t1 the first tuple
 	 * @param t2 the second tuple
@@ -495,8 +506,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this +
-	 * alpha*t1.
+	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this + alpha*t1.
 	 *
 	 * @param t1 the first tuple
 	 * @param alpha the alpha interpolation parameter
@@ -576,19 +586,21 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		this.y = y;
 		return this;
 	}
-	
+
 	/**
 	 * Set both x and y of this vector to zero
+	 *
 	 * @return this for chaining
 	 */
-	public final Tuple2f setZero()
-	{
-		x=0.0f;
-		y=0.0f;
+	public final Tuple2f setZero() {
+		x = 0.0f;
+		y = 0.0f;
 		return this;
 	}
+
 	/**
 	 * Set each element to the minimum of this or another tuple
+	 *
 	 * @param t1
 	 * @return this for chaining
 	 */
@@ -597,13 +609,15 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		y = Math.min(y, t1.y);
 		return this;
 	}
+
 	/**
 	 * Set each element to the minimum of of two tuples
+	 *
 	 * @param t1
 	 * @param t2
 	 * @return this for chaining
 	 */
-	public final Tuple2f setMin(Tuple2f t1,Tuple2f t2) {
+	public final Tuple2f setMin(Tuple2f t1, Tuple2f t2) {
 		x = Math.min(t2.x, t1.x);
 		y = Math.min(t2.y, t1.y);
 		return this;
@@ -611,6 +625,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Set each element to the maximum of this or another tuple
+	 *
 	 * @param t1
 	 * @return this for chaining
 	 */
@@ -619,13 +634,15 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		y = Math.max(y, t1.y);
 		return this;
 	}
+
 	/**
 	 * Set each element to the maximum of of two tuples
+	 *
 	 * @param t1
 	 * @param t2
 	 * @return this for chaining
 	 */
-	public final Tuple2f setMax(Tuple2f t1,Tuple2f t2) {
+	public final Tuple2f setMax(Tuple2f t1, Tuple2f t2) {
 		x = Math.max(t2.x, t1.x);
 		y = Math.max(t2.y, t1.y);
 		return this;
@@ -646,7 +663,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	 * @return the length of this vector
 	 */
 	public final float length() {
-		return (float) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
+		return (float) Math.sqrt(lengthSquared());
 	}
 
 	/**
@@ -664,6 +681,9 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	public final Tuple2f normalize() {
 		float norm;
 		norm = (float) (1.0 / length());
+		if (Float.isInfinite(norm)) {
+			return this;
+		}
 		this.x *= norm;
 		this.y *= norm;
 		return this;
@@ -676,10 +696,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 */
 	public final Tuple2f normalize(Vector2f v1) {
-		float norm;
-		norm = (float) (1.0 / v1.length());
-		this.x = v1.x * norm;
-		this.y = v1.y * norm;
+		set(v1);
+		normalize();
 		return this;
 	}
 
@@ -706,8 +724,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Calculate the cross product of this vector and another. In two dimensions the cross product is the same as the
-	 * determinant.
+	 * Calculate the cross product of this vector and another. In two dimensions the cross product is the same as the determinant.
 	 *
 	 * @param v1
 	 * @return
@@ -716,18 +733,55 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
 		return x * v1.y - y * v1.x;
 	}
 
-		/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple2f objects with identical data
-	 * values (i.e., Tuple2f.equals returns true) will return the same hash code value. Two objects with different data
-	 * members may return the same hash value, although this is not likely.
+	/**
+	 * Returns a hash code value based on the data values in this object. Two different Tuple2f objects with identical data values
+	 * (i.e., Tuple2f.equals returns true) will return the same hash code value. Two objects with different data members may return
+	 * the same hash value, although this is not likely.
 	 *
 	 * @return the integer hash code value
 	 */
-@Override
+	@Override
 	public int hashCode() {
 		int hash = 5;
 		hash = 97 * hash + Float.floatToIntBits(this.x);
 		hash = 97 * hash + Float.floatToIntBits(this.y);
 		return hash;
 	}
+
+	/**
+	 * Calculate the distance squared between this tuple and the argument
+	 *
+	 * @param t1
+	 * @return
+	 */
+	public final float distanceSquared(Tuple2f t1) {
+		double dx = (double) t1.x - (double) x;
+		double dy = (double) t1.y - (double) y;
+		return (float) (dx * dx + dy * dy);
+	}
+
+	/**
+	 * Calculate the distance between this tuple and the argument
+	 *
+	 * @param t1
+	 * @return
+	 */
+	public final float distance(Tuple2f t1) {
+		return (float) Math.sqrt(distanceSquared(t1));
+	}
+
+	/**
+	 * Clamp the components of tuple t to between min and max, store the result in this tuple.
+	 *
+	 * @param min tuple with the minimum component values
+	 * @param max tuplie with the maximum component values
+	 * @param t the initial values
+	 * @return this for chaining
+	 */
+	public final Tuple2f clamp(Tuple2f min, Tuple2f max, Tuple2f t) {
+		x = Math.min(Math.max(t.x, min.x), max.x);
+		y = Math.min(Math.max(t.y, min.y), max.y);
+		return this;
+	}
+
 }

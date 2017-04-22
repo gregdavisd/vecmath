@@ -3,13 +3,13 @@ package javax.vecmath;
 /**
  * Singular Value Decomposition.
  * <P>
- * For an m-by-n matrix A with m >= n, the singular value decomposition is an m-by-n orthogonal matrix U, an n-by-n
- * diagonal matrix S, and an n-by-n orthogonal matrix V so that A = U*S*V'.
+ * For an m-by-n matrix A with m >= n, the singular value decomposition is an m-by-n orthogonal matrix U, an n-by-n diagonal
+ * matrix S, and an n-by-n orthogonal matrix V so that A = U*S*V'.
  * <P>
  * The singular values, sigma[k] = S[k][k], are ordered so that sigma[0] >= sigma[1] >= ... >= sigma[n-1].
  * <P>
- * The singular value decompostion always exists, so the constructor will never fail. The matrix condition number and
- * the effective numerical rank can be computed from this decomposition.
+ * The singular value decompostion always exists, so the constructor will never fail. The matrix condition number and the
+ * effective numerical rank can be computed from this decomposition.
  */
 public class SingularValueDecomposition implements java.io.Serializable {
 
@@ -259,8 +259,8 @@ public class SingularValueDecomposition implements java.io.Serializable {
 				if (k == -1) {
 					break;
 				}
-				if (Math.abs(e[k]) <=
-					tiny + eps * (Math.abs(s[k]) + Math.abs(s[k + 1]))) {
+				if (Math.abs(e[k])
+					<= tiny + eps * (Math.abs(s[k]) + Math.abs(s[k + 1]))) {
 					e[k] = 0.0;
 					break;
 				}
@@ -273,8 +273,8 @@ public class SingularValueDecomposition implements java.io.Serializable {
 					if (ks == k) {
 						break;
 					}
-					double t = (ks != p ? Math.abs(e[ks]) : 0.) +
-						(ks != k + 1 ? Math.abs(e[ks - 1]) : 0.);
+					double t = (ks != p ? Math.abs(e[ks]) : 0.)
+						+ (ks != k + 1 ? Math.abs(e[ks - 1]) : 0.);
 					if (Math.abs(s[ks]) <= tiny + eps * t) {
 						s[ks] = 0.0;
 						break;
@@ -536,7 +536,6 @@ public class SingularValueDecomposition implements java.io.Serializable {
 	/**
 	 * sqrt(a^2 + b^2) without under/overflow. *
 	 */
-
 	private static double hypot(double a, double b) {
 		double r;
 		if (Math.abs(a) > Math.abs(b)) {

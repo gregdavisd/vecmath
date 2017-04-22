@@ -40,6 +40,8 @@ package javax.vecmath;
  */
 public class Matrix2f implements java.io.Serializable, Cloneable {
 
+	static final long serialVersionUID = 1L;
+
 	/**
 	 * The first matrix element in the first row.
 	 */
@@ -340,8 +342,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the values in this Matrix3f equal to the row-major array parameter (ie, the first three elements of the array
-	 * will be copied into the first row of this matrix, etc.).
+	 * Sets the values in this Matrix3f equal to the row-major array parameter (ie, the first three elements of the array will be
+	 * copied into the first row of this matrix, etc.).
 	 *
 	 * @param m the single precision array of length 9
 	 * @return this for chaining
@@ -496,8 +498,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Multiplies this matrix by matrix m1, does an SVD normalization of the result, and places the result back into this
-	 * matrix. this = SVDnorm(this*m1).
+	 * Multiplies this matrix by matrix m1, does an SVD normalization of the result, and places the result back into this matrix.
+	 * this = SVDnorm(this*m1).
 	 *
 	 * @param m1 the matrix on the right hand side of the multiplication
 	 * @return this for chaining
@@ -510,8 +512,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Multiplies matrix m1 by matrix m2, does an SVD normalization of the result, and places the result into this matrix.
-	 * this = SVDnorm(m1*m2).
+	 * Multiplies matrix m1 by matrix m2, does an SVD normalization of the result, and places the result into this matrix. this =
+	 * SVDnorm(m1*m2).
 	 *
 	 * @param m1 the matrix on the left hand side of the multiplication
 	 * @param m2 the matrix on the right hand side of the multiplication
@@ -568,25 +570,6 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 		rotate.m01 = (float) R.get(0, 1);
 		rotate.m10 = (float) R.get(1, 0);
 		rotate.m11 = (float) R.get(1, 1);
-	}
-
-	private static void getScale(Matrix2f m1, Tuple2f scale) {
-		double[] tmp = new double[4];  // scratch matrix
-		tmp[0] = m1.m00;
-		tmp[1] = m1.m10;
-		tmp[2] = m1.m01;
-		tmp[3] = m1.m11;
-
-		SingularValueDecomposition svd = new Matrix(tmp, 2).svd();
-
-		Matrix u = svd.getU();
-		Matrix vt = svd.getV().transpose();
-		Matrix R = u.times(vt);
-
-		double[] singles = svd.getSingularValues();
-		scale.x = (float) (singles[0]);
-		scale.y = (float) (singles[1]);
-
 	}
 
 	private static void scale(Matrix2f dest, Matrix2f mat, Tuple2f s) {
@@ -798,8 +781,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return this.m00 + ", " + this.m01 + "\n" +
-			this.m10 + ", " + this.m11 + "\n";
+		return this.m00 + ", " + this.m01 + "\n"
+			+ this.m10 + ", " + this.m11 + "\n";
 	}
 
 	/**

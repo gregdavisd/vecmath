@@ -30,15 +30,11 @@
  */
 package javax.vecmath;
 
-import java.awt.Color;
-
 /**
- * A three-element color value represented by single precision floating point
- * x,y,z values. The x,y,z values represent the red, green, and blue color
- * values, respectively. Color components should be in the range of [0.0, 1.0].
+ * A three-element color value represented by single precision floating point x,y,z values. The x,y,z values represent the red,
+ * green, and blue color values, respectively. Color components should be in the range of [0.0, 1.0].
  * <p>
- * Java 3D assumes that a linear (gamma-corrected) visual is used for all
- * colors.
+ * Java 3D assumes that a linear (gamma-corrected) visual is used for all colors.
  *
  */
 public class Color3f extends Tuple3f implements java.io.Serializable {
@@ -85,18 +81,19 @@ public class Color3f extends Tuple3f implements java.io.Serializable {
 	}
 
 	/**
-	 * Constructs and initializes a Color3f from the specified AWT Color object.
-	 * The alpha value of the AWT color is ignored. No conversion is done on the
-	 * color to compensate for gamma correction.
+	 * Construct and initialise from an integer color in the format 0xRRGGBB
 	 *
-	 * @param color the AWT color with which to initialize this Color3f object
-	 *
-	 * @since vecmath 1.2
+	 * @param bits
 	 */
-	public Color3f(Color color) {
-		super((float) color.getRed() / 255.0f,
-			(float) color.getGreen() / 255.0f,
-			(float) color.getBlue() / 255.0f);
+	public Color3f(int bits) {
+		set(bits);
+	}
+
+	public final Color3f set(int bits) {
+		z = (float) (bits & 0xff) / 255.0f;
+		y = (float) ((bits >>> 8) & 0xff) / 255.0f;
+		x = (float) ((bits >>> 16) & 0xff) / 255.0f;
+		return this;
 	}
 
 	/**
@@ -107,36 +104,16 @@ public class Color3f extends Tuple3f implements java.io.Serializable {
 	}
 
 	/**
-	 * Sets the r,g,b values of this Color3f object to those of the specified AWT
-	 * Color object. No conversion is done on the color to compensate for gamma
-	 * correction.
+	 * Get the color as an integer (0xffRRGGBB)
 	 *
-	 * @param color the AWT color to copy into this Color3f object
-	 * @return  this for chaining
-	 *
-	 * @since vecmath 1.2
+	 * @return
 	 */
-	public final Color3f set(Color color) {
-		x = (float) color.getRed() / 255.0f;
-		y = (float) color.getGreen() / 255.0f;
-		z = (float) color.getBlue() / 255.0f;
-		return this;
-	}
-
-	/**
-	 * Returns a new AWT color object initialized with the r,g,b values of this
-	 * Color3f object.
-	 *
-	 * @return a new AWT Color object
-	 *
-	 * @since vecmath 1.2
-	 */
-	public final Color get() {
-		int r = Math.round(x * 255.0f);
-		int g = Math.round(y * 255.0f);
-		int b = Math.round(z * 255.0f);
-
-		return new Color(r, g, b);
+	public final int getRGB() {
+		byte red = (byte) Math.min(Math.max(x * 255.0f, 0.0f), 255.0f);
+		byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);
+		byte blue = (byte) Math.min(Math.max(z * 255.0f, 0.0f), 255.0f);
+		int bits = (0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) | ((blue) & 0x000000ff);
+		return bits;
 	}
 
 }

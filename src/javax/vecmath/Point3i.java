@@ -41,8 +41,7 @@ public class Point3i extends Tuple3i implements java.io.Serializable {
 	static final long serialVersionUID = 6149289077348153921L;
 
 	/**
-	 * Constructs and initializes a Point3i from the specified x, y, and z
-	 * coordinates.
+	 * Constructs and initializes a Point3i from the specified x, y, and z coordinates.
 	 *
 	 * @param x the x coordinate
 	 * @param y the y coordinate

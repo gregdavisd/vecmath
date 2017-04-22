@@ -31,8 +31,8 @@
 package javax.vecmath;
 
 /**
- * A 4 element unit quaternion represented by single precision floating point x,y,z,w coordinates. The quaternion is
- * always normalized.
+ * A 4 element unit quaternion represented by single precision floating point x,y,z,w coordinates. The quaternion is always
+ * normalized.
  *
  */
 public class Quat4f extends Tuple4f implements java.io.Serializable {
@@ -40,7 +40,7 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	// Combatible with 1.1
 	static final long serialVersionUID = 2675933778405442383L;
 
-	final static float EPS = 0.00001f;
+	final static float EPS = 0.0001f;
 	private final static int X = 0;
 	private final static int Y = 1;
 	private final static int Z = 2;
@@ -71,8 +71,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	 */
 	public Quat4f(float[] q) {
 		float mag;
-		mag = (float) (1.0 / Math.sqrt(q[0] * q[0] + q[1] * q[1] + q[2] * q[2] +
-			q[3] * q[3]));
+		mag = (float) (1.0 / Math.sqrt(q[0] * q[0] + q[1] * q[1] + q[2] * q[2]
+			+ q[3] * q[3]));
 		x = q[0] * mag;
 		y = q[1] * mag;
 		z = q[2] * mag;
@@ -96,8 +96,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	 */
 	public Quat4f(Tuple4f t1) {
 		float mag;
-		mag = (float) (1.0 / Math.sqrt(t1.x * t1.x + t1.y * t1.y + t1.z * t1.z +
-			t1.w * t1.w));
+		mag = (float) (1.0 / Math.sqrt(t1.x * t1.x + t1.y * t1.y + t1.z * t1.z
+			+ t1.w * t1.w));
 		x = t1.x * mag;
 		y = t1.y * mag;
 		z = t1.z * mag;
@@ -139,8 +139,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Sets the value of this quaternion to the quaternion product of quaternions q1 and q2 (this = q1 * q2). Note that
-	 * this is safe for aliasing (e.g. this can be q1 or q2).
+	 * Sets the value of this quaternion to the quaternion product of quaternions q1 and q2 (this = q1 * q2). Note that this is safe
+	 * for aliasing (e.g. this can be q1 or q2).
 	 *
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
@@ -196,8 +196,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Multiplies quaternion q1 by the inverse of quaternion q2 and places the value into this quaternion. The value of
-	 * both argument quaternions is preservered (this = q1 * q2^-1).
+	 * Multiplies quaternion q1 by the inverse of quaternion q2 and places the value into this quaternion. The value of both argument
+	 * quaternions is preservered (this = q1 * q2^-1).
 	 *
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
@@ -212,8 +212,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Multiplies this quaternion by the inverse of quaternion q1 and places the value into this quaternion. The value of
-	 * the argument quaternion is preserved (this = this * q^-1).
+	 * Multiplies this quaternion by the inverse of quaternion q1 and places the value into this quaternion. The value of the
+	 * argument quaternion is preserved (this = this * q^-1).
 	 *
 	 * @param q1 the other quaternion
 	 * @return this for chaining
@@ -251,8 +251,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	public final Quat4f inverse() {
 		float norm;
 
-		norm = 1.0f / (this.w * this.w + this.x * this.x + this.y * this.y + this.z *
-			this.z);
+		norm = 1.0f / (this.w * this.w + this.x * this.x + this.y * this.y + this.z
+			* this.z);
 		this.w *= norm;
 		this.x *= -norm;
 		this.y *= -norm;
@@ -437,8 +437,8 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Performs a great circle interpolation between this quaternion and the quaternion parameter and places the result
-	 * into this quaternion.
+	 * Performs a great circle interpolation between this quaternion and the quaternion parameter and places the result into this
+	 * quaternion.
 	 *
 	 * @param q1 the other quaternion
 	 * @param alpha the alpha interpolation parameter
@@ -451,8 +451,7 @@ public class Quat4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Performs a great circle interpolation between quaternion q1 and quaternion q2 and places the result into this
-	 * quaternion.
+	 * Performs a great circle interpolation between quaternion q1 and quaternion q2 and places the result into this quaternion.
 	 *
 	 * @param q1 the first quaternion
 	 * @param q2 the second quaternion
