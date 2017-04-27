@@ -29,12 +29,12 @@
  * $State: Exp $
  */
 package javax.vecmath;
-
+ 
 /**
  * A 4 element point represented by single precision floating point x,y,z,w coordinates.
  *
  */
-public class Point4f extends Tuple4f implements java.io.Serializable {
+public final class Point4f extends Tuple4f implements java.io.Serializable {
 
 	// Compatible with 1.1
 	static final long serialVersionUID = 4643134103185764459L;
@@ -94,56 +94,7 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	 * Constructs and initializes a Point4f to (0,0,0,0).
 	 */
 	public Point4f() {
-		super();
-	}
 
-	/**
-	 * Sets the x,y,z components of this point to the corresponding components of tuple t1. The w component of this point is set to
-	 * 1.
-	 *
-	 * @param t1 the tuple to be copied
-	 * @return this for chaining
-	 *
-	 * @since vecmath 1.2
-	 */
-	public final Point4f set(Tuple3f t1) {
-		this.x = t1.x;
-		this.y = t1.y;
-		this.z = t1.z;
-		this.w = 1.0f;
-		return this;
-	}
-
-	/**
-	 * Computes the square of the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return the square of distance between these two points as a float
-	 */
-	public final float distanceSquared(Point4f p1) {
-		float dx, dy, dz, dw;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		dz = this.z - p1.z;
-		dw = this.w - p1.w;
-		return (dx * dx + dy * dy + dz * dz + dw * dw);
-	}
-
-	/**
-	 * Computes the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return the distance between the two points
-	 */
-	public final float distance(Point4f p1) {
-		float dx, dy, dz, dw;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		dz = this.z - p1.z;
-		dw = this.w - p1.w;
-		return (float) Math.sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
 	}
 
 	/**
@@ -153,7 +104,7 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	 * @param p1 the other point
 	 * @return the L-1 distance
 	 */
-	public final float distanceL1(Point4f p1) {
+	public float distanceL1(Point4f p1) {
 		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
 			- p1.z) + Math.abs(this.w - p1.w));
 	}
@@ -165,7 +116,7 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	 * @param p1 the other point
 	 * @return the L-infinite distance
 	 */
-	public final float distanceLinf(Point4f p1) {
+	public float distanceLinf(Point4f p1) {
 		float t1, t2;
 		t1 = Math.max(Math.abs(this.x - p1.x), Math.abs(this.y - p1.y));
 		t2 = Math.max(Math.abs(this.z - p1.z), Math.abs(this.w - p1.w));
@@ -181,7 +132,7 @@ public class Point4f extends Tuple4f implements java.io.Serializable {
 	 * @param p1 the source Point4f, which is not modified
 	 * @return this for chaining
 	 */
-	public final Point4f project(Point4f p1) {
+	public Point4f project(Point4f p1) {
 		float oneOw;
 
 		oneOw = 1 / p1.w;

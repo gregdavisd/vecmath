@@ -34,7 +34,7 @@ package javax.vecmath;
  * A 2-element vector that is represented by single-precision floating point x,y coordinates.
  *
  */
-public class Vector2f extends Tuple2f implements java.io.Serializable {
+public class Vector2f extends Tuple2f<Vector2f> implements java.io.Serializable {
 
 	// Combatible with 1.1
 	static final long serialVersionUID = -2168194326883512320L;
@@ -80,25 +80,7 @@ public class Vector2f extends Tuple2f implements java.io.Serializable {
 	 * Constructs and initializes a Vector2f to (0,0).
 	 */
 	public Vector2f() {
-		super();
-	}
 
-	/**
-	 * Returns the angle in radians between this vector and the vector parameter; the return value is constrained to the range
-	 * [0,PI].
-	 *
-	 * @param v1 the other vector
-	 * @return the angle in radians in the range [0,PI]
-	 */
-	public final float angle(Vector2f v1) {
-		float vDot = this.dot(v1) / (this.length() * v1.length());
-		if (vDot < -1.0) {
-			vDot = -1.0f;
-		}
-		if (vDot > 1.0) {
-			vDot = 1.0f;
-		}
-		return ((float) (Math.acos(vDot)));
 	}
 
 }

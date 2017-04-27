@@ -97,9 +97,7 @@ public abstract class Tuple3b implements java.io.Serializable, Cloneable {
 	 * Constructs and initializes a Tuple3b to (0,0,0).
 	 */
 	public Tuple3b() {
-		this.x = (byte) 0;
-		this.y = (byte) 0;
-		this.z = (byte) 0;
+
 	}
 
 	/**

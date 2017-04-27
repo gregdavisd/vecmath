@@ -73,7 +73,7 @@ public class Point3i extends Tuple3i implements java.io.Serializable {
 	 * Constructs and initializes a Point3i to (0,0,0).
 	 */
 	public Point3i() {
-		super();
+
 	}
 
 }

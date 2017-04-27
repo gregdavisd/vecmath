@@ -74,7 +74,7 @@ public class Point4i extends Tuple4i implements java.io.Serializable {
 	 * Constructs and initializes a Point4i to (0,0,0,0).
 	 */
 	public Point4i() {
-		super();
+
 	}
 
 }

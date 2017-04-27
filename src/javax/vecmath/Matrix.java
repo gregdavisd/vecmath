@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Jama = Java Matrix class.
@@ -110,7 +112,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 				throw new IllegalArgumentException("All rows must have the same length.");
 			}
 		}
-		this.A = A;
+		this.A = A.clone();
 	}
 
 	/**
@@ -121,7 +123,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 	 * @param n Number of colums.
 	 */
 	public Matrix(double[][] A, int m, int n) {
-		this.A = A;
+		this.A = A.clone();
 		this.m = m;
 		this.n = n;
 	}
@@ -192,6 +194,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
 	 */
 	@Override
 	public Object clone() {
+		try {
+			super.clone();
+		} catch (CloneNotSupportedException ex) {
+			Logger.getLogger(Matrix.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return this.copy();
 	}
 
@@ -665,10 +672,18 @@ public class Matrix implements Cloneable, java.io.Serializable {
 		return X;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public SingularValueDecomposition svd() {
 		return new SingularValueDecomposition(this);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public int rank() {
 		return new SingularValueDecomposition(this).rank();
 	}

@@ -81,7 +81,7 @@ public class TexCoord3f extends Tuple3f implements java.io.Serializable {
 	 * Constructs and initializes a TexCoord3f to (0,0,0).
 	 */
 	public TexCoord3f() {
-		super();
+
 	}
 
 }

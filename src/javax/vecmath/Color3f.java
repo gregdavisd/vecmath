@@ -89,10 +89,15 @@ public class Color3f extends Tuple3f implements java.io.Serializable {
 		set(bits);
 	}
 
+	/**
+	 *
+	 * @param bits
+	 * @return
+	 */
 	public final Color3f set(int bits) {
-		z = (float) (bits & 0xff) / 255.0f;
-		y = (float) ((bits >>> 8) & 0xff) / 255.0f;
-		x = (float) ((bits >>> 16) & 0xff) / 255.0f;
+		z = (float) (bits & 0xff) / 256.0f;
+		y = (float) ((bits >>> 8) & 0xff) / 256.0f;
+		x = (float) ((bits >>> 16) & 0xff) / 256.0f;
 		return this;
 	}
 
@@ -100,7 +105,7 @@ public class Color3f extends Tuple3f implements java.io.Serializable {
 	 * Constructs and initializes a Color3f to (0.0, 0.0, 0.0).
 	 */
 	public Color3f() {
-		super();
+
 	}
 
 	/**

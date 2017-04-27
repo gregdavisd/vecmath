@@ -34,11 +34,15 @@
  */
 package javax.vecmath;
 
+import static javax.vecmath.VecMath.cos;
+import static javax.vecmath.VecMath.sin;
+
 /**
  *
  * @author Gregery Barton
+ * @param <T>
  */
-public class Matrix2f implements java.io.Serializable, Cloneable {
+public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Cloneable {
 
 	static final long serialVersionUID = 1L;
 
@@ -61,6 +65,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 */
 	public float m11;
 
+	/**
+	 *
+	 */
 	public Matrix2f() {
 	}
 
@@ -85,10 +92,10 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the source matrix
 	 */
 	public Matrix2f(Matrix2f m1) {
-		this.m00 = m1.m00;
-		this.m01 = m1.m01;
-		this.m10 = m1.m10;
-		this.m11 = m1.m11;
+		m00 = m1.m00;
+		m01 = m1.m01;
+		m10 = m1.m10;
+		m11 = m1.m11;
 	}
 
 	/**
@@ -108,9 +115,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 *
 	 */
-	public final Matrix2f setM00(float m00) {
+	public final T setM00(float m00) {
 		this.m00 = m00;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -125,15 +132,16 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Set the second matrix element in the first row.
+	 * Set the second matrix element in the firs
+	 *
 	 *
 	 * @param m01 The m01 to set.
 	 * @return this for chaining
 	 *
 	 */
-	public final Matrix2f setM01(float m01) {
+	public final T setM01(float m01) {
 		this.m01 = m01;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -153,9 +161,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 *
 	 */
-	public final Matrix2f setM10(float m10) {
+	public final T setM10(float m10) {
 		this.m10 = m10;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -175,9 +183,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @return this for chaining
 	 *
 	 */
-	public final Matrix2f setM11(float m11) {
+	public final T setM11(float m11) {
 		this.m11 = m11;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -186,10 +194,10 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param v the array of length 4 containing in order
 	 */
 	public Matrix2f(float[] v) {
-		this.m00 = v[0];
-		this.m01 = v[1];
-		this.m10 = v[2];
-		this.m11 = v[3];
+		m00 = v[0];
+		m01 = v[1];
+		m10 = v[2];
+		m11 = v[3];
 	}
 
 	/**
@@ -198,9 +206,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix to get values
 	 * @return this for chaining
 	 */
-	public final Matrix2f abs(Matrix2f m1) {
+	public final T abs(Matrix2f m1) {
 		abs(this, m1);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -208,9 +216,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining.
 	 */
-	public final Matrix2f abs() {
+	public final T abs() {
 		abs(this, this);
-		return this;
+		return (T) this;
 	}
 
 	private static void abs(Matrix2f dest, Matrix2f mat) {
@@ -226,27 +234,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param scalar the scalar adder
 	 * @return this for chaining
 	 */
-	public final Matrix2f add(float scalar) {
+	public final T add(float scalar) {
 		m00 += scalar;
 		m01 += scalar;
 		m10 += scalar;
 		m11 += scalar;
-		return this;
-	}
-
-	/**
-	 * Adds a scalar to each component of the matrix m1 and places the result into this. Matrix m1 is not modified.
-	 *
-	 * @param scalar the scalar adder.
-	 * @param m1 the original matrix values
-	 * @return this for chaining
-	 */
-	public final Matrix2f add(float scalar, Matrix2f m1) {
-		this.m00 = m1.m00 + scalar;
-		this.m01 = m1.m01 + scalar;
-		this.m10 = m1.m10 + scalar;
-		this.m11 = m1.m11 + scalar;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -256,14 +249,14 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m2 the second matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f add(Matrix2f m1, Matrix2f m2) {
-		this.m00 = m1.m00 + m2.m00;
-		this.m01 = m1.m01 + m2.m01;
+	public final T add(Matrix2f m1, Matrix2f m2) {
+		m00 = m1.m00 + m2.m00;
+		m01 = m1.m01 + m2.m01;
 
-		this.m10 = m1.m10 + m2.m10;
-		this.m11 = m1.m11 + m2.m11;
+		m10 = m1.m10 + m2.m10;
+		m11 = m1.m11 + m2.m11;
 
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -272,13 +265,13 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the other matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f add(Matrix2f m1) {
-		this.m00 += m1.m00;
-		this.m01 += m1.m01;
-		this.m10 += m1.m10;
-		this.m11 += m1.m11;
+	public final T add(Matrix2f m1) {
+		m00 += m1.m00;
+		m01 += m1.m01;
+		m10 += m1.m10;
+		m11 += m1.m11;
 
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -288,12 +281,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m2 the second matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f sub(Matrix2f m1, Matrix2f m2) {
-		this.m00 = m1.m00 - m2.m00;
-		this.m01 = m1.m01 - m2.m01;
-		this.m10 = m1.m10 - m2.m10;
-		this.m11 = m1.m11 - m2.m11;
-		return this;
+	public final T sub(Matrix2f m1, Matrix2f m2) {
+		m00 = m1.m00 - m2.m00;
+		m01 = m1.m01 - m2.m01;
+		m10 = m1.m10 - m2.m10;
+		m11 = m1.m11 - m2.m11;
+		return (T) this;
 	}
 
 	/**
@@ -302,12 +295,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the other matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f sub(Matrix2f m1) {
-		this.m00 -= m1.m00;
-		this.m01 -= m1.m01;
-		this.m10 -= m1.m10;
-		this.m11 -= m1.m11;
-		return this;
+	public final T sub(Matrix2f m1) {
+		m00 -= m1.m00;
+		m01 -= m1.m01;
+		m10 -= m1.m10;
+		m11 -= m1.m11;
+		return (T) this;
 	}
 
 	/**
@@ -315,12 +308,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Matrix2f transpose() {
+	public final T transpose() {
 		float temp;
-		temp = this.m10;
-		this.m10 = this.m01;
-		this.m01 = temp;
-		return this;
+		temp = m10;
+		m10 = m01;
+		m01 = temp;
+		return (T) this;
 	}
 
 	/**
@@ -329,16 +322,16 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix to be transposed
 	 * @return this for chaining
 	 */
-	public final Matrix2f transpose(Matrix2f m1) {
+	public final T transpose(Matrix2f m1) {
 		if (this != m1) {
-			this.m00 = m1.m00;
-			this.m01 = m1.m10;
-			this.m10 = m1.m01;
-			this.m11 = m1.m11;
+			m00 = m1.m00;
+			m01 = m1.m10;
+			m10 = m1.m01;
+			m11 = m1.m11;
 		} else {
-			this.transpose();
+			transpose();
 		}
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -348,12 +341,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m the single precision array of length 9
 	 * @return this for chaining
 	 */
-	public final Matrix2f set(float[] m) {
+	public final T set(float[] m) {
 		m00 = m[0];
 		m01 = m[1];
 		m10 = m[2];
 		m11 = m[3];
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -362,14 +355,14 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the source matrix3f
 	 * @return this for chaining
 	 */
-	public final Matrix2f set(Matrix2f m1) {
+	public final T set(Matrix2f m1) {
 
-		this.m00 = m1.m00;
-		this.m01 = m1.m01;
-		this.m10 = m1.m10;
-		this.m11 = m1.m11;
+		m00 = m1.m00;
+		m01 = m1.m01;
+		m10 = m1.m10;
+		m11 = m1.m11;
 
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -387,10 +380,10 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix to be inverted
 	 * @return this for chaining
 	 */
-	public final Matrix2f invert(Matrix2f m1) {
-		this.set(m1);
+	public final T invert(Matrix2f m1) {
+		Matrix2f.this.set(m1);
 		invertGeneral(this);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -398,9 +391,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Matrix2f invert() {
+	public final T invert() {
 		invertGeneral(this);
-		return this;
+		return (T) this;
 	}
 
 	private static void invertGeneral(Matrix2f m1) {
@@ -421,12 +414,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param scale the scale factor for the matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f set(float scale) {
-		this.m00 = scale;
-		this.m01 = (float) 0.0;
-		this.m10 = (float) 0.0;
-		this.m11 = scale;
-		return this;
+	public final T set(float scale) {
+		m00 = scale;
+		m01 = 0.0f;
+		m10 = 0.0f;
+		m11 = scale;
+		return (T) this;
 	}
 
 	/**
@@ -435,12 +428,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param scalar the scalar multiplier
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(float scalar) {
+	public final T mul(float scalar) {
 		m00 *= scalar;
 		m01 *= scalar;
 		m10 *= scalar;
 		m11 *= scalar;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -450,12 +443,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the original matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(float scalar, Matrix2f m1) {
-		this.m00 = scalar * m1.m00;
-		this.m01 = scalar * m1.m01;
-		this.m10 = scalar * m1.m10;
-		this.m11 = scalar * m1.m11;
-		return this;
+	public final T mul(float scalar, Matrix2f m1) {
+		m00 = scalar * m1.m00;
+		m01 = scalar * m1.m01;
+		m10 = scalar * m1.m10;
+		m11 = scalar * m1.m11;
+		return (T) this;
 	}
 
 	/**
@@ -464,19 +457,17 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the other matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(Matrix2f m1) {
-		float n00, n01,
-			n10, n11;
+	public final T mul(Matrix2f m1) {
 
-		n00 = m00 * m1.m00 + m01 * m1.m10;
-		n01 = m00 * m1.m10 + m01 * m1.m11;
-		n10 = m10 * m1.m00 + m11 * m1.m10;
-		n11 = m10 * m1.m10 + m11 * m1.m11;
-		this.m00 = n00;
-		this.m01 = n01;
-		this.m10 = n10;
-		this.m11 = n11;
-		return this;
+		float n00 = m00 * m1.m00 + m01 * m1.m10;
+		float n01 = m00 * m1.m10 + m01 * m1.m11;
+		float n10 = m10 * m1.m00 + m11 * m1.m10;
+		float n11 = m10 * m1.m10 + m11 * m1.m11;
+		m00 = n00;
+		m01 = n01;
+		m10 = n10;
+		m11 = n11;
+		return (T) this;
 	}
 
 	/**
@@ -486,15 +477,16 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m2 the second matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(Matrix2f m1, Matrix2f m2) {
-		if (this != m1 && this != m2) {
-			set(m1);
-			mul(m2);
-		} else {
-			set(new Matrix2f(m1).mul(m2));
-		}
-
-		return this;
+	public final T mul(Matrix2f m1, Matrix2f m2) {
+		float n00 = m1.m00 * m2.m00 + m1.m01 * m2.m10;
+		float n01 = m1.m00 * m2.m10 + m1.m01 * m2.m11;
+		float n10 = m1.m10 * m2.m00 + m1.m11 * m2.m10;
+		float n11 = m1.m10 * m2.m10 + m1.m11 * m2.m11;
+		m00 = n00;
+		m01 = n01;
+		m10 = n10;
+		m11 = n11;
+		return (T) this;
 	}
 
 	/**
@@ -504,11 +496,11 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix on the right hand side of the multiplication
 	 * @return this for chaining
 	 */
-	public final Matrix2f mulNormalize(Matrix2f m1) {
+	public final T mulNormalize(Matrix2f m1) {
 		Matrix2f tmp = new Matrix2f();
 		tmp.mul(this, m1);
 		getScaleRotate(tmp, new Vector2f(), this);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -519,11 +511,11 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m2 the matrix on the right hand side of the multiplication
 	 * @return this for chaining
 	 */
-	public final Matrix2f mulNormalize(Matrix2f m1, Matrix2f m2) {
+	public final T mulNormalize(Matrix2f m1, Matrix2f m2) {
 		Matrix2f tmp = new Matrix2f();
 		tmp.mul(m1, m2);
 		getScaleRotate(tmp, new Vector2f(), this);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -533,9 +525,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param s scale values
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(Matrix2f m1, Tuple2f s) {
+	public final T mul(Matrix2f m1, Tuple2f s) {
 		scale(this, m1, s);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -544,9 +536,9 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param s scale values
 	 * @return this for chaining
 	 */
-	public final Matrix2f mul(Tuple2f s) {
+	public final T mul(Tuple2f s) {
 		scale(this, this, s);
-		return this;
+		return (T) this;
 	}
 
 	static void getScaleRotate(Matrix2f m1, Tuple2f scale, Matrix2f rotate) {
@@ -563,8 +555,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 		Matrix R = u.times(vt);
 
 		double[] singles = svd.getSingularValues();
-		scale.x = (float) (singles[0]);
-		scale.y = (float) (singles[1]);
+		scale.x = (float) singles[0];
+		scale.y = (float) singles[1];
 
 		rotate.m00 = (float) R.get(0, 0);
 		rotate.m01 = (float) R.get(0, 1);
@@ -584,12 +576,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Matrix2f negate() {
-		this.m00 = -this.m00;
-		this.m01 = -this.m01;
-		this.m10 = -this.m10;
-		this.m11 = -this.m11;
-		return this;
+	public final T negate() {
+		m00 = -m00;
+		m01 = -m01;
+		m10 = -m10;
+		m11 = -m11;
+		return (T) this;
 	}
 
 	/**
@@ -598,41 +590,42 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param m1 the source matrix
 	 * @return this for chaining
 	 */
-	public final Matrix2f negate(Matrix2f m1) {
-		this.m00 = -m1.m00;
-		this.m01 = -m1.m01;
-		this.m10 = -m1.m10;
-		this.m11 = -m1.m11;
-		return this;
+	public final T negate(Matrix2f m1) {
+		m00 = -m1.m00;
+		m01 = -m1.m01;
+		m10 = -m1.m10;
+		m11 = -m1.m11;
+		return (T) this;
 	}
 
 	/**
 	 * Multiply this matrix by the tuple t and place the result back into the tuple (t = this*t).
 	 *
+	 * @param <S>
 	 * @param t the tuple to be multiplied by this matrix and then replaced
 	 * @return t for chaining
 	 */
-	public final Tuple2f transform(Tuple2f t) {
+	public final <S extends Tuple2f> S transform(S t) {
 		float x, y;
 		x = m00 * t.x + m01 * t.y;
 		y = m10 * t.x + m11 * t.y;
 		t.set(x, y);
-		return t;
+		return (S) t;
 	}
 
 	/**
 	 * Multiply this matrix by the tuple t and and place the result into the tuple "result" (result = this*t).
 	 *
+	 * @param <S>
 	 * @param t the tuple to be multiplied by this matrix
 	 * @param result the tuple into which the product is placed
 	 * @return result for chaining
 	 */
-	public final Tuple2f transform(Tuple2f t, Tuple2f result) {
-		float x, y;
-		x = m00 * t.x + m01 * t.y;
-		y = m10 * t.x + m11 * t.y;
+	public final <S extends Tuple2f> S transform(Tuple2f t, S result) {
+		float x = m00 * t.x + m01 * t.y;
+		float y = m10 * t.x + m11 * t.y;
 		result.set(x, y);
-		return result;
+		return (S) result;
 	}
 
 	/**
@@ -640,12 +633,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Matrix2f setZero() {
+	public T setZero() {
 		m00 = 0.0f;
 		m01 = 0.0f;
 		m10 = 0.0f;
 		m11 = 0.0f;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -653,12 +646,12 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Matrix2f setIdentity() {
-		this.m00 = (float) 1.0;
-		this.m01 = (float) 0.0;
-		this.m10 = (float) 0.0;
-		this.m11 = (float) 1.0;
-		return this;
+	public T setIdentity() {
+		m00 = 1.0f;
+		m01 = 0.0f;
+		m10 = 0.0f;
+		m11 = 1.0f;
+		return (T) this;
 	}
 
 	/**
@@ -669,15 +662,15 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param value the new value
 	 * @return this for chaining
 	 */
-	public final Matrix2f setElement(int row, int column, float value) {
+	public final T setElement(int row, int column, float value) {
 		switch (row) {
 			case 0:
 				switch (column) {
 					case 0:
-						this.m00 = value;
+						m00 = value;
 						break;
 					case 1:
-						this.m01 = value;
+						m01 = value;
 						break;
 					default:
 						throw new ArrayIndexOutOfBoundsException();
@@ -687,10 +680,10 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 			case 1:
 				switch (column) {
 					case 0:
-						this.m10 = value;
+						m10 = value;
 						break;
 					case 1:
-						this.m11 = value;
+						m11 = value;
 						break;
 					default:
 						throw new ArrayIndexOutOfBoundsException();
@@ -700,7 +693,7 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 			default:
 				throw new ArrayIndexOutOfBoundsException();
 		}
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -711,25 +704,19 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @return the value at the indexed element.
 	 */
 	public final float getElement(int row, int column) {
-		switch (row) {
+		int i = (row * 2) + column;
+		switch (i) {
 			case 0:
-				switch (column) {
-					case 0:
-						return (this.m00);
-					case 1:
-						return (this.m01);
-				}
-				break;
+				return (m00);
 			case 1:
-				switch (column) {
-					case 0:
-						return (this.m10);
-					case 1:
-						return (this.m11);
-				}
-				break;
+				return (m01);
+			case 2:
+				return (m10);
+			case 3:
+				return (m11);
+			default:
+				throw new ArrayIndexOutOfBoundsException();
 		}
-		throw new ArrayIndexOutOfBoundsException();
 	}
 
 	/**
@@ -738,14 +725,14 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param angle the angle to rotate by in radians
 	 * @return this for chaining
 	 */
-	public final Matrix2f rot(float angle) {
-		float sinAngle = (float) Math.sin((float) angle);
-		float cosAngle = (float) Math.cos((float) angle);
-		this.m00 = cosAngle;
-		this.m01 = -sinAngle;
-		this.m10 = sinAngle;
-		this.m11 = cosAngle;
-		return this;
+	public final T rot(float angle) {
+		float sinAngle = sin(angle);
+		float cosAngle = cos(angle);
+		m00 = cosAngle;
+		m01 = -sinAngle;
+		m10 = sinAngle;
+		m11 = cosAngle;
+		return (T) this;
 	}
 
 	/**
@@ -756,22 +743,22 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 * @param y the second row element
 	 * @return this for chaining
 	 */
-	public final Matrix2f setColumn(int column, float x, float y) {
+	public final T setColumn(int column, float x, float y) {
 		switch (column) {
 			case 0:
-				this.m00 = x;
-				this.m10 = y;
+				m00 = x;
+				m10 = y;
 				break;
 
 			case 1:
-				this.m01 = x;
-				this.m11 = y;
+				m01 = x;
+				m11 = y;
 				break;
 
 			default:
 				throw new ArrayIndexOutOfBoundsException();
 		}
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -781,8 +768,8 @@ public class Matrix2f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return this.m00 + ", " + this.m01 + "\n"
-			+ this.m10 + ", " + this.m11 + "\n";
+		return m00 + ", " + m01 + "\n"
+			+ m10 + ", " + m11 + "\n";
 	}
 
 	/**

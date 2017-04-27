@@ -29,7 +29,7 @@
  * $State: Exp $
  */
 package javax.vecmath;
-
+ 
 /**
  * A 3 element point that is represented by single precision floating point x,y,z coordinates.
  *
@@ -81,37 +81,7 @@ public class Point3f extends Tuple3f implements java.io.Serializable {
 	 * Constructs and initializes a Point3f to (0,0,0).
 	 */
 	public Point3f() {
-		super();
-	}
 
-	/**
-	 * Computes the square of the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return the square of the distance
-	 */
-	public final float distanceSquared(Point3f p1) {
-		float dx, dy, dz;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		dz = this.z - p1.z;
-		return dx * dx + dy * dy + dz * dz;
-	}
-
-	/**
-	 * Computes the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return the distance
-	 */
-	public final float distance(Point3f p1) {
-		float dx, dy, dz;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		dz = this.z - p1.z;
-		return (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
 	/**

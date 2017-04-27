@@ -102,10 +102,7 @@ public abstract class Tuple4i implements java.io.Serializable, Cloneable {
 	 * Constructs and initializes a Tuple4i to (0,0,0,0).
 	 */
 	public Tuple4i() {
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
-		this.w = 0;
+
 	}
 
 	/**

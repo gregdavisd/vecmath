@@ -29,12 +29,17 @@
  * $State: Exp $
  */
 package javax.vecmath;
+ 
+import static javax.vecmath.VecMath.acos;
+import static javax.vecmath.VecMath.different_epsilon;
+import static javax.vecmath.VecMath.sqrt;
 
 /**
  * A 4-element tuple represented by single-precision floating point x,y,z,w coordinates.
  *
+ * @param <T>
  */
-public abstract class Tuple4f implements java.io.Serializable, Cloneable {
+public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable, Cloneable {
 
 	static final long serialVersionUID = 7068460319248845763L;
 
@@ -74,15 +79,27 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Constructs and initializes a Tuple4f from the array of length 4.
+	 * Constructs and initializes a Tuple4f from the float array of length 4.
 	 *
 	 * @param t the array of length 4 containing xyzw in order
 	 */
 	public Tuple4f(float[] t) {
-		this.x = t[0];
-		this.y = t[1];
-		this.z = t[2];
-		this.w = t[3];
+		x = t[0];
+		y = t[1];
+		z = t[2];
+		w = t[3];
+	}
+
+	/**
+	 * Constructs and initializes a Tuple4f from the double array of length 4.
+	 *
+	 * @param t the array of length 4 containing xyzw in order
+	 */
+	public Tuple4f(double[] t) {
+		x = (float) t[0];
+		y = (float) t[1];
+		z = (float) t[2];
+		w = (float) t[3];
 	}
 
 	/**
@@ -91,20 +108,31 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the Tuple4f containing the initialization x y z w data
 	 */
 	public Tuple4f(Tuple4f t1) {
-		this.x = t1.x;
-		this.y = t1.y;
-		this.z = t1.z;
-		this.w = t1.w;
+		x = t1.x;
+		y = t1.y;
+		z = t1.z;
+		w = t1.w;
+	}
+
+	/**
+	 * Constructs and initializes a Tuple4f from the specified Tuple3f and w argument..
+	 *
+	 * @param t1 the Tuple4f containing the initialization x y z w data
+	 * @param w w component
+	 *
+	 */
+	public Tuple4f(Tuple3f t1, float w) {
+		x = t1.x;
+		y = t1.y;
+		z = t1.z;
+		this.w = w;
 	}
 
 	/**
 	 * Constructs and initializes a Tuple4f to (0,0,0,0).
 	 */
 	public Tuple4f() {
-		this.x = 0.0f;
-		this.y = 0.0f;
-		this.z = 0.0f;
-		this.w = 0.0f;
+
 	}
 
 	/**
@@ -116,12 +144,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param w the w coordinate
 	 * @return this for chaining
 	 */
-	public final Tuple4f set(float x, float y, float z, float w) {
+	public  T set(float x, float y, float z, float w) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.w = w;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -130,12 +158,26 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the array of length 4 containing xyzw in order
 	 * @return this for chaining
 	 */
-	public final Tuple4f set(float[] t) {
-		this.x = t[0];
-		this.y = t[1];
-		this.z = t[2];
-		this.w = t[3];
-		return this;
+	public  T set(float[] t) {
+		x = t[0];
+		y = t[1];
+		z = t[2];
+		w = t[3];
+		return (T) this;
+	}
+
+	/**
+	 * Sets the value of this tuple to the specified coordinates in the array of length 4. Truncates double to single precision
+	 *
+	 * @param t the array of length 4 containing xyzw in order
+	 * @return this for chaining
+	 */
+	public  T set(double[] t) {
+		x = (float) t[0];
+		y = (float) t[1];
+		z = (float) t[2];
+		w = (float) t[3];
+		return (T) this;
 	}
 
 	/**
@@ -144,12 +186,42 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the tuple to be copied
 	 * @return this for chaining
 	 */
-	public final Tuple4f set(Tuple4f t1) {
+	public  T set(Tuple4f t1) {
+		x = t1.x;
+		y = t1.y;
+		z = t1.z;
+		w = t1.w;
+		return (T) this;
+	}
+
+	/**
+	 * Set x,y,z of this vector to zero
+	 *
+	 * @return this for chaining
+	 */
+	public  T setZero() {
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+		w = 0.0f;
+		return (T) this;
+	}
+
+	/**
+	 * Sets the x,y,z components of this vector to the corresponding components of tuple t1, and w to the argument.
+	 *
+	 * @param t1 the tuple to be copied
+	 * @param w w component to copy
+	 * @return this for chaining
+	 *
+	 * @since vecmath 1.2
+	 */
+	public  T set(Tuple3f t1, float w) {
 		this.x = t1.x;
 		this.y = t1.y;
 		this.z = t1.z;
-		this.w = t1.w;
-		return this;
+		this.w = w;
+		return (T) this;
 	}
 
 	/**
@@ -158,11 +230,11 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the array
 	 * @return t for chaining
 	 */
-	public final float[] get(float[] t) {
-		t[0] = this.x;
-		t[1] = this.y;
-		t[2] = this.z;
-		t[3] = this.w;
+	public float[] get(float[] t) {
+		t[0] = x;
+		t[1] = y;
+		t[2] = z;
+		t[3] = w;
 		return t;
 	}
 
@@ -172,12 +244,33 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the target tuple
 	 * @return t for chaining
 	 */
-	public final Tuple4f get(Tuple4f t) {
-		t.x = this.x;
-		t.y = this.y;
-		t.z = this.z;
-		t.w = this.w;
-		return t;
+	public  T get(T t) {
+		t.x = x;
+		t.y = y;
+		t.z = z;
+		t.w = w;
+		return (T) t;
+	}
+
+	/**
+	 * Get an element of this tuple by index
+	 *
+	 * @param i 0 for x, 1 for y, 2 for z, 3 for 2
+	 * @return
+	 */
+	public float getElement(int i) {
+		switch (i) {
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
 	}
 
 	/**
@@ -187,12 +280,14 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4f add(Tuple4f t1, Tuple4f t2) {
-		this.x = t1.x + t2.x;
-		this.y = t1.y + t2.y;
-		this.z = t1.z + t2.z;
-		this.w = t1.w + t2.w;
-		return this;
+	public  T add(Tuple4f t1, Tuple4f t2) {
+ 
+			x = t1.x + t2.x;
+			y = t1.y + t2.y;
+			z = t1.z + t2.z;
+			w = t1.w + t2.w;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -201,12 +296,14 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4f add(Tuple4f t1) {
-		this.x += t1.x;
-		this.y += t1.y;
-		this.z += t1.z;
-		this.w += t1.w;
-		return this;
+	public  T add(Tuple4f t1) {
+ 
+			x += t1.x;
+			y += t1.y;
+			z += t1.z;
+			w += t1.w;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -216,12 +313,14 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4f sub(Tuple4f t1, Tuple4f t2) {
-		this.x = t1.x - t2.x;
-		this.y = t1.y - t2.y;
-		this.z = t1.z - t2.z;
-		this.w = t1.w - t2.w;
-		return this;
+	public  T sub(Tuple4f t1, Tuple4f t2) {
+ 
+			x = t1.x - t2.x;
+			y = t1.y - t2.y;
+			z = t1.z - t2.z;
+			w = t1.w - t2.w;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -230,12 +329,14 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4f sub(Tuple4f t1) {
-		this.x -= t1.x;
-		this.y -= t1.y;
-		this.z -= t1.z;
-		this.w -= t1.w;
-		return this;
+	public  T sub(Tuple4f t1) {
+ 
+			x -= t1.x;
+			y -= t1.y;
+			z -= t1.z;
+			w -= t1.w;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -244,12 +345,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the source tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4f negate(Tuple4f t1) {
-		this.x = -t1.x;
-		this.y = -t1.y;
-		this.z = -t1.z;
-		this.w = -t1.w;
-		return this;
+	public  T negate(Tuple4f t1) {
+		x = -t1.x;
+		y = -t1.y;
+		z = -t1.z;
+		w = -t1.w;
+		return (T) this;
 	}
 
 	/**
@@ -257,27 +358,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Tuple4f negate() {
-		this.x = -this.x;
-		this.y = -this.y;
-		this.z = -this.z;
-		this.w = -this.w;
-		return this;
-	}
-
-	/**
-	 * Sets the value of this tuple to the scalar multiplication of tuple t1.
-	 *
-	 * @param s the scalar value
-	 * @param t1 the source tuple
-	 * @return this for chaining
-	 */
-	public final Tuple4f scale(float s, Tuple4f t1) {
-		this.x = s * t1.x;
-		this.y = s * t1.y;
-		this.z = s * t1.z;
-		this.w = s * t1.w;
-		return this;
+	public  T negate() {
+		x = -x;
+		y = -y;
+		z = -z;
+		w = -w;
+		return (T) this;
 	}
 
 	/**
@@ -286,12 +372,47 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param s the scalar value
 	 * @return this for chaining
 	 */
-	public final Tuple4f scale(float s) {
-		this.x *= s;
-		this.y *= s;
-		this.z *= s;
-		this.w *= s;
-		return this;
+	public  T scale(float s) {
+ 
+			x *= s;
+			y *= s;
+			z *= s;
+			w *= s;
+ 
+		return (T) this;
+	}
+
+	/**
+	 * Multiply each component of t1 with t2 and store the result in this tuple
+	 *
+	 * @param t1 left operand
+	 * @param t2 right operand
+	 * @return this for chaining
+	 */
+	public  T mul(Tuple4f t1, Tuple4f t2) {
+ 
+			x = t1.x * t2.x;
+			y = t1.y * t2.y;
+			z = t1.z * t2.z;
+			w = t1.w * t2.w;
+ 
+		return (T) this;
+	}
+
+	/**
+	 * Multiply each component of t1 with this and store the result in this tuple
+	 *
+	 * @param t1 left operand
+	 * @return this for chaining
+	 */
+	public  T mul(Tuple4f t1) {
+ 
+			x *= t1.x;
+			y *= t1.y;
+			z *= t1.z;
+			w *= t1.w;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -302,12 +423,15 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t2 the tuple to be added
 	 * @return this for chaining
 	 */
-	public final Tuple4f scaleAdd(float s, Tuple4f t1, Tuple4f t2) {
-		this.x = s * t1.x + t2.x;
-		this.y = s * t1.y + t2.y;
-		this.z = s * t1.z + t2.z;
-		this.w = s * t1.w + t2.w;
-		return this;
+	public  T scaleAdd(float s, Tuple4f t1, Tuple4f t2) {
+ 
+			float _x = t2.x + s * t1.x;
+			float _y = t2.y + s * t1.y;
+			float _z = t2.z + s * t1.z;
+			float _w = t2.w + s * t1.w;
+			set(_x, _y, _z, _w);
+ 
+		return (T) this;
 	}
 
 	/**
@@ -317,12 +441,15 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1 the tuple to be added
 	 * @return this for chaining
 	 */
-	public final Tuple4f scaleAdd(float s, Tuple4f t1) {
-		this.x = s * this.x + t1.x;
-		this.y = s * this.y + t1.y;
-		this.z = s * this.z + t1.z;
-		this.w = s * this.w + t1.w;
-		return this;
+	public  T scaleAdd(float s, Tuple4f t1) {
+ 
+			float _x = s * x + t1.x;
+			float _y = s * y + t1.y;
+			float _z = s * z + t1.z;
+			float _w = s * w + t1.w;
+			set(_x, _y, _z, _w);
+ 
+		return (T) this;
 	}
 
 	/**
@@ -332,7 +459,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 */
 	@Override
 	public String toString() {
-		return "(" + this.x + ", " + this.y + ", " + this.z + ", " + this.w + ")";
+		return "(" + x + ", " + y + ", " + z + ", " + w + ")";
 	}
 
 	/**
@@ -342,12 +469,8 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @return true or false
 	 */
 	public boolean equals(Tuple4f t1) {
-		try {
-			return (this.x == t1.x && this.y == t1.y && this.z == t1.z
-				&& this.w == t1.w);
-		} catch (NullPointerException e2) {
-			return false;
-		}
+		return (x == t1.x && y == t1.y && z == t1.z
+			&& w == t1.w);
 	}
 
 	/**
@@ -361,8 +484,8 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	public boolean equals(Object t1) {
 		try {
 			Tuple4f t2 = (Tuple4f) t1;
-			return (this.x == t2.x && this.y == t2.y
-				&& this.z == t2.z && this.w == t2.w);
+			return (x == t2.x && y == t2.y
+				&& z == t2.z && w == t2.w);
 		} catch (NullPointerException | ClassCastException e2) {
 			return false;
 		}
@@ -377,80 +500,48 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @return true or false
 	 */
 	public boolean epsilonEquals(Tuple4f t1, float epsilon) {
-		float diff;
-
-		diff = x - t1.x;
-		if (Float.isNaN(diff)) {
+		if (different_epsilon(x, t1.x, epsilon)) {
 			return false;
 		}
-		if ((diff < 0 ? -diff : diff) > epsilon) {
+		if (different_epsilon(y, t1.y, epsilon)) {
 			return false;
 		}
-
-		diff = y - t1.y;
-		if (Float.isNaN(diff)) {
+		if (different_epsilon(z, t1.z, epsilon)) {
 			return false;
 		}
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		diff = z - t1.z;
-		if (Float.isNaN(diff)) {
-			return false;
-		}
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		diff = w - t1.w;
-		if (Float.isNaN(diff)) {
-			return false;
-		}
-		return (diff < 0 ? -diff : diff) <= epsilon;
+		return !different_epsilon(w, t1.w, epsilon);
 	}
 
 	/**
-	 * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
+	 * Clamps the tuple parameter to the range [low, high] and places the result into this tuple.
 	 *
 	 * @param min the lowest value in the tuple after clamping
 	 * @param max the highest value in the tuple after clamping
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple4f clamp(float min, float max, Tuple4f t) {
-		if (t.x > max) {
-			x = max;
-		} else if (t.x < min) {
-			x = min;
-		} else {
-			x = t.x;
-		}
+	public  T clamp(float min, float max, Tuple4f t) {
+		x = Math.min(max, Math.max(min, t.x));
+		y = Math.min(max, Math.max(min, t.y));
+		z = Math.min(max, Math.max(min, t.z));
+		w = Math.min(max, Math.max(min, t.w));
+		return (T) this;
+	}
 
-		if (t.y > max) {
-			y = max;
-		} else if (t.y < min) {
-			y = min;
-		} else {
-			y = t.y;
-		}
-
-		if (t.z > max) {
-			z = max;
-		} else if (t.z < min) {
-			z = min;
-		} else {
-			z = t.z;
-		}
-
-		if (t.w > max) {
-			w = max;
-		} else if (t.w < min) {
-			w = min;
-		} else {
-			w = t.w;
-		}
-		return this;
+	/**
+	 * Clamp the components of tuple t to between min and max, store the result in this tuple.
+	 *
+	 * @param min tuple with the minimum component values
+	 * @param max tuplie with the maximum component values
+	 * @param t
+	 * @return this for chaining
+	 */
+	public  T clamp(Tuple4f min, Tuple4f max, Tuple4f t) {
+		x = Math.min(max.x, Math.max(min.x, t.x));
+		y = Math.min(max.y, Math.max(min.y, t.y));
+		z = Math.min(max.z, Math.max(min.z, t.z));
+		w = Math.min(max.w, Math.max(min.w, t.w));
+		return (T) this;
 	}
 
 	/**
@@ -460,31 +551,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple4f clampMin(float min, Tuple4f t) {
-		if (t.x < min) {
-			x = min;
-		} else {
-			x = t.x;
-		}
-
-		if (t.y < min) {
-			y = min;
-		} else {
-			y = t.y;
-		}
-
-		if (t.z < min) {
-			z = min;
-		} else {
-			z = t.z;
-		}
-
-		if (t.w < min) {
-			w = min;
-		} else {
-			w = t.w;
-		}
-		return this;
+	public  T clampMin(float min, Tuple4f t) {
+		x = Math.max(min, t.x);
+		y = Math.max(min, t.y);
+		z = Math.max(min, t.z);
+		w = Math.max(min, t.w);
+		return (T) this;
 	}
 
 	/**
@@ -494,31 +566,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple4f clampMax(float max, Tuple4f t) {
-		if (t.x > max) {
-			x = max;
-		} else {
-			x = t.x;
-		}
-
-		if (t.y > max) {
-			y = max;
-		} else {
-			y = t.y;
-		}
-
-		if (t.z > max) {
-			z = max;
-		} else {
-			z = t.z;
-		}
-
-		if (t.w > max) {
-			w = max;
-		} else {
-			w = t.z;
-		}
-		return this;
+	public  T clampMax(float max, Tuple4f t) {
+		x = Math.min(max, t.x);
+		y = Math.min(max, t.y);
+		z = Math.min(max, t.z);
+		w = Math.min(max, t.w);
+		return (T) this;
 	}
 
 	/**
@@ -527,12 +580,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple4f abs(Tuple4f t) {
+	public  T abs(Tuple4f t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
 		z = Math.abs(t.z);
 		w = Math.abs(t.w);
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -542,31 +595,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param max the highest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple4f clamp(float min, float max) {
-		if (x > max) {
-			x = max;
-		} else if (x < min) {
-			x = min;
-		}
-
-		if (y > max) {
-			y = max;
-		} else if (y < min) {
-			y = min;
-		}
-
-		if (z > max) {
-			z = max;
-		} else if (z < min) {
-			z = min;
-		}
-
-		if (w > max) {
-			w = max;
-		} else if (w < min) {
-			w = min;
-		}
-		return this;
+	public  T clamp(float min, float max) {
+		x = Math.min(max, Math.min(max, x));
+		y = Math.min(max, Math.min(max, y));
+		z = Math.min(max, Math.min(max, z));
+		w = Math.min(max, Math.min(max, w));
+		return (T) this;
 	}
 
 	/**
@@ -575,20 +609,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param min the lowest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple4f clampMin(float min) {
-		if (x < min) {
-			x = min;
-		}
-		if (y < min) {
-			y = min;
-		}
-		if (z < min) {
-			z = min;
-		}
-		if (w < min) {
-			w = min;
-		}
-		return this;
+	public  T clampMin(float min) {
+		x = Math.max(min, x);
+		y = Math.max(min, y);
+		z = Math.max(min, z);
+		w = Math.max(min, w);
+		return (T) this;
 	}
 
 	/**
@@ -597,20 +623,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param max the highest value in the tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple4f clampMax(float max) {
-		if (x > max) {
-			x = max;
-		}
-		if (y > max) {
-			y = max;
-		}
-		if (z > max) {
-			z = max;
-		}
-		if (w > max) {
-			w = max;
-		}
-		return this;
+	public  T clampMax(float max) {
+		x = Math.min(max, x);
+		y = Math.min(max, y);
+		z = Math.min(max, z);
+		w = Math.min(max, w);
+		return (T) this;
 	}
 
 	/**
@@ -618,44 +636,12 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Tuple4f abs() {
+	public  T abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
 		z = Math.abs(z);
 		w = Math.abs(w);
-		return this;
-	}
-
-	/**
-	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 + alpha*t2.
-	 *
-	 * @param t1 the first tuple
-	 * @param t2 the second tuple
-	 * @param alpha the alpha interpolation parameter
-	 * @return this for chaining
-	 */
-	public Tuple4f interpolate(Tuple4f t1, Tuple4f t2, float alpha) {
-		this.x = (1 - alpha) * t1.x + alpha * t2.x;
-		this.y = (1 - alpha) * t1.y + alpha * t2.y;
-		this.z = (1 - alpha) * t1.z + alpha * t2.z;
-		this.w = (1 - alpha) * t1.w + alpha * t2.w;
-		return this;
-
-	}
-
-	/**
-	 * Linearly interpolates between this tuple and tuple t1 and places the result into this tuple: this = (1-alpha)*this + alpha*t1.
-	 *
-	 * @param t1 the first tuple
-	 * @param alpha the alpha interpolation parameter
-	 * @return this for chaining
-	 */
-	public Tuple4f interpolate(Tuple4f t1, float alpha) {
-		this.x = (1 - alpha) * this.x + alpha * t1.x;
-		this.y = (1 - alpha) * this.y + alpha * t1.y;
-		this.z = (1 - alpha) * this.z + alpha * t1.z;
-		this.w = (1 - alpha) * this.w + alpha * t1.w;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -684,7 +670,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -696,9 +682,9 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4f setX(float x) {
+	public  T setX(float x) {
 		this.x = x;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -708,7 +694,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -720,9 +706,9 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4f setY(float y) {
+	public  T setY(float y) {
 		this.y = y;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -732,7 +718,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getZ() {
+	public float getZ() {
 		return z;
 	}
 
@@ -744,9 +730,9 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4f setZ(float z) {
+	public  T setZ(float z) {
 		this.z = z;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -756,7 +742,7 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getW() {
+	public float getW() {
 		return w;
 	}
 
@@ -768,9 +754,9 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4f setW(float w) {
+	public  T setW(float w) {
 		this.w = w;
-		return this;
+		return (T) this;
 	}
 
 	/**
@@ -779,14 +765,33 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	 * @param t1
 	 * @param t2
 	 * @param t weight from t1 (0.0) to t2 (1.0)
-	 * @return
+	 * @return this for chaining
 	 */
-	public final Tuple4f mix(Tuple4f t1, Tuple4f t2, float t) {
-		this.x = t1.x * (1 - t) + t2.x * t;
-		this.y = t1.y * (1 - t) + t2.y * t;
-		this.z = t1.z * (1 - t) + t2.z * t;
-		this.w = t1.w * (1 - t) + t2.w * t;
-		return this;
+	public  T mix(Tuple4f t1, Tuple4f t2, float t) {
+ 
+			x = t1.x * (1.0f - t) + t2.x * t;
+			y = t1.y * (1.0f - t) + t2.y * t;
+			z = t1.z * (1.0f - t) + t2.z * t;
+			w = t1.w * (1.0f - t) + t2.w * t;
+ 
+		return (T) this;
+	}
+
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return this for chaining
+	 */
+	public  T mix(Tuple4f t1, float t) {
+ 
+			x = x * (1.0f - t) + t1.x * t;
+			y = y * (1.0f - t) + t1.y * t;
+			z = z * (1.0f - t) + t1.z * t;
+			w = w * (1.0f - t) + t1.w * t;
+ 
+		return (T) this;
 	}
 
 	/**
@@ -799,10 +804,262 @@ public abstract class Tuple4f implements java.io.Serializable, Cloneable {
 	@Override
 	public int hashCode() {
 		int hash = 7;
-		hash = 13 * hash + Float.floatToIntBits(this.x);
-		hash = 13 * hash + Float.floatToIntBits(this.y);
-		hash = 13 * hash + Float.floatToIntBits(this.z);
-		hash = 13 * hash + Float.floatToIntBits(this.w);
+		hash = 13 * hash + Float.floatToIntBits(x);
+		hash = 13 * hash + Float.floatToIntBits(y);
+		hash = 13 * hash + Float.floatToIntBits(z);
+		hash = 13 * hash + Float.floatToIntBits(w);
 		return hash;
 	}
+
+	/**
+	 * Get the maximum value among the first three components (x,y,z)
+	 *
+	 * @return maximum value
+	 */
+	public float max3() {
+		return Math.max(Math.max(x, y), z);
+	}
+
+	/**
+	 * Get the maximum value among the components (x,y,z,w)
+	 *
+	 * @return maximum value
+	 */
+	public float max() {
+		return Math.max(Math.max(Math.max(x, y), z), w);
+	}
+
+	/**
+	 * Return the axis index of one of the first three components (x,y,z) that has the highest value
+	 *
+	 * @return axis index
+	 */
+	public int maxAxis3() {
+		if (x >= Math.max(y, z)) {
+			return 0;
+		} else if (y >= Math.max(x, z)) {
+			return 1;
+		} else {
+			return 2;
+		}
+	}
+
+	/**
+	 * Return the axis index of the component that has the highest value
+	 *
+	 * @return axis index
+	 */
+	public int maxAxis() {
+		if (x >= Math.max(y, z)) {
+			return 0;
+		} else if (y >= Math.max(x, z)) {
+			return 1;
+		} else if (z >= Math.max(x, y)) {
+			return 2;
+		} else {
+			return 3;
+		}
+	}
+
+	/**
+	 * returns the dot product of this vector and v1
+	 *
+	 * @param v1 the other vector
+	 * @return the dot product of this vector and v1
+	 */
+	public float dot(Tuple4f v1) {
+ 
+			return (x * v1.x + y * v1.y + z * v1.z + w * v1.w);
+ 
+	}
+
+	/**
+	 * Sets the value of this vector to the normalization of vector v1.
+	 *
+	 * @param v1 the un-normalized vector
+	 * @return this for chaining
+	 */
+	public  T normalize(Tuple4f v1) {
+ 
+			set(v1);
+			normalize();
+ 
+		return (T) this;
+	}
+
+	/**
+	 * Normalizes this vector in place.
+	 *
+	 * @return this for chaining
+	 */
+	public  T normalize() {
+ 
+			float norm = (1.0f / length());
+			if (Float.isInfinite(norm)) {
+				return (T) this;
+			}
+			scale(norm);
+ 
+		return (T) this;
+	}
+
+	/**
+	 * Returns the length of this vector.
+	 *
+	 * @return the length of this vector as a float
+	 */
+	public float length() {
+ 
+			return sqrt(lengthSquared());
+ 
+	}
+
+	/**
+	 * Returns the squared length of this vector
+	 *
+	 * @return the squared length of this vector as a float
+	 */
+	public float lengthSquared() {
+ 
+			return (x * x + y * y
+				+ z * z + w * w);
+ 
+	}
+
+	/**
+	 * Promote this single precision tuple to a double precision single row matrix
+	 *
+	 * @return
+	 */
+	public Matrix promote() {
+		return new Matrix(new double[][]{{x, y, z, w}});
+	}
+
+	/**
+	 * Returns the (4-space) angle in radians between this vector and the vector parameter; the return value is constrained to the
+	 * range [0,PI].
+	 *
+	 * @param v1 the other vector
+	 * @return the angle in radians in the range [0,PI]
+	 */
+	public float angle(Tuple4f v1) {
+ 
+			float vDot = dot(v1) / (length() * v1.length());
+			if (vDot < -1.0f) {
+				vDot = -1.0f;
+			}
+			if (vDot > 1.0f) {
+				vDot = 1.0f;
+			}
+			return (acos(vDot));
+ 
+	}
+
+	/**
+	 * Computes the distance between this point and point p1.
+	 *
+	 * @param p1 the other point
+	 * @return the distance between the two points
+	 */
+	public float distance(Tuple4f p1) {
+ 
+			return sqrt(distanceSquared(p1));
+ 
+	}
+
+	/**
+	 * Computes the square of the distance between this point and point p1.
+	 *
+	 * @param p1 the other point
+	 * @return the square of distance between these two points as a float
+	 */
+	public float distanceSquared(Tuple4f p1) {
+			float dx = x - p1.x;
+			float dy = y - p1.y;
+			float dz = z - p1.z;
+			float dw = w - p1.w;
+			return dx * dx + dy * dy + dz * dz + dw * dw;
+	}
+
+	/**
+	 * Set an element of this tuple
+	 *
+	 * @param i 0 for x, 1 for y, 2 for z
+	 * @param value the new value
+	 * @return this for chaining
+	 */
+	public  T setElement(int i, float value) {
+		switch (i) {
+			case 0:
+				x = value;
+				break;
+			case 1:
+				y = value;
+				break;
+			case 2:
+				z = value;
+				break;
+			case 3:
+				w = value;
+			default:
+				throw new IndexOutOfBoundsException();
+		}
+		return (T) this;
+	}
+
+	/**
+	 * Sets the value of this tuple to the inverse of itself. Equal to 1/(t dot t)
+	 *
+	 * @return this for chaining
+	 */
+	public final  T inverse() {
+		float norm;
+
+		norm = 1.0f / lengthSquared();
+		scale(norm);
+		return (T) this;
+	}
+
+	/**
+	 * Sets the value of this tuple to the inverse of q1. Equal to 1/(t dot t)
+	 *
+	 * @param q1 the quaternion to be inverted
+	 * @return this for chaining
+	 */
+	public final   T inverse(Tuple4f q1) {
+		set(q1);
+		inverse();
+		return (T)this;
+	}
+
+
+	/**
+	 * Multiplies tuple t1 by the inverse of tuple t2 and places the value into this quaternion. The value of both argument
+	 * quaternions is preservered (this = t1 * t2^-1).
+	 *
+	 * @param t1 the first quaternion
+	 * @param t2 the second quaternion
+	 * @return this for chaining
+	 */
+	public final  T mulInverse(Tuple4f t1, Tuple4f t2) {
+		Vector4f temp = new Vector4f(t2);
+		temp.inverse();
+		mul(t1, temp);
+		return (T) this;
+	}
+
+		/**
+	 * Multiplies this tuple by the inverse of tuple t1 and places the value into this tuple. The value of the
+	 * argument tuple is preserved (this = this * q^-1).
+	 *
+	 * @param t1 the other quaternion
+	 * @return this for chaining
+	 */
+	public final   T  mulInverse(Tuple4f t1) {
+		Vector4f temp = new Vector4f(t1);
+		temp.inverse();
+		mul(temp);
+		return (T)this;
+	}
+
 }

@@ -86,10 +86,10 @@ public class Color4b extends Tuple4b implements java.io.Serializable {
 	}
 
 	/**
-	 * Constructs and initializes a Color4b to (0,0,0,0).
+	 * Constructs and initializes a Color4b to (0,0,0,1).
 	 */
 	public Color4b() {
-		super();
+		super((byte) 0, (byte) 0, (byte) 0, (byte) 0);
 	}
 
 }

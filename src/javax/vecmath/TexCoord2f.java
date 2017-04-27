@@ -80,7 +80,7 @@ public class TexCoord2f extends Tuple2f implements java.io.Serializable {
 	 * Constructs and initializes a TexCoord2f to (0,0).
 	 */
 	public TexCoord2f() {
-		super();
+
 	}
 
 }

@@ -39,7 +39,14 @@ package javax.vecmath;
  */
 public class Color4f extends Tuple4f implements java.io.Serializable {
 
+	/**
+	 *
+	 */
 	public static final Color4f BLACK = new Color4f(0f, 0f, 0f, 1f);
+
+	/**
+	 *
+	 */
 	public static final Color4f WHITE = new Color4f(1f, 1f, 1f, 1f);
 
 	// Compatible with 1.1
@@ -101,10 +108,10 @@ public class Color4f extends Tuple4f implements java.io.Serializable {
 	 * @param bits
 	 */
 	public Color4f(int bits) {
-		z = (float) (bits & 0xff) / 255.0f;
-		y = (float) ((bits >>> 8) & 0xff) / 255.0f;
-		x = (float) ((bits >>> 16) & 0xff) / 255.0f;
-		w = (float) ((bits >>> 24) & 0xff) / 255.0f;
+		z = (float) (bits & 0xff) / 256.0f;
+		y = (float) ((bits >>> 8) & 0xff) / 256.0f;
+		x = (float) ((bits >>> 16) & 0xff) / 256.0f;
+		w = (float) ((bits >>> 24) & 0xff) / 256.0f;
 	}
 
 	/**
@@ -117,12 +124,16 @@ public class Color4f extends Tuple4f implements java.io.Serializable {
 	}
 
 	/**
-	 * Constructs and initializes a Color4f to (0.0, 0.0, 0.0, 0.0).
+	 * Constructs and initializes a Color4f to (0.0, 0.0, 0.0, 1.0).
 	 */
 	public Color4f() {
 		super(0, 0, 0, 1);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public final int getRGB() {
 		byte red = (byte) Math.min(Math.max(x * 255.0f, 0.0f), 255.0f);
 		byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);

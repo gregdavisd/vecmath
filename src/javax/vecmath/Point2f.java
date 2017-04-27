@@ -29,7 +29,7 @@
  * $State: Exp $
  */
 package javax.vecmath;
-
+ 
 /**
  * A 2 element point that is represented by single precision floating point x,y coordinates.
  *
@@ -80,35 +80,7 @@ public class Point2f extends Tuple2f implements java.io.Serializable {
 	 * Constructs and initializes a Point2f to (0,0).
 	 */
 	public Point2f() {
-		super();
-	}
 
-	/**
-	 * Computes the square of the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return distance squared
-	 */
-	public final float distanceSquared(Point2f p1) {
-		float dx, dy;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		return dx * dx + dy * dy;
-	}
-
-	/**
-	 * Computes the distance between this point and point p1.
-	 *
-	 * @param p1 the other point
-	 * @return distance
-	 */
-	public final float distance(Point2f p1) {
-		float dx, dy;
-
-		dx = this.x - p1.x;
-		dy = this.y - p1.y;
-		return (float) Math.sqrt(dx * dx + dy * dy);
 	}
 
 	/**

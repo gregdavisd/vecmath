@@ -29,12 +29,12 @@
  * $State: Exp $
  */
 package javax.vecmath;
-
+ 
 /**
  * A 4-element vector represented by single-precision floating point x,y,z,w coordinates.
  *
  */
-public class Vector4f extends Tuple4f implements java.io.Serializable {
+public class Vector4f extends Tuple4f<Vector4f> implements java.io.Serializable {
 
 	// Compatible with 1.1
 	static final long serialVersionUID = 8749319902347760659L;
@@ -95,103 +95,6 @@ public class Vector4f extends Tuple4f implements java.io.Serializable {
 	 */
 	public Vector4f() {
 		super();
-	}
-
-	/**
-	 * Sets the x,y,z components of this vector to the corresponding components of tuple t1. The w component of this vector is set to
-	 * 0.
-	 *
-	 * @param t1 the tuple to be copied
-	 * @return this for chaining
-	 *
-	 * @since vecmath 1.2
-	 */
-	public final Vector4f set(Tuple3f t1) {
-		this.x = t1.x;
-		this.y = t1.y;
-		this.z = t1.z;
-		this.w = 0.0f;
-		return this;
-	}
-
-	/**
-	 * Returns the length of this vector.
-	 *
-	 * @return the length of this vector as a float
-	 */
-	public final float length() {
-		return (float) Math.sqrt(this.x * this.x + this.y * this.y
-			+ this.z * this.z + this.w * this.w);
-	}
-
-	/**
-	 * Returns the squared length of this vector
-	 *
-	 * @return the squared length of this vector as a float
-	 */
-	public final float lengthSquared() {
-		return (this.x * this.x + this.y * this.y
-			+ this.z * this.z + this.w * this.w);
-	}
-
-	/**
-	 * returns the dot product of this vector and v1
-	 *
-	 * @param v1 the other vector
-	 * @return the dot product of this vector and v1
-	 */
-	public final float dot(Vector4f v1) {
-		return (this.x * v1.x + this.y * v1.y + this.z * v1.z + this.w * v1.w);
-	}
-
-	/**
-	 * Sets the value of this vector to the normalization of vector v1.
-	 *
-	 * @param v1 the un-normalized vector
-	 * @return this for chaining
-	 */
-	public final Vector4f normalize(Vector4f v1) {
-		set(v1);
-		normalize();
-		return this;
-	}
-
-	/**
-	 * Normalizes this vector in place.
-	 *
-	 * @return this for chaining
-	 */
-	public final Vector4f normalize() {
-		float norm;
-
-		norm = (float) (1.0 / Math.sqrt(this.x * this.x + this.y * this.y
-			+ this.z * this.z + this.w * this.w));
-		if (Float.isInfinite(norm)) {
-			return this;
-		}
-		this.x *= norm;
-		this.y *= norm;
-		this.z *= norm;
-		this.w *= norm;
-		return this;
-	}
-
-	/**
-	 * Returns the (4-space) angle in radians between this vector and the vector parameter; the return value is constrained to the
-	 * range [0,PI].
-	 *
-	 * @param v1 the other vector
-	 * @return the angle in radians in the range [0,PI]
-	 */
-	public final float angle(Vector4f v1) {
-		float vDot = this.dot(v1) / (this.length() * v1.length());
-		if (vDot < -1.0) {
-			vDot = -1.0f;
-		}
-		if (vDot > 1.0) {
-			vDot = 1.0f;
-		}
-		return ((float) (Math.acos(vDot)));
 	}
 
 }

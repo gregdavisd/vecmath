@@ -30,12 +30,15 @@
  */
 package javax.vecmath;
 
+import static javax.vecmath.VecMath.atan2;
+import static javax.vecmath.VecMath.sqrt;
+
 /**
  * A four-element axis angle represented by single-precision floating point x,y,z,angle components. An axis angle is a rotation of
  * angle (radians) about the vector (x,y,z).
  *
  */
-public class AxisAngle4f implements java.io.Serializable, Cloneable {
+public final class AxisAngle4f implements java.io.Serializable, Cloneable {
 
 	// Compatible with 1.1
 	static final long serialVersionUID = -163246355858070601L;
@@ -60,7 +63,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 */
 	public float angle;
 
-	final static float EPS = 0.000001f;
+	final static float EPS = 0.0001f;
 
 	/**
 	 * Constructs and initializes a AxisAngle4f from the specified xyzw coordinates.
@@ -120,6 +123,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * Constructs and initializes an AxisAngle4f to (0,0,1,0).
 	 */
 	public AxisAngle4f() {
+
 		this.x = 0.0f;
 		this.y = 0.0f;
 		this.z = 1.0f;
@@ -135,7 +139,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param angle the angle of rotation in radians
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(float x, float y, float z, float angle) {
+	public AxisAngle4f set(float x, float y, float z, float angle) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -149,7 +153,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param a the array of length 4 containing x,y,z,angle in order
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(float[] a) {
+	public AxisAngle4f set(float[] a) {
 		this.x = a[0];
 		this.y = a[1];
 		this.z = a[2];
@@ -163,7 +167,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param a1 the axis-angle to be copied
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(AxisAngle4f a1) {
+	public AxisAngle4f set(AxisAngle4f a1) {
 		this.x = a1.x;
 		this.y = a1.y;
 		this.z = a1.z;
@@ -180,7 +184,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.2
 	 */
-	public final AxisAngle4f set(Vector3f axis, float angle) {
+	public AxisAngle4f set(Vector3f axis, float angle) {
 		this.x = axis.x;
 		this.y = axis.y;
 		this.z = axis.z;
@@ -194,7 +198,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param a the array
 	 * @return a for chaining
 	 */
-	public final float[] get(float[] a) {
+	public float[] get(float[] a) {
 		a[0] = this.x;
 		a[1] = this.y;
 		a[2] = this.z;
@@ -209,17 +213,17 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param q1 the Quat4f
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(Quat4f q1) {
+	public AxisAngle4f set(Quat4f q1) {
 		float mag = q1.x * q1.x + q1.y * q1.y + q1.z * q1.z;
 
 		if (mag > EPS) {
-			mag = (float) Math.sqrt(mag);
+			mag = sqrt(mag);
 			float invMag = 1.0f / mag;
 
-			x = (float) (q1.x * invMag);
-			y = (float) (q1.y * invMag);
-			z = (float) (q1.z * invMag);
-			angle = (float) (2.0 * Math.atan2(mag, q1.w));
+			x = (q1.x * invMag);
+			y = (q1.y * invMag);
+			z = (q1.z * invMag);
+			angle = (2.0f * atan2(mag, q1.w));
 		} else {
 			x = 0.0f;
 			y = 1.0f;
@@ -236,7 +240,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix4f
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(Matrix4f m1) {
+	public AxisAngle4f set(Matrix4f m1) {
 		Matrix3f m3f = new Matrix3f();
 
 		m1.get(m3f);
@@ -244,18 +248,18 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 		x = m3f.m21 - m3f.m12;
 		y = m3f.m02 - m3f.m20;
 		z = m3f.m10 - m3f.m01;
-		float mag = x * x + y * y + z * z;
+		float mag = lengthSquared(x, y, z);
 
 		if (mag > EPS) {
-			mag = (float) Math.sqrt(mag);
+			mag = sqrt(mag);
 			float sin = 0.5f * mag;
 			float cos = 0.5f * (m3f.m00 + m3f.m11 + m3f.m22 - 1.0f);
 
-			angle = (float) Math.atan2(sin, cos);
+			angle = atan2(sin, cos);
 			float invMag = 1.0f / mag;
-			x = (float) (x * invMag);
-			y = (float) (y * invMag);
-			z = (float) (z * invMag);
+			x = (x * invMag);
+			y = (y * invMag);
+			z = (z * invMag);
 		} else {
 			x = 0.0f;
 			y = 1.0f;
@@ -272,22 +276,22 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 * @param m1 the matrix3f
 	 * @return this for chaining
 	 */
-	public final AxisAngle4f set(Matrix3f m1) {
-		x = (float) (m1.m21 - m1.m12);
-		y = (float) (m1.m02 - m1.m20);
-		z = (float) (m1.m10 - m1.m01);
-		float mag = x * x + y * y + z * z;
+	public AxisAngle4f set(Matrix3f m1) {
+		x = (m1.m21 - m1.m12);
+		y = (m1.m02 - m1.m20);
+		z = (m1.m10 - m1.m01);
+		float mag = lengthSquared(x, y, z);
 		if (mag > EPS) {
-			mag = (float) Math.sqrt(mag);
+			mag = sqrt(mag);
 			float sin = 0.5f * mag;
 			float cos = 0.5f * (m1.m00 + m1.m11 + m1.m22 - 1.0f);
 
-			angle = (float) Math.atan2(sin, cos);
+			angle = atan2(sin, cos);
 
 			float invMag = 1.0f / mag;
-			x = (float) (x * invMag);
-			y = (float) (y * invMag);
-			z = (float) (z * invMag);
+			x = (x * invMag);
+			y = (y * invMag);
+			z = (z * invMag);
 		} else {
 			x = 0.0f;
 			y = 1.0f;
@@ -342,38 +346,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 
 	}
 
-	/**
-	 * Returns true if the L-infinite distance between this axis-angle and axis-angle a1 is less than or equal to the epsilon
-	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2),
-	 * abs(angle1-angle2)].
-	 *
-	 * @param a1 the axis-angle to be compared to this axis-angle
-	 * @param epsilon the threshold value
-	 * @return true or false
-	 */
-	public boolean epsilonEquals(AxisAngle4f a1, float epsilon) {
-		float diff;
-
-		diff = x - a1.x;
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		diff = y - a1.y;
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		diff = z - a1.z;
-		if ((diff < 0 ? -diff : diff) > epsilon) {
-			return false;
-		}
-
-		diff = angle - a1.angle;
-		return (diff < 0 ? -diff : diff) <= epsilon;
-
-	}
-
+	
 	/**
 	 * Returns a hash code value based on the data values in this object. Two different AxisAngle4f objects with identical data
 	 * values (i.e., AxisAngle4f.equals returns true) will return the same hash code value. Two objects with different data members
@@ -418,7 +391,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getAngle() {
+	public float getAngle() {
 		return angle;
 	}
 
@@ -431,7 +404,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final AxisAngle4f setAngle(float angle) {
+	public AxisAngle4f setAngle(float angle) {
 		this.angle = angle;
 		return this;
 	}
@@ -443,7 +416,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -455,7 +428,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final AxisAngle4f setX(float x) {
+	public AxisAngle4f setX(float x) {
 		this.x = x;
 		return this;
 	}
@@ -467,7 +440,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -479,7 +452,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final AxisAngle4f setY(float y) {
+	public AxisAngle4f setY(float y) {
 		this.y = y;
 		return this;
 	}
@@ -491,7 +464,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final float getZ() {
+	public float getZ() {
 		return z;
 	}
 
@@ -503,9 +476,12 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final AxisAngle4f setZ(float z) {
+	public AxisAngle4f setZ(float z) {
 		this.z = z;
 		return this;
 	}
 
+	static private float lengthSquared(float x, float y, float z) {
+		return (x * x + y * y + z * z);
+	}
 }

@@ -71,7 +71,7 @@ public class Point2i extends Tuple2i implements java.io.Serializable {
 	 * Constructs and initializes a Point2i to (0,0).
 	 */
 	public Point2i() {
-		super();
+
 	}
 
 }

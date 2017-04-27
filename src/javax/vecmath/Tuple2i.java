@@ -84,8 +84,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * Constructs and initializes a Tuple2i to (0,0).
 	 */
 	public Tuple2i() {
-		this.x = 0;
-		this.y = 0;
+
 	}
 
 	/**

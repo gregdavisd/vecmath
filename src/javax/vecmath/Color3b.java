@@ -88,7 +88,7 @@ public class Color3b extends Tuple3b implements java.io.Serializable {
 	 * Constructs and initializes a Color3b to (0,0,0).
 	 */
 	public Color3b() {
-		super();
+
 	}
 
 }
