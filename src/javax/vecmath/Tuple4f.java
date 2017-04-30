@@ -29,7 +29,7 @@
  * $State: Exp $
  */
 package javax.vecmath;
- 
+
 import static javax.vecmath.VecMath.acos;
 import static javax.vecmath.VecMath.different_epsilon;
 import static javax.vecmath.VecMath.sqrt;
@@ -144,7 +144,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param w the w coordinate
 	 * @return this for chaining
 	 */
-	public  T set(float x, float y, float z, float w) {
+	public T set(float x, float y, float z, float w) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -158,7 +158,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the array of length 4 containing xyzw in order
 	 * @return this for chaining
 	 */
-	public  T set(float[] t) {
+	public T set(float[] t) {
 		x = t[0];
 		y = t[1];
 		z = t[2];
@@ -172,7 +172,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the array of length 4 containing xyzw in order
 	 * @return this for chaining
 	 */
-	public  T set(double[] t) {
+	public T set(double[] t) {
 		x = (float) t[0];
 		y = (float) t[1];
 		z = (float) t[2];
@@ -186,7 +186,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 the tuple to be copied
 	 * @return this for chaining
 	 */
-	public  T set(Tuple4f t1) {
+	public T set(Tuple4f t1) {
 		x = t1.x;
 		y = t1.y;
 		z = t1.z;
@@ -199,7 +199,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public  T setZero() {
+	public T setZero() {
 		x = 0.0f;
 		y = 0.0f;
 		z = 0.0f;
@@ -216,14 +216,28 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @since vecmath 1.2
 	 */
-	public  T set(Tuple3f t1, float w) {
+	public T set(Tuple3f t1, float w) {
 		this.x = t1.x;
 		this.y = t1.y;
 		this.z = t1.z;
 		this.w = w;
 		return (T) this;
 	}
-
+	/**
+	 * Sets the x,y,z components of this vector to the corresponding components of tuple t1,  w is left unchanged.
+	 *
+	 * @param t1 the tuple to be copied
+	 * @param w w component to copy
+	 * @return this for chaining
+	 *
+	 * @since vecmath 1.2
+	 */
+	public T set(Tuple3f t1 ) {
+		this.x = t1.x;
+		this.y = t1.y;
+		this.z = t1.z;
+		return (T) this;
+	}
 	/**
 	 * Copies the values of this tuple into the array t.
 	 *
@@ -244,7 +258,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the target tuple
 	 * @return t for chaining
 	 */
-	public  T get(T t) {
+	public T get(T t) {
 		t.x = x;
 		t.y = y;
 		t.z = z;
@@ -280,13 +294,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public  T add(Tuple4f t1, Tuple4f t2) {
- 
-			x = t1.x + t2.x;
-			y = t1.y + t2.y;
-			z = t1.z + t2.z;
-			w = t1.w + t2.w;
- 
+	public T add(Tuple4f t1, Tuple4f t2) {
+
+		x = t1.x + t2.x;
+		y = t1.y + t2.y;
+		z = t1.z + t2.z;
+		w = t1.w + t2.w;
+
 		return (T) this;
 	}
 
@@ -296,13 +310,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public  T add(Tuple4f t1) {
- 
-			x += t1.x;
-			y += t1.y;
-			z += t1.z;
-			w += t1.w;
- 
+	public T add(Tuple4f t1) {
+
+		x += t1.x;
+		y += t1.y;
+		z += t1.z;
+		w += t1.w;
+
 		return (T) this;
 	}
 
@@ -313,13 +327,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public  T sub(Tuple4f t1, Tuple4f t2) {
- 
-			x = t1.x - t2.x;
-			y = t1.y - t2.y;
-			z = t1.z - t2.z;
-			w = t1.w - t2.w;
- 
+	public T sub(Tuple4f t1, Tuple4f t2) {
+
+		x = t1.x - t2.x;
+		y = t1.y - t2.y;
+		z = t1.z - t2.z;
+		w = t1.w - t2.w;
+
 		return (T) this;
 	}
 
@@ -329,13 +343,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public  T sub(Tuple4f t1) {
- 
-			x -= t1.x;
-			y -= t1.y;
-			z -= t1.z;
-			w -= t1.w;
- 
+	public T sub(Tuple4f t1) {
+
+		x -= t1.x;
+		y -= t1.y;
+		z -= t1.z;
+		w -= t1.w;
+
 		return (T) this;
 	}
 
@@ -345,7 +359,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 the source tuple
 	 * @return this for chaining
 	 */
-	public  T negate(Tuple4f t1) {
+	public T negate(Tuple4f t1) {
 		x = -t1.x;
 		y = -t1.y;
 		z = -t1.z;
@@ -358,7 +372,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public  T negate() {
+	public T negate() {
 		x = -x;
 		y = -y;
 		z = -z;
@@ -372,13 +386,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param s the scalar value
 	 * @return this for chaining
 	 */
-	public  T scale(float s) {
- 
-			x *= s;
-			y *= s;
-			z *= s;
-			w *= s;
- 
+	public T scale(float s) {
+
+		x *= s;
+		y *= s;
+		z *= s;
+		w *= s;
+
 		return (T) this;
 	}
 
@@ -389,13 +403,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t2 right operand
 	 * @return this for chaining
 	 */
-	public  T mul(Tuple4f t1, Tuple4f t2) {
- 
-			x = t1.x * t2.x;
-			y = t1.y * t2.y;
-			z = t1.z * t2.z;
-			w = t1.w * t2.w;
- 
+	public T mul(Tuple4f t1, Tuple4f t2) {
+
+		x = t1.x * t2.x;
+		y = t1.y * t2.y;
+		z = t1.z * t2.z;
+		w = t1.w * t2.w;
+
 		return (T) this;
 	}
 
@@ -405,13 +419,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 left operand
 	 * @return this for chaining
 	 */
-	public  T mul(Tuple4f t1) {
- 
-			x *= t1.x;
-			y *= t1.y;
-			z *= t1.z;
-			w *= t1.w;
- 
+	public T mul(Tuple4f t1) {
+
+		x *= t1.x;
+		y *= t1.y;
+		z *= t1.z;
+		w *= t1.w;
+
 		return (T) this;
 	}
 
@@ -423,14 +437,14 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t2 the tuple to be added
 	 * @return this for chaining
 	 */
-	public  T scaleAdd(float s, Tuple4f t1, Tuple4f t2) {
- 
-			float _x = t2.x + s * t1.x;
-			float _y = t2.y + s * t1.y;
-			float _z = t2.z + s * t1.z;
-			float _w = t2.w + s * t1.w;
-			set(_x, _y, _z, _w);
- 
+	public T scaleAdd(float s, Tuple4f t1, Tuple4f t2) {
+
+		float _x = t2.x + s * t1.x;
+		float _y = t2.y + s * t1.y;
+		float _z = t2.z + s * t1.z;
+		float _w = t2.w + s * t1.w;
+		set(_x, _y, _z, _w);
+
 		return (T) this;
 	}
 
@@ -441,14 +455,14 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t1 the tuple to be added
 	 * @return this for chaining
 	 */
-	public  T scaleAdd(float s, Tuple4f t1) {
- 
-			float _x = s * x + t1.x;
-			float _y = s * y + t1.y;
-			float _z = s * z + t1.z;
-			float _w = s * w + t1.w;
-			set(_x, _y, _z, _w);
- 
+	public T scaleAdd(float s, Tuple4f t1) {
+
+		float _x = s * x + t1.x;
+		float _y = s * y + t1.y;
+		float _z = s * z + t1.z;
+		float _w = s * w + t1.w;
+		set(_x, _y, _z, _w);
+
 		return (T) this;
 	}
 
@@ -520,7 +534,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public  T clamp(float min, float max, Tuple4f t) {
+	public T clamp(float min, float max, Tuple4f t) {
 		x = Math.min(max, Math.max(min, t.x));
 		y = Math.min(max, Math.max(min, t.y));
 		z = Math.min(max, Math.max(min, t.z));
@@ -536,7 +550,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t
 	 * @return this for chaining
 	 */
-	public  T clamp(Tuple4f min, Tuple4f max, Tuple4f t) {
+	public T clamp(Tuple4f min, Tuple4f max, Tuple4f t) {
 		x = Math.min(max.x, Math.max(min.x, t.x));
 		y = Math.min(max.y, Math.max(min.y, t.y));
 		z = Math.min(max.z, Math.max(min.z, t.z));
@@ -551,7 +565,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public  T clampMin(float min, Tuple4f t) {
+	public T clampMin(float min, Tuple4f t) {
 		x = Math.max(min, t.x);
 		y = Math.max(min, t.y);
 		z = Math.max(min, t.z);
@@ -566,7 +580,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public  T clampMax(float max, Tuple4f t) {
+	public T clampMax(float max, Tuple4f t) {
 		x = Math.min(max, t.x);
 		y = Math.min(max, t.y);
 		z = Math.min(max, t.z);
@@ -580,12 +594,34 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public  T abs(Tuple4f t) {
+	public T abs(Tuple4f t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
 		z = Math.abs(t.z);
 		w = Math.abs(t.w);
 		return (T) this;
+	}
+
+	/**
+	 * Sets each component of this tuple to its absolute value.
+	 *
+	 * @return this for chaining
+	 */
+	public T absolute() {
+		abs();
+		return (T) this;
+	}
+
+	/**
+	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 *
+	 * @param t the source tuple, which will not be modified
+	 * @return this for chaining
+	 */
+	public T absolute(Tuple4f t) {
+		abs();
+		return (T) this;
+
 	}
 
 	/**
@@ -595,7 +631,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param max the highest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public  T clamp(float min, float max) {
+	public T clamp(float min, float max) {
 		x = Math.min(max, Math.min(max, x));
 		y = Math.min(max, Math.min(max, y));
 		z = Math.min(max, Math.min(max, z));
@@ -609,7 +645,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param min the lowest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public  T clampMin(float min) {
+	public T clampMin(float min) {
 		x = Math.max(min, x);
 		y = Math.max(min, y);
 		z = Math.max(min, z);
@@ -623,7 +659,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param max the highest value in the tuple after clamping
 	 * @return this for chaining
 	 */
-	public  T clampMax(float max) {
+	public T clampMax(float max) {
 		x = Math.min(max, x);
 		y = Math.min(max, y);
 		z = Math.min(max, z);
@@ -636,7 +672,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public  T abs() {
+	public T abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
 		z = Math.abs(z);
@@ -682,7 +718,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @since vecmath 1.5
 	 */
-	public  T setX(float x) {
+	public T setX(float x) {
 		this.x = x;
 		return (T) this;
 	}
@@ -706,7 +742,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @since vecmath 1.5
 	 */
-	public  T setY(float y) {
+	public T setY(float y) {
 		this.y = y;
 		return (T) this;
 	}
@@ -730,7 +766,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @since vecmath 1.5
 	 */
-	public  T setZ(float z) {
+	public T setZ(float z) {
 		this.z = z;
 		return (T) this;
 	}
@@ -754,7 +790,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @since vecmath 1.5
 	 */
-	public  T setW(float w) {
+	public T setW(float w) {
 		this.w = w;
 		return (T) this;
 	}
@@ -767,13 +803,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t weight from t1 (0.0) to t2 (1.0)
 	 * @return this for chaining
 	 */
-	public  T mix(Tuple4f t1, Tuple4f t2, float t) {
- 
-			x = t1.x * (1.0f - t) + t2.x * t;
-			y = t1.y * (1.0f - t) + t2.y * t;
-			z = t1.z * (1.0f - t) + t2.z * t;
-			w = t1.w * (1.0f - t) + t2.w * t;
- 
+	public T mix(Tuple4f t1, Tuple4f t2, float t) {
+
+		x = t1.x * (1.0f - t) + t2.x * t;
+		y = t1.y * (1.0f - t) + t2.y * t;
+		z = t1.z * (1.0f - t) + t2.z * t;
+		w = t1.w * (1.0f - t) + t2.w * t;
+
 		return (T) this;
 	}
 
@@ -784,13 +820,13 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param t weight from t1 (0.0) to t2 (1.0)
 	 * @return this for chaining
 	 */
-	public  T mix(Tuple4f t1, float t) {
- 
-			x = x * (1.0f - t) + t1.x * t;
-			y = y * (1.0f - t) + t1.y * t;
-			z = z * (1.0f - t) + t1.z * t;
-			w = w * (1.0f - t) + t1.w * t;
- 
+	public T mix(Tuple4f t1, float t) {
+
+		x = x * (1.0f - t) + t1.x * t;
+		y = y * (1.0f - t) + t1.y * t;
+		z = z * (1.0f - t) + t1.z * t;
+		w = w * (1.0f - t) + t1.w * t;
+
 		return (T) this;
 	}
 
@@ -868,9 +904,9 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the dot product of this vector and v1
 	 */
 	public float dot(Tuple4f v1) {
- 
-			return (x * v1.x + y * v1.y + z * v1.z + w * v1.w);
- 
+
+		return (x * v1.x + y * v1.y + z * v1.z + w * v1.w);
+
 	}
 
 	/**
@@ -879,11 +915,11 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param v1 the un-normalized vector
 	 * @return this for chaining
 	 */
-	public  T normalize(Tuple4f v1) {
- 
-			set(v1);
-			normalize();
- 
+	public T normalize(Tuple4f v1) {
+
+		set(v1);
+		normalize();
+
 		return (T) this;
 	}
 
@@ -892,14 +928,14 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public  T normalize() {
- 
-			float norm = (1.0f / length());
-			if (Float.isInfinite(norm)) {
-				return (T) this;
-			}
-			scale(norm);
- 
+	public T normalize() {
+
+		float norm = (1.0f / length());
+		if (Float.isInfinite(norm)) {
+			return (T) this;
+		}
+		scale(norm);
+
 		return (T) this;
 	}
 
@@ -909,9 +945,9 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the length of this vector as a float
 	 */
 	public float length() {
- 
-			return sqrt(lengthSquared());
- 
+
+		return sqrt(lengthSquared());
+
 	}
 
 	/**
@@ -920,10 +956,10 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the squared length of this vector as a float
 	 */
 	public float lengthSquared() {
- 
-			return (x * x + y * y
-				+ z * z + w * w);
- 
+
+		return (x * x + y * y
+			+ z * z + w * w);
+
 	}
 
 	/**
@@ -943,16 +979,16 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the angle in radians in the range [0,PI]
 	 */
 	public float angle(Tuple4f v1) {
- 
-			float vDot = dot(v1) / (length() * v1.length());
-			if (vDot < -1.0f) {
-				vDot = -1.0f;
-			}
-			if (vDot > 1.0f) {
-				vDot = 1.0f;
-			}
-			return (acos(vDot));
- 
+
+		float vDot = dot(v1) / (length() * v1.length());
+		if (vDot < -1.0f) {
+			vDot = -1.0f;
+		}
+		if (vDot > 1.0f) {
+			vDot = 1.0f;
+		}
+		return (acos(vDot));
+
 	}
 
 	/**
@@ -962,9 +998,9 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the distance between the two points
 	 */
 	public float distance(Tuple4f p1) {
- 
-			return sqrt(distanceSquared(p1));
- 
+
+		return sqrt(distanceSquared(p1));
+
 	}
 
 	/**
@@ -974,11 +1010,11 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @return the square of distance between these two points as a float
 	 */
 	public float distanceSquared(Tuple4f p1) {
-			float dx = x - p1.x;
-			float dy = y - p1.y;
-			float dz = z - p1.z;
-			float dw = w - p1.w;
-			return dx * dx + dy * dy + dz * dz + dw * dw;
+		float dx = x - p1.x;
+		float dy = y - p1.y;
+		float dz = z - p1.z;
+		float dw = w - p1.w;
+		return dx * dx + dy * dy + dz * dz + dw * dw;
 	}
 
 	/**
@@ -988,7 +1024,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 * @param value the new value
 	 * @return this for chaining
 	 */
-	public  T setElement(int i, float value) {
+	public T setElement(int i, float value) {
 		switch (i) {
 			case 0:
 				x = value;
@@ -1012,7 +1048,7 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public final  T inverse() {
+	public final T inverse() {
 		float norm;
 
 		norm = 1.0f / lengthSquared();
@@ -1023,43 +1059,67 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
 	/**
 	 * Sets the value of this tuple to the inverse of q1. Equal to 1/(t dot t)
 	 *
-	 * @param q1 the quaternion to be inverted
+	 * @param q1 the tuple to be inverted
 	 * @return this for chaining
 	 */
-	public final   T inverse(Tuple4f q1) {
+	public final T inverse(Tuple4f q1) {
 		set(q1);
 		inverse();
-		return (T)this;
+		return (T) this;
 	}
 
-
 	/**
-	 * Multiplies tuple t1 by the inverse of tuple t2 and places the value into this quaternion. The value of both argument
-	 * quaternions is preservered (this = t1 * t2^-1).
+	 * Multiplies tuple t1 by the inverse of tuple t2 and places the value into this tuple. The value of both argument
+	 * tuple is preserved (this = t1 * t2^-1).
 	 *
-	 * @param t1 the first quaternion
-	 * @param t2 the second quaternion
+	 * @param t1 the first tuple
+	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public final  T mulInverse(Tuple4f t1, Tuple4f t2) {
+	public final T mulInverse(Tuple4f t1, Tuple4f t2) {
 		Vector4f temp = new Vector4f(t2);
 		temp.inverse();
 		mul(t1, temp);
 		return (T) this;
 	}
 
-		/**
-	 * Multiplies this tuple by the inverse of tuple t1 and places the value into this tuple. The value of the
-	 * argument tuple is preserved (this = this * q^-1).
+	/**
+	 * Multiplies this tuple by the inverse of tuple t1 and places the value into this tuple. The value of the argument tuple is
+	 * preserved (this = this * q^-1).
 	 *
-	 * @param t1 the other quaternion
+	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public final   T  mulInverse(Tuple4f t1) {
+	public final T mulInverse(Tuple4f t1) {
 		Vector4f temp = new Vector4f(t1);
 		temp.inverse();
 		mul(temp);
-		return (T)this;
+		return (T) this;
+	}
+
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t2
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return this for chaining
+	 */
+	public T interpolate(Tuple4f t1, Tuple4f t2, float t) {
+		mix(t1, t2, t);
+		return (T) this;
+	}
+
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return this for chaining
+	 */
+	public T interpolate(Tuple4f t1, float t) {
+		mix(t1, t);
+		return (T) this;
 	}
 
 }

@@ -143,6 +143,26 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 	}
 
 	/**
+	 * Constructs and initializes a Matrix3f from the specified 3x3 two dimensional array.
+	 *
+	 * @param v the array of size [3][3] containing in column order
+	 */
+	public Matrix3f(float[][] v) {
+		m00 = v[0][0];
+		m01 = v[0][1];
+		m02 = v[0][2];
+
+		m10 = v[1][0];
+		m11 = v[1][1];
+		m12 = v[1][2];
+
+		m20 = v[2][0];
+		m21 = v[2][1];
+		m22 = v[2][2];
+
+	}
+
+	/**
 	 * Constructs a new matrix with the same values as the Matrix3f parameter.
 	 *
 	 * @param m1 the source matrix
@@ -836,21 +856,8 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 	 * @return this for chaining
 	 */
 	public final T transpose(Matrix3f m1) {
-		if (this != m1) {
-			m00 = m1.m00;
-			m01 = m1.m10;
-			m02 = m1.m20;
-
-			m10 = m1.m01;
-			m11 = m1.m11;
-			m12 = m1.m21;
-
-			m20 = m1.m02;
-			m21 = m1.m12;
-			m22 = m1.m22;
-		} else {
-			transpose();
-		}
+		set(m1);
+		transpose();
 		return (T) this;
 	}
 
@@ -865,7 +872,6 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 		 * From Watt & Watt Advanced Animation and Rendering Techniques pp. 363
 		 *
 		 */
-
 		float s, xs, ys, zs, wx, wy, wz, xx, xy, xz, yy, yz, zz;
 
 		s = 2.0f / ((q1.x * q1.x) + (q1.y * q1.y) + (q1.z * q1.z) + (q1.w * q1.w));
@@ -883,16 +889,17 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 		zz = q1.z * zs;
 
 		m00 = 1.0f - (yy + zz);
-		m01 = xy + wz;
-		m02 = xz - wy;
+		m10 = xy + wz;
+		m20 = xz - wy;
 
-		m10 = xy - wz;
+		m01 = xy - wz;
 		m11 = 1.0f - (xx + zz);
-		m12 = yz + wx;
+		m21 = yz + wx;
 
-		m20 = xz + wy;
-		m21 = yz - wx;
+		m02 = xz + wy;
+		m12 = yz - wx;
 		m22 = 1.0f - (xx + yy);
+
 		return (T) this;
 	}
 
@@ -903,45 +910,30 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 	 * @return this for chaining
 	 */
 	public final T set(AxisAngle4f a1) {
-		float mag = sqrt(a1.x * a1.x + a1.y * a1.y + a1.z * a1.z);
-		if (mag < EPS) {
-			m00 = 1.0f;
-			m01 = 0.0f;
-			m02 = 0.0f;
+		float ax = a1.x;
+		float ay = a1.y;
+		float az = a1.z;
 
-			m10 = 0.0f;
-			m11 = 1.0f;
-			m12 = 0.0f;
+		float sinTheta = sin(a1.angle);
+		float cosTheta = cos(a1.angle);
+		float t = 1.0f - cosTheta;
 
-			m20 = 0.0f;
-			m21 = 0.0f;
-			m22 = 1.0f;
-		} else {
-			mag = 1.0f / mag;
-			float ax = a1.x * mag;
-			float ay = a1.y * mag;
-			float az = a1.z * mag;
+		float xz = ax * az;
+		float xy = ax * ay;
+		float yz = ay * az;
 
-			float sinTheta = sin(a1.angle);
-			float cosTheta = cos(a1.angle);
-			float t = 1.0f - cosTheta;
+		m00 = t * ax * ax + cosTheta;
+		m01 = t * xy - sinTheta * az;
+		m02 = t * xz + sinTheta * ay;
 
-			float xz = ax * az;
-			float xy = ax * ay;
-			float yz = ay * az;
+		m10 = t * xy + sinTheta * az;
+		m11 = t * ay * ay + cosTheta;
+		m12 = t * yz - sinTheta * ax;
 
-			m00 = t * ax * ax + cosTheta;
-			m01 = t * xy - sinTheta * az;
-			m02 = t * xz + sinTheta * ay;
+		m20 = t * xz - sinTheta * ay;
+		m21 = t * yz + sinTheta * ax;
+		m22 = t * az * az + cosTheta;
 
-			m10 = t * xy + sinTheta * az;
-			m11 = t * ay * ay + cosTheta;
-			m12 = t * yz - sinTheta * ax;
-
-			m20 = t * xz - sinTheta * ay;
-			m21 = t * yz + sinTheta * ax;
-			m22 = t * az * az + cosTheta;
-		}
 		return (T) this;
 	}
 
@@ -1023,33 +1015,26 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 		float c20 = m1.m10 * m1.m21 - m1.m11 * m1.m20;
 		float det = m1.m00 * c00 + m1.m01 * c10 + m1.m02 * c20;
 
-		if (det != 0.0f) {
-			float invDet = (1.0f) / det;
-			float n00 = c00 * invDet;
-			float n01 = (m1.m02 * m1.m21 - m1.m01 * m1.m22) * invDet;
-			float n02 = (m1.m01 * m1.m12 - m1.m02 * m1.m11) * invDet;
-			float n10 = c10 * invDet;
-			float n11 = (m1.m00 * m1.m22 - m1.m02 * m1.m20) * invDet;
-			float n12 = (m1.m02 * m1.m10 - m1.m00 * m1.m12) * invDet;
-			float n20 = c20 * invDet;
-			float n21 = (m1.m01 * m1.m20 - m1.m00 * m1.m21) * invDet;
-			float n22 = (m1.m00 * m1.m11 - m1.m01 * m1.m10) * invDet;
+		float invDet = (1.0f) / det;
+		float n00 = c00 * invDet;
+		float n01 = (m1.m02 * m1.m21 - m1.m01 * m1.m22) * invDet;
+		float n02 = (m1.m01 * m1.m12 - m1.m02 * m1.m11) * invDet;
+		float n10 = c10 * invDet;
+		float n11 = (m1.m00 * m1.m22 - m1.m02 * m1.m20) * invDet;
+		float n12 = (m1.m02 * m1.m10 - m1.m00 * m1.m12) * invDet;
+		float n20 = c20 * invDet;
+		float n21 = (m1.m01 * m1.m20 - m1.m00 * m1.m21) * invDet;
+		float n22 = (m1.m00 * m1.m11 - m1.m01 * m1.m10) * invDet;
 
-			m00 = n00;
-			m01 = n01;
-			m02 = n02;
-			m10 = n10;
-			m11 = n11;
-			m12 = n12;
-			m20 = n20;
-			m21 = n21;
-			m22 = n22;
-		} else {
-			/*
-			 * output a zeroed matrix
-			 *
-			 */
-		}
+		m00 = n00;
+		m01 = n01;
+		m02 = n02;
+		m10 = n10;
+		m11 = n11;
+		m12 = n12;
+		m20 = n20;
+		m21 = n21;
+		m22 = n22;
 
 		return (T) this;
 	}
@@ -1529,13 +1514,13 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
 	 * @return
 	 */
 	public boolean epsilonEquals(Matrix3f m1, float epsilon) {
-		if (different_epsilon(m00, m1.m01, epsilon)) {
+		if (different_epsilon(m00, m1.m00, epsilon)) {
 			return false;
 		}
-		if (different_epsilon(m01, m1.m02, epsilon)) {
+		if (different_epsilon(m01, m1.m01, epsilon)) {
 			return false;
 		}
-		if (different_epsilon(m02, m1.m00, epsilon)) {
+		if (different_epsilon(m02, m1.m02, epsilon)) {
 			return false;
 		}
 		if (different_epsilon(m10, m1.m10, epsilon)) {

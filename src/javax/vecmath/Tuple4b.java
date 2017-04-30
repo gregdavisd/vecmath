@@ -39,7 +39,7 @@ package javax.vecmath;
  * If intValue is greater than 127, then byteVariable will be negative. The correct value will be extracted when it is used (by
  * masking off the upper bits).
  */
-public abstract class Tuple4b implements java.io.Serializable, Cloneable {
+public abstract class Tuple4b<T extends Tuple4b> implements java.io.Serializable, Cloneable {
 
 	static final long serialVersionUID = -8226727741811898211L;
 
@@ -142,7 +142,7 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 * @param t1 tuple into which the values are placed
 	 * @return t1 for chaining
 	 */
-	public final Tuple4b get(Tuple4b t1) {
+	public final <S extends Tuple4b> S get(S t1) {
 		t1.x = this.x;
 		t1.y = this.y;
 		t1.z = this.z;
@@ -156,12 +156,12 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 * @param t1 the source tuple
 	 * @return this for chaining
 	 */
-	public final Tuple4b set(Tuple4b t1) {
+	public final T set(Tuple4b t1) {
 		this.x = t1.x;
 		this.y = t1.y;
 		this.z = t1.z;
 		this.w = t1.w;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -170,12 +170,12 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 * @param b the source array of length 4
 	 * @return this for chaining
 	 */
-	public final Tuple4b set(byte[] b) {
+	public final T set(byte[] b) {
 		this.x = b[0];
 		this.y = b[1];
 		this.z = b[2];
 		this.w = b[3];
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -265,9 +265,9 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4b setX(byte x) {
+	public final T setX(byte x) {
 		this.x = x;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -289,9 +289,9 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4b setY(byte y) {
+	public final T setY(byte y) {
 		this.y = y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -313,9 +313,9 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4b setZ(byte z) {
+	public final T setZ(byte z) {
 		this.z = z;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -337,8 +337,55 @@ public abstract class Tuple4b implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple4b setW(byte w) {
+	public final T setW(byte w) {
 		this.w = w;
-		return this;
+		return (T)this;
+	}
+
+	/**
+	 * Sets each component of this tuple to its absolute value.
+	 *
+	 * @return this for chaining
+	 */
+	public T absolute() {
+		return (T) abs();
+	}
+
+	/**
+	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 *
+	 * @param t the source tuple, which will not be modified
+	 * @return this for chaining
+	 */
+	public T absolute(Tuple4b t) {
+		abs(t);
+		return (T) this;
+	}
+
+	/**
+	 * Sets each component of this tuple to its absolute value.
+	 *
+	 * @return this for chaining
+	 */
+	public final T abs() {
+		x = (byte) Math.abs(x);
+		y = (byte) Math.abs(y);
+		z = (byte) Math.abs(z);
+		w = (byte) Math.abs(w);
+		return (T)this;
+	}
+
+	/**
+	 * Sets each component of the tuple parameter to its abs value and places the modified values into this tuple.
+	 *
+	 * @param t the source tuple, which will not be modified
+	 * @return this for chaining
+	 */
+	public T abs(Tuple4b t) {
+		x = (byte)Math.abs(t.x);
+		y = (byte)Math.abs(t.y);
+		z = (byte)Math.abs(t.z);
+		w = (byte)Math.abs(t.w);
+		return (T) this;
 	}
 }

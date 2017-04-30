@@ -481,7 +481,8 @@ public final class AxisAngle4f implements java.io.Serializable, Cloneable {
 		return this;
 	}
 
-	static private float lengthSquared(float x, float y, float z) {
+	private static float lengthSquared(float x, float y, float z) {
 		return (x * x + y * y + z * z);
 	}
+
 }

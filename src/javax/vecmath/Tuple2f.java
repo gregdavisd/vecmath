@@ -443,7 +443,7 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public  T absolute(Tuple2f t) {
+	public  T abs(Tuple2f t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
 		return (T) this;
@@ -491,12 +491,30 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 	 *
 	 * @return this for chaining
 	 */
-	public  T absolute() {
+	public  T abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
 		return (T) this;
 	}
-
+	/**
+	 * Sets each component of this tuple to its absolute value.
+	 *
+	 * @return this for chaining
+	 */
+	public  T absolute() {
+		abs();
+		return (T) this;
+	}
+	/**
+	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 *
+	 * @param t the source tuple, which will not be modified
+	 * @return this for chaining
+	 */
+	public  T absolute(Tuple2f t) {
+		return abs(t);
+	}
+	
 	/**
 	 * Linearly interpolates between tuples t1 and t2 and places the result into this tuple: this = (1-alpha)*t1 + alpha*t2.
 	 *
@@ -870,7 +888,7 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 	/**
 	 * Sets the value of this tuple to the inverse of q1. Equal to 1/(t dot t)
 	 *
-	 * @param q1 the quaternion to be inverted
+	 * @param q1 the tuple to be inverted
 	 * @return this for chaining
 	 */
 	public final  T inverse(Tuple2f q1) {
@@ -880,11 +898,11 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 	}
 
 	/**
-	 * Multiplies tuple t1 by the inverse of tuple t2 and places the value into this quaternion. The value of both argument
-	 * quaternions is preservered (this = t1 * t2^-1).
+	 * Multiplies tuple t1 by the inverse of tuple t2 and places the value into this tuple. The value of both argument
+	 * tuple is preserved (this = t1 * t2^-1).
 	 *
-	 * @param t1 the first quaternion
-	 * @param t2 the second quaternion
+	 * @param t1 the first tuple
+	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
 	public final  T mulInverse(Tuple2f t1, Tuple2f t2) {
@@ -898,7 +916,7 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 	 * Multiplies this tuple by the inverse of tuple t1 and places the value into this tuple. The value of the argument tuple is
 	 * preserved (this = this * q^-1).
 	 *
-	 * @param t1 the other quaternion
+	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
 	public final  T mulInverse(Tuple2f t1) {
@@ -908,4 +926,28 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
 		return (T) this;
 	}
 
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t2
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return this for chaining
+	 */
+	public T interpolate(Tuple2f t1, Tuple2f t2, float t) {
+		mix(t1, t2, t);
+		return (T) this;
+	}
+
+	/**
+	 * Linear interpolate between two tuples and store the result in this tuple.
+	 *
+	 * @param t1
+	 * @param t weight from t1 (0.0) to t2 (1.0)
+	 * @return this for chaining
+	 */
+	public T interpolate(Tuple2f t1, float t) {
+		mix(t1, t);
+		return (T) this;
+	}
 }

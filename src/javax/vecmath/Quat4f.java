@@ -41,7 +41,7 @@ import static javax.vecmath.VecMath.sqrt;
  * normalized.
  *
  */
-public final class Quat4f extends Tuple4f implements java.io.Serializable {
+public class Quat4f<T extends Quat4f> extends Tuple4f<T> implements java.io.Serializable {
 
 	// Combatible with 1.1
 	static final long serialVersionUID = 2675933778405442383L;
@@ -98,9 +98,9 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param q1 the source vector
 	 * @return this for chaining
 	 */
-	public  <T extends Quat4f>T conjugate(Quat4f q1) {
+	public T conjugate(Quat4f q1) {
 		set(-q1.x, -q1.y, -q1.z, q1.w);
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -109,9 +109,9 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param <T>
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  conjugate() {
+	public T conjugate() {
 		set(-x, -y, -z, w);
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -123,7 +123,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param q2 the second quaternion
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  mul(Quat4f q1, Quat4f q2) {
+	public T mul(Quat4f q1, Quat4f q2) {
 		float nw = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
 		float nx = q1.w * q2.x + q2.w * q1.x + q1.y * q2.z - q1.z * q2.y;
 		float ny = q1.w * q2.y + q2.w * q1.y - q1.x * q2.z + q1.z * q2.x;
@@ -131,7 +131,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 		w = nw;
 		x = nx;
 		y = ny;
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -141,7 +141,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param q1 the other quaternion
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  mul(Quat4f q1) {
+	public T mul(Quat4f q1) {
 
 		float nw = w * q1.w - x * q1.x - y * q1.y - z * q1.z;
 		float nx = w * q1.x + q1.w * x + y * q1.z - z * q1.y;
@@ -150,7 +150,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 		w = nw;
 		x = nx;
 		y = ny;
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -160,9 +160,9 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param m1 the Matrix4f
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  set(Matrix4f m1) {
+	public T set(Matrix4f m1) {
 		set(new Matrix3f(m1));
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -172,7 +172,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param m1 the Matrix3f
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  set(Matrix3f m1) {
+	public T set(Matrix3f m1) {
 		/*
 		 * From Watt & Watt Advanced Animation and Rendering Techniques pp. 363-364
 		 *
@@ -185,9 +185,9 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 			s = sqrt(tr + 1.0f);
 			this.w = s * 0.5f;
 			s = 0.5f / s;
-			x = (m1.m12 - m1.m21) * s;
-			y = (m1.m20 - m1.m02) * s;
-			z = (m1.m01 - m1.m10) * s;
+			x = (m1.m21 - m1.m12) * s;
+			y = (m1.m02 - m1.m20) * s;
+			z = (m1.m10 - m1.m01) * s;
 		} else {
 			i = X;
 			if (m1.m11 > m1.m00) {
@@ -201,11 +201,11 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 			s = sqrt(m1.getElement(i, i) - (m1.getElement(j, j) + m1.getElement(k, k)) + 1.0f);
 			setElement(i, s * 0.5f);
 			s = 0.5f / s;
-			w = (m1.getElement(j, k) - m1.getElement(k, j)) * s;
-			setElement(j, (m1.getElement(i, j) + m1.getElement(j, i)) * s);
-			setElement(k, (m1.getElement(i, k) + m1.getElement(k, i)) * s);
+			w = (m1.getElement(k, j) - m1.getElement(j, k)) * s;
+			setElement(j, (m1.getElement(j, i) + m1.getElement(i, j)) * s);
+			setElement(k, (m1.getElement(k, i) + m1.getElement(i, k)) * s);
 		}
-		return (T)this;
+		return (T) this;
 	}
 
 	/**
@@ -215,24 +215,19 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param a the AxisAngle to be emulated
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  set(AxisAngle4f a) {
+	public T set(AxisAngle4f a) {
 		float mag, amag;
 		// Quat = cos(theta/2) + sin(theta/2)(roation_axis) 
 		amag = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-		if (amag < EPS) {
-			w = 0.0f;
-			x = 0.0f;
-			y = 0.0f;
-			z = 0.0f;
-		} else {
-			amag = 1.0f / amag;
-			mag = sin(a.angle / 2.0f);
-			w = cos(a.angle / 2.0f);
-			x = a.x * amag * mag;
-			y = a.y * amag * mag;
-			z = a.z * amag * mag;
-		}
-		return (T)this;
+
+		amag = 1.0f / amag;
+		mag = amag*sin(a.angle / 2.0f);
+		w = cos(a.angle / 2.0f);
+		x = a.x * mag;
+		y = a.y *  mag;
+		z = a.z * mag;
+
+		return (T) this;
 	}
 
 	/**
@@ -244,9 +239,9 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param alpha the alpha interpolation parameter
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  slerp(Quat4f q1, float alpha) {
-		Quat4f.this.slerp(this, q1, alpha);
-		return (T)this;
+	public T slerp(Quat4f q1, float alpha) {
+		slerp(this, q1, alpha);
+		return (T) this;
 	}
 
 	/**
@@ -258,7 +253,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 	 * @param alpha the alpha interpolation parameter
 	 * @return this for chaining
 	 */
-	public   <T extends Quat4f>T  slerp(Quat4f q1, Quat4f q2, float alpha) {
+	public T slerp(Quat4f q1, Quat4f q2, float alpha) {
 		/*
 		 * From Watt & Watt Advanced Animation and Rendering Techniques pp. 363-364
 		 *
@@ -296,7 +291,7 @@ public final class Quat4f extends Tuple4f implements java.io.Serializable {
 			z = (sclp * q1.z) + (sclq * nz);
 
 		}
-		return (T)this;
+		return (T) this;
 	}
 
 }

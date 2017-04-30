@@ -149,6 +149,6 @@ public class VecMath {
 		if (Float.isNaN(diff)) {
 			return false;
 		}
-		return Math.abs(diff) <= epsilon;
+		return Math.abs(diff) > epsilon;
 	}
 }

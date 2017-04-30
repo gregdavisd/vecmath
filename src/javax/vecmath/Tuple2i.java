@@ -35,7 +35,7 @@ package javax.vecmath;
  *
  * @since vecmath 1.4
  */
-public abstract class Tuple2i implements java.io.Serializable, Cloneable {
+public abstract class Tuple2i<T extends Tuple2i> implements java.io.Serializable, Cloneable {
 
 	static final long serialVersionUID = -3555701650170169638L;
 
@@ -94,10 +94,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param y the y coordinate
 	 * @return this for chaining
 	 */
-	public final Tuple2i set(int x, int y) {
+	public final T set(int x, int y) {
 		this.x = x;
 		this.y = y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -106,10 +106,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t the array of length 2 containing x and y in order.
 	 * @return this for chaining
 	 */
-	public final Tuple2i set(int[] t) {
+	public final T set(int[] t) {
 		this.x = t[0];
 		this.y = t[1];
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -118,10 +118,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the tuple to be copied
 	 * @return this for chaining
 	 */
-	public final Tuple2i set(Tuple2i t1) {
+	public final T set(Tuple2i t1) {
 		this.x = t1.x;
 		this.y = t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -142,10 +142,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t is the target tuple
 	 * @return t for chaining
 	 */
-	public final Tuple2i get(Tuple2i t) {
+	public   <S extends Tuple2i> S get(S t) {
 		t.x = this.x;
 		t.y = this.y;
-		return t;
+		return (S)t;
 	}
 
 	/**
@@ -155,10 +155,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i add(Tuple2i t1, Tuple2i t2) {
+	public final T add(Tuple2i t1, Tuple2i t2) {
 		this.x = t1.x + t2.x;
 		this.y = t1.y + t2.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -167,10 +167,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i add(Tuple2i t1) {
+	public final T add(Tuple2i t1) {
 		this.x += t1.x;
 		this.y += t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -180,10 +180,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t2 the second tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i sub(Tuple2i t1, Tuple2i t2) {
+	public final T sub(Tuple2i t1, Tuple2i t2) {
 		this.x = t1.x - t2.x;
 		this.y = t1.y - t2.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -192,10 +192,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the other tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i sub(Tuple2i t1) {
+	public final T sub(Tuple2i t1) {
 		this.x -= t1.x;
 		this.y -= t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -204,10 +204,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the source tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i negate(Tuple2i t1) {
+	public final T negate(Tuple2i t1) {
 		this.x = -t1.x;
 		this.y = -t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -215,10 +215,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Tuple2i negate() {
+	public final T negate() {
 		this.x = -this.x;
 		this.y = -this.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -228,10 +228,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the source tuple
 	 * @return this for chaining
 	 */
-	public final Tuple2i scale(int s, Tuple2i t1) {
+	public final T scale(int s, Tuple2i t1) {
 		this.x = s * t1.x;
 		this.y = s * t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -240,10 +240,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param s the scalar value
 	 * @return this for chaining
 	 */
-	public final Tuple2i scale(int s) {
+	public final T scale(int s) {
 		this.x *= s;
 		this.y *= s;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -254,10 +254,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t2 the tuple to be added
 	 * @return this for chaining
 	 */
-	public final Tuple2i scaleAdd(int s, Tuple2i t1, Tuple2i t2) {
+	public final T scaleAdd(int s, Tuple2i t1, Tuple2i t2) {
 		this.x = s * t1.x + t2.x;
 		this.y = s * t1.y + t2.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -267,10 +267,10 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t1 the tuple to be added
 	 * @return this for chaining
 	 */
-	public final Tuple2i scaleAdd(int s, Tuple2i t1) {
+	public final T scaleAdd(int s, Tuple2i t1) {
 		this.x = s * this.x + t1.x;
 		this.y = s * this.y + t1.y;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -322,7 +322,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple2i clamp(int min, int max, Tuple2i t) {
+	public final T clamp(int min, int max, Tuple2i t) {
 		if (t.x > max) {
 			x = max;
 		} else if (t.x < min) {
@@ -338,7 +338,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		} else {
 			y = t.y;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -348,7 +348,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple2i clampMin(int min, Tuple2i t) {
+	public final T clampMin(int min, Tuple2i t) {
 		if (t.x < min) {
 			x = min;
 		} else {
@@ -360,7 +360,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		} else {
 			y = t.y;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -370,7 +370,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple2i clampMax(int max, Tuple2i t) {
+	public final T clampMax(int max, Tuple2i t) {
 		if (t.x > max) {
 			x = max;
 		} else {
@@ -382,7 +382,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		} else {
 			y = t.y;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -391,10 +391,21 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param t the source tuple, which will not be modified
 	 * @return this for chaining
 	 */
-	public final Tuple2i absolute(Tuple2i t) {
+	public final T abs(Tuple2i t) {
 		x = Math.abs(t.x);
 		y = Math.abs(t.y);
-		return this;
+		return (T)this;
+	}
+
+	/**
+	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
+	 *
+	 * @param t the source tuple, which will not be modified
+	 * @return this for chaining
+	 */
+	public final T absolute(Tuple2i t) {
+		abs(t);
+		return (T)this;
 	}
 
 	/**
@@ -404,7 +415,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param max the highest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple2i clamp(int min, int max) {
+	public final T clamp(int min, int max) {
 		if (x > max) {
 			x = max;
 		} else if (x < min) {
@@ -416,7 +427,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		} else if (y < min) {
 			y = min;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -425,7 +436,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param min the lowest value in this tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple2i clampMin(int min) {
+	public final T clampMin(int min) {
 		if (x < min) {
 			x = min;
 		}
@@ -433,7 +444,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		if (y < min) {
 			y = min;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -442,7 +453,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 * @param max the highest value in the tuple after clamping
 	 * @return this for chaining
 	 */
-	public final Tuple2i clampMax(int max) {
+	public final T clampMax(int max) {
 		if (x > max) {
 			x = max;
 		}
@@ -450,7 +461,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 		if (y > max) {
 			y = max;
 		}
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -458,10 +469,20 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 *
 	 * @return this for chaining
 	 */
-	public final Tuple2i absolute() {
+	public final T abs() {
 		x = Math.abs(x);
 		y = Math.abs(y);
-		return this;
+		return (T)this;
+	}
+
+	/**
+	 * Sets each component of this tuple to its absolute value.
+	 *
+	 * @return this for chaining
+	 */
+	public final T absolute() {
+		abs();
+		return (T)this;
 	}
 
 	/**
@@ -501,9 +522,9 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple2i setX(int x) {
+	public final T setX(int x) {
 		this.x = x;
-		return this;
+		return (T)this;
 	}
 
 	/**
@@ -525,8 +546,8 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
 	 *
 	 * @since vecmath 1.5
 	 */
-	public final Tuple2i setY(int y) {
+	public final T setY(int y) {
 		this.y = y;
-		return this;
+		return (T)this;
 	}
 }

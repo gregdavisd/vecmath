@@ -35,6 +35,7 @@
 package javax.vecmath;
 
 import static javax.vecmath.VecMath.cos;
+import static javax.vecmath.VecMath.different_epsilon;
 import static javax.vecmath.VecMath.sin;
 
 /**
@@ -201,6 +202,20 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
 	}
 
 	/**
+	 * Constructs and initializes a Matrix2f from the specified 2x2 two dimensional array.
+	 *
+	 * @param v the array of size [2][2] containing in column order
+	 */
+	public Matrix2f(float[][] v) {
+		m00 = v[0][0];
+		m01 = v[0][1];
+
+		m10 = v[1][0];
+		m11 = v[1][1];
+
+	}
+
+	/**
 	 * Set the elements of this matrix to the abs value of the corresponding element in m1.
 	 *
 	 * @param m1 the matrix to get values
@@ -323,14 +338,8 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
 	 * @return this for chaining
 	 */
 	public final T transpose(Matrix2f m1) {
-		if (this != m1) {
-			m00 = m1.m00;
-			m01 = m1.m10;
-			m10 = m1.m01;
-			m11 = m1.m11;
-		} else {
-			transpose();
-		}
+		set(m1);
+		transpose();
 		return (T) this;
 	}
 
@@ -790,6 +799,38 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
 			throw new InternalError();
 		}
 		return m1;
+	}
+
+	/**
+	 * Returns true if all of the data members of Matrix3f m1 are equal to the corresponding data members in this Matrix3f.
+	 *
+	 * @param m1 the matrix with which the comparison is made
+	 * @return true or false
+	 */
+	public boolean equals(Matrix2f m1) {
+		return (m00 == m1.m00 && m01 == m1.m01
+			&& m10 == m1.m10 && m11 == m1.m11);
+	}
+
+	/**
+	 * Returns true if the L-infinite distance between this matrix and matrix m1 is less than or equal to the epsilon parameter,
+	 * otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2 ; j=0,1,2 ; abs(this.m(i,j) - m1.m(i,j)]
+	 *
+	 * @param m1 the matrix to be compared to this matrix
+	 * @param epsilon the threshold value
+	 * @return
+	 */
+	public boolean epsilonEquals(Matrix3f m1, float epsilon) {
+		if (different_epsilon(m00, m1.m00, epsilon)) {
+			return false;
+		}
+		if (different_epsilon(m01, m1.m01, epsilon)) {
+			return false;
+		}
+		if (different_epsilon(m10, m1.m10, epsilon)) {
+			return false;
+		}
+		return !different_epsilon(m11, m1.m11, epsilon);
 	}
 
 }

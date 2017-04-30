@@ -199,6 +199,34 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 	}
 
 	/**
+	 * Constructs and initializes a Matrix4f from the specified 4x4 two dimensional array.
+	 *
+	 * @param v the array of size [4][4] containing in column order
+	 */
+	public Matrix4f(float[][] v) {
+		m00 = v[0][0];
+		m01 = v[0][1];
+		m02 = v[0][2];
+		m03 = v[0][3];
+
+		m10 = v[1][0];
+		m11 = v[1][1];
+		m12 = v[1][2];
+		m13 = v[1][3];
+
+		m20 = v[2][0];
+		m21 = v[2][1];
+		m22 = v[2][2];
+		m23 = v[2][3];
+
+		m30 = v[3][0];
+		m31 = v[3][1];
+		m32 = v[3][2];
+		m33 = v[3][3];
+
+	}
+
+	/**
 	 * Constructs a new matrix with the same values as the Matrix4f parameter.
 	 *
 	 * @param m1 the source matrix
@@ -1242,29 +1270,8 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 	 * @return this for chaining
 	 */
 	public final T transpose(Matrix4f m1) {
-		if (this != m1) {
-			m00 = m1.m00;
-			m01 = m1.m10;
-			m02 = m1.m20;
-			m03 = m1.m30;
-
-			m10 = m1.m01;
-			m11 = m1.m11;
-			m12 = m1.m21;
-			m13 = m1.m31;
-
-			m20 = m1.m02;
-			m21 = m1.m12;
-			m22 = m1.m22;
-			m23 = m1.m32;
-
-			m30 = m1.m03;
-			m31 = m1.m13;
-			m32 = m1.m23;
-			m33 = m1.m33;
-		} else {
-			transpose();
-		}
+		set(m1);
+		transpose();
 		return (T) this;
 
 	}
@@ -1399,30 +1406,25 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 		float det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 
 		Matrix4f inverse = new Matrix4f();
-		if (det != 0) {
-			float invDet = (1.0f) / det;
-			inverse.m00 = (+m1.m11 * b5 - m1.m12 * b4 + m1.m13 * b3) * invDet;
-			inverse.m01 = (-m1.m01 * b5 + m1.m02 * b4 - m1.m03 * b3) * invDet;
-			inverse.m02 = (+m1.m31 * a5 - m1.m32 * a4 + m1.m33 * a3) * invDet;
-			inverse.m03 = (-m1.m21 * a5 + m1.m22 * a4 - m1.m23 * a3) * invDet;
-			inverse.m10 = (-m1.m10 * b5 + m1.m12 * b2 - m1.m13 * b1) * invDet;
-			inverse.m11 = (+m1.m00 * b5 - m1.m02 * b2 + m1.m03 * b1) * invDet;
-			inverse.m12 = (-m1.m30 * a5 + m1.m32 * a2 - m1.m33 * a1) * invDet;
-			inverse.m13 = (+m1.m20 * a5 - m1.m22 * a2 + m1.m23 * a1) * invDet;
-			inverse.m20 = (+m1.m10 * b4 - m1.m11 * b2 + m1.m13 * b0) * invDet;
-			inverse.m21 = (-m1.m00 * b4 + m1.m01 * b2 - m1.m03 * b0) * invDet;
-			inverse.m22 = (+m1.m30 * a4 - m1.m31 * a2 + m1.m33 * a0) * invDet;
-			inverse.m23 = (-m1.m20 * a4 + m1.m21 * a2 - m1.m23 * a0) * invDet;
-			inverse.m30 = (-m1.m10 * b3 + m1.m11 * b1 - m1.m12 * b0) * invDet;
-			inverse.m31 = (+m1.m00 * b3 - m1.m01 * b1 + m1.m02 * b0) * invDet;
-			inverse.m32 = (-m1.m30 * a3 + m1.m31 * a1 - m1.m32 * a0) * invDet;
-			inverse.m33 = (+m1.m20 * a3 - m1.m21 * a1 + m1.m22 * a0) * invDet;
-		} else {
-			/*
-			 * will output a zeroed matrix
-			 *
-			 */
-		}
+
+		float invDet = (1.0f) / det;
+		inverse.m00 = (+m1.m11 * b5 - m1.m12 * b4 + m1.m13 * b3) * invDet;
+		inverse.m01 = (-m1.m01 * b5 + m1.m02 * b4 - m1.m03 * b3) * invDet;
+		inverse.m02 = (+m1.m31 * a5 - m1.m32 * a4 + m1.m33 * a3) * invDet;
+		inverse.m03 = (-m1.m21 * a5 + m1.m22 * a4 - m1.m23 * a3) * invDet;
+		inverse.m10 = (-m1.m10 * b5 + m1.m12 * b2 - m1.m13 * b1) * invDet;
+		inverse.m11 = (+m1.m00 * b5 - m1.m02 * b2 + m1.m03 * b1) * invDet;
+		inverse.m12 = (-m1.m30 * a5 + m1.m32 * a2 - m1.m33 * a1) * invDet;
+		inverse.m13 = (+m1.m20 * a5 - m1.m22 * a2 + m1.m23 * a1) * invDet;
+		inverse.m20 = (+m1.m10 * b4 - m1.m11 * b2 + m1.m13 * b0) * invDet;
+		inverse.m21 = (-m1.m00 * b4 + m1.m01 * b2 - m1.m03 * b0) * invDet;
+		inverse.m22 = (+m1.m30 * a4 - m1.m31 * a2 + m1.m33 * a0) * invDet;
+		inverse.m23 = (-m1.m20 * a4 + m1.m21 * a2 - m1.m23 * a0) * invDet;
+		inverse.m30 = (-m1.m10 * b3 + m1.m11 * b1 - m1.m12 * b0) * invDet;
+		inverse.m31 = (+m1.m00 * b3 - m1.m01 * b1 + m1.m02 * b0) * invDet;
+		inverse.m32 = (-m1.m30 * a3 + m1.m31 * a1 - m1.m32 * a0) * invDet;
+		inverse.m33 = (+m1.m20 * a3 - m1.m21 * a1 + m1.m22 * a0) * invDet;
+
 		m1.set(inverse);
 	}
 
@@ -2234,26 +2236,26 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 	}
 
 	/**
-	 * Transform the vector vec using this Transform and place the result back into vec.
+	 * Transform the 4 component tuple t1 using this Transform and place the result back into t1.
 	 *
 	 * @param <S>
-	 * @param vec the single precision vector to be transformed
+	 * @param t1 the single precision vector to be transformed
 	 * @return vec for chaining
 	 */
-	public final <S extends Tuple4f> S transform(S vec) {
+	public final <S extends Tuple4f> S transform(S t1) {
 
-		float x = m00 * vec.x + m01 * vec.y
-			+ m02 * vec.z + m03 * vec.w;
-		float y = m10 * vec.x + m11 * vec.y
-			+ m12 * vec.z + m13 * vec.w;
-		float z = m20 * vec.x + m21 * vec.y
-			+ m22 * vec.z + m23 * vec.w;
-		vec.w = m30 * vec.x + m31 * vec.y
-			+ m32 * vec.z + m33 * vec.w;
-		vec.x = x;
-		vec.y = y;
-		vec.z = z;
-		return vec;
+		float x = m00 * t1.x + m01 * t1.y
+			+ m02 * t1.z + m03 * t1.w;
+		float y = m10 * t1.x + m11 * t1.y
+			+ m12 * t1.z + m13 * t1.w;
+		float z = m20 * t1.x + m21 * t1.y
+			+ m22 * t1.z + m23 * t1.w;
+		t1.w = m30 * t1.x + m31 * t1.y
+			+ m32 * t1.z + m33 * t1.w;
+		t1.x = x;
+		t1.y = y;
+		t1.z = z;
+		return t1;
 	}
 
 	/**
@@ -2262,7 +2264,7 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 	 * @param <S>
 	 * @param t1 the input point to be transformed.
 	 * @param t2 the transformed point
-	 * @return pointOut for chaining
+	 * @return t2 for chaining
 	 */
 	public final <S extends Tuple3f> S transform(Tuple3f t1, S t2) {
 		float x = m00 * t1.x + m01 * t1.y + m02 * t1.z + m03;
@@ -2274,11 +2276,11 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 	}
 
 	/**
-	 * Transforms the tuple t1 using the matrix and store the result back into t1.
+	 * Transforms the 3 component tuple t1 using the matrix and store the result back into t1.
 	 *
 	 * @param <S>
 	 * @param t1 the input point to be transformed.
-	 * @return point for chaining
+	 * @return t1 for chaining
 	 */
 	public final <S extends Tuple3f> S transform(S t1) {
 		float x = m00 * t1.x + m01 * t1.y + m02 * t1.z + m03;
@@ -2287,6 +2289,39 @@ public class Matrix4f<T extends Matrix4f> implements java.io.Serializable, Clone
 		t1.x = x;
 		t1.y = y;
 		return t1;
+	}
+
+	/**
+	 * Transforms the tuple t1 using only the rotational components (upper 3x3) and store the result back into t1.
+	 *
+	 * @param <S> the tuple to transform
+	 * @param t1 the input point to be transformed.
+	 * @return point for chaining
+	 */
+	public final <S extends Tuple3f> S transform3x3(S t1) {
+		float x = m00 * t1.x + m01 * t1.y + m02 * t1.z;
+		float y = m10 * t1.x + m11 * t1.y + m12 * t1.z;
+		t1.z = m20 * t1.x + m21 * t1.y + m22 * t1.z;
+		t1.x = x;
+		t1.y = y;
+		return t1;
+	}
+
+	/**
+	 * Transforms the t1 using using only the rotational components (upper 3x3) and place the result into t2.
+	 *
+	 * @param <S>
+	 * @param t1 the input point to be transformed.
+	 * @param t2 the transformed point
+	 * @return t2 for chaining
+	 */
+	public final <S extends Tuple3f> S transform3x3(Tuple3f t1, S t2) {
+		float x = m00 * t1.x + m01 * t1.y + m02 * t1.z;
+		float y = m10 * t1.x + m11 * t1.y + m12 * t1.z;
+		t2.z = m20 * t1.x + m21 * t1.y + m22 * t1.z;
+		t2.x = x;
+		t2.y = y;
+		return t2;
 	}
 
 	/**
