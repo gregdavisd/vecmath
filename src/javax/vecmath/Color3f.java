@@ -31,94 +31,94 @@
 package javax.vecmath;
 
 /**
- * A three-element color value represented by single precision floating point x,y,z values. The x,y,z values represent the red,
- * green, and blue color values, respectively. Color components should be in the range of [0.0, 1.0].
+ * A three-element color value represented by single precision floating point x,y,z values. The
+ * x,y,z values represent the red, green, and blue color values, respectively. Color components
+ * should be in the range of [0.0, 1.0].
  * <p>
  * Java 3D assumes that a linear (gamma-corrected) visual is used for all colors.
  *
  */
-public class Color3f extends Tuple3f implements java.io.Serializable {
+public class Color3f extends Tuple3f<Color3f> implements java.io.Serializable {
 
-	// Compatible with 1.1
-	static final long serialVersionUID = -1861792981817493659L;
+ // Compatible with 1.1
+ static final long serialVersionUID = -1861792981817493659L;
 
-	/**
-	 * Constructs and initializes a Color3f from the three xyz values.
-	 *
-	 * @param x the red color value
-	 * @param y the green color value
-	 * @param z the blue color value
-	 */
-	public Color3f(float x, float y, float z) {
-		super(x, y, z);
-	}
+ /**
+  * Constructs and initializes a Color3f from the three xyz values.
+  *
+  * @param x the red color value
+  * @param y the green color value
+  * @param z the blue color value
+  */
+ public Color3f(float x, float y, float z) {
+  super(x, y, z);
+ }
 
-	/**
-	 * Constructs and initializes a Color3f from the array of length 3.
-	 *
-	 * @param v the array of length 3 containing xyz in order
-	 */
-	public Color3f(float[] v) {
-		super(v);
-	}
+ /**
+  * Constructs and initializes a Color3f from the array of length 3.
+  *
+  * @param v the array of length 3 containing xyz in order
+  */
+ public Color3f(float[] v) {
+  super(v);
+ }
 
-	/**
-	 * Constructs and initializes a Color3f from the specified Color3f.
-	 *
-	 * @param v1 the Color3f containing the initialization x y z data
-	 */
-	public Color3f(Color3f v1) {
-		super(v1);
-	}
+ /**
+  * Constructs and initializes a Color3f from the specified Color3f.
+  *
+  * @param v1 the Color3f containing the initialization x y z data
+  */
+ public Color3f(Color3f v1) {
+  super(v1);
+ }
 
-	/**
-	 * Constructs and initializes a Color3f from the specified Tuple3f.
-	 *
-	 * @param t1 the Tuple3f containing the initialization x y z data
-	 */
-	public Color3f(Tuple3f t1) {
-		super(t1);
-	}
+ /**
+  * Constructs and initializes a Color3f from the specified Tuple3f.
+  *
+  * @param t1 the Tuple3f containing the initialization x y z data
+  */
+ public Color3f(Tuple3f t1) {
+  super(t1);
+ }
 
-	/**
-	 * Construct and initialise from an integer color in the format 0xRRGGBB
-	 *
-	 * @param bits
-	 */
-	public Color3f(int bits) {
-		set(bits);
-	}
+ /**
+  * Construct and initialise from an integer color in the format 0xRRGGBB
+  *
+  * @param bits
+  */
+ public Color3f(int bits) {
+  set(bits);
+ }
 
-	/**
-	 *
-	 * @param bits
-	 * @return
-	 */
-	public final Color3f set(int bits) {
-		z = (float) (bits & 0xff) / 256.0f;
-		y = (float) ((bits >>> 8) & 0xff) / 256.0f;
-		x = (float) ((bits >>> 16) & 0xff) / 256.0f;
-		return this;
-	}
+ /**
+  *
+  * @param bits
+  * @return
+  */
+ public Color3f set(int bits) {
+  z = (float) (bits & 0xff) / 256.0f;
+  y = (float) ((bits >>> 8) & 0xff) / 256.0f;
+  x = (float) ((bits >>> 16) & 0xff) / 256.0f;
+  return this;
+ }
 
-	/**
-	 * Constructs and initializes a Color3f to (0.0, 0.0, 0.0).
-	 */
-	public Color3f() {
+ /**
+  * Constructs and initializes a Color3f to (0.0, 0.0, 0.0).
+  */
+ public Color3f() {
+ }
 
-	}
-
-	/**
-	 * Get the color as an integer (0xffRRGGBB)
-	 *
-	 * @return
-	 */
-	public final int getRGB() {
-		byte red = (byte) Math.min(Math.max(x * 255.0f, 0.0f), 255.0f);
-		byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);
-		byte blue = (byte) Math.min(Math.max(z * 255.0f, 0.0f), 255.0f);
-		int bits = (0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) | ((blue) & 0x000000ff);
-		return bits;
-	}
-
+ /**
+  * Get the color as an integer (0xffRRGGBB)
+  *
+  * @return
+  */
+ public int getRGB() {
+  byte red = (byte) Math.min(Math.max(x * 255.0f, 0.0f), 255.0f);
+  byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);
+  byte blue = (byte) Math.min(Math.max(z * 255.0f, 0.0f), 255.0f);
+  int bits = (0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) | ((blue)
+   & 0x000000ff);
+  return bits;
+ }
 }

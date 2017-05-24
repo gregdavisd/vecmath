@@ -29,101 +29,98 @@
  * $State: Exp $
  */
 package javax.vecmath;
- 
+
 /**
  * A 3 element point that is represented by single precision floating point x,y,z coordinates.
  *
  */
-public class Point3f extends Tuple3f implements java.io.Serializable {
+public class Point3f extends Tuple3f<Point3f> implements java.io.Serializable {
 
-	// Compatible with 1.1
-	static final long serialVersionUID = -8689337816398030143L;
+ // Compatible with 1.1
+ static final long serialVersionUID = -8689337816398030143L;
 
-	/**
-	 * Constructs and initializes a Point3f from the specified xyz coordinates.
-	 *
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @param z the z coordinate
-	 */
-	public Point3f(float x, float y, float z) {
-		super(x, y, z);
-	}
+ /**
+  * Constructs and initializes a Point3f from the specified xyz coordinates.
+  *
+  * @param x the x coordinate
+  * @param y the y coordinate
+  * @param z the z coordinate
+  */
+ public Point3f(float x, float y, float z) {
+  super(x, y, z);
+ }
 
-	/**
-	 * Constructs and initializes a Point3f from the array of length 3.
-	 *
-	 * @param p the array of length 3 containing xyz in order
-	 */
-	public Point3f(float[] p) {
-		super(p);
-	}
+ /**
+  * Constructs and initializes a Point3f from the array of length 3.
+  *
+  * @param p the array of length 3 containing xyz in order
+  */
+ public Point3f(float[] p) {
+  super(p);
+ }
 
-	/**
-	 * Constructs and initializes a Point3f from the specified Point3f.
-	 *
-	 * @param p1 the Point3f containing the initialization x y z data
-	 */
-	public Point3f(Point3f p1) {
-		super(p1);
-	}
+ /**
+  * Constructs and initializes a Point3f from the specified Point3f.
+  *
+  * @param p1 the Point3f containing the initialization x y z data
+  */
+ public Point3f(Point3f p1) {
+  super(p1);
+ }
 
-	/**
-	 * Constructs and initializes a Point3f from the specified Tuple3f.
-	 *
-	 * @param t1 the Tuple3f containing the initialization x y z data
-	 */
-	public Point3f(Tuple3f t1) {
-		super(t1);
-	}
+ /**
+  * Constructs and initializes a Point3f from the specified Tuple3f.
+  *
+  * @param t1 the Tuple3f containing the initialization x y z data
+  */
+ public Point3f(Tuple3f t1) {
+  super(t1);
+ }
 
-	/**
-	 * Constructs and initializes a Point3f to (0,0,0).
-	 */
-	public Point3f() {
+ /**
+  * Constructs and initializes a Point3f to (0,0,0).
+  */
+ public Point3f() {
+ }
 
-	}
+ /**
+  * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal
+  * to: abs(x1-x2) + abs(y1-y2) + abs(z1-z2).
+  *
+  * @param p1 the other point
+  * @return the L-1 distance
+  */
+ public float distanceL1(Point3f p1) {
+  return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
+   - p1.z));
+ }
 
-	/**
-	 * Computes the L-1 (Manhattan) distance between this point and point p1. The L-1 distance is equal to: abs(x1-x2) + abs(y1-y2) +
-	 * abs(z1-z2).
-	 *
-	 * @param p1 the other point
-	 * @return the L-1 distance
-	 */
-	public final float distanceL1(Point3f p1) {
-		return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
-			- p1.z));
-	}
+ /**
+  * Computes the L-infinite distance between this point and point p1. The L-infinite distance is
+  * equal to MAX[abs(x1-x2), abs(y1-y2), abs(z1-z2)].
+  *
+  * @param p1 the other point
+  * @return the L-infinite distance
+  */
+ public float distanceLinf(Point3f p1) {
+  float tmp;
+  tmp = Math.max(Math.abs(this.x - p1.x), Math.abs(this.y - p1.y));
+  return (Math.max(tmp, Math.abs(this.z - p1.z)));
+ }
 
-	/**
-	 * Computes the L-infinite distance between this point and point p1. The L-infinite distance is equal to MAX[abs(x1-x2),
-	 * abs(y1-y2), abs(z1-z2)].
-	 *
-	 * @param p1 the other point
-	 * @return the L-infinite distance
-	 */
-	public final float distanceLinf(Point3f p1) {
-		float tmp;
-		tmp = Math.max(Math.abs(this.x - p1.x), Math.abs(this.y - p1.y));
-		return (Math.max(tmp, Math.abs(this.z - p1.z)));
-
-	}
-
-	/**
-	 * Multiplies each of the x,y,z components of the Point4f parameter by 1/w and places the projected values into this point.
-	 *
-	 * @param p1 the source Point4f, which is not modified
-	 * @return this for chaining
-	 */
-	public final Point3f project(Point4f p1) {
-		float oneOw;
-
-		oneOw = 1 / p1.w;
-		x = p1.x * oneOw;
-		y = p1.y * oneOw;
-		z = p1.z * oneOw;
-		return this;
-	}
-
+ /**
+  * Multiplies each of the x,y,z components of the Point4f parameter by 1/w and places the projected
+  * values into this point.
+  *
+  * @param p1 the source Point4f, which is not modified
+  * @return this for chaining
+  */
+ public Point3f project(Point4f p1) {
+  float oneOw;
+  oneOw = 1 / p1.w;
+  x = p1.x * oneOw;
+  y = p1.y * oneOw;
+  z = p1.z * oneOw;
+  return this;
+ }
 }

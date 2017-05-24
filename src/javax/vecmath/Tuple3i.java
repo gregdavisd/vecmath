@@ -33,607 +33,643 @@ package javax.vecmath;
 /**
  * A 3-element tuple represented by signed integer x,y,z coordinates.
  *
+ * @param <T>
  * @since vecmath 1.2
  */
 public abstract class Tuple3i<T extends Tuple3i> implements java.io.Serializable, Cloneable {
 
-	static final long serialVersionUID = -732740491767276200L;
+ static final long serialVersionUID = -732740491767276200L;
+ /**
+  * The x coordinate.
+  */
+ public int x;
+ /**
+  * The y coordinate.
+  */
+ public int y;
+ /**
+  * The z coordinate.
+  */
+ public int z;
 
-	/**
-	 * The x coordinate.
-	 */
-	public int x;
+ /**
+  * Constructs and initializes a Tuple3i from the specified x, y, and z coordinates.
+  *
+  * @param x the x coordinate
+  * @param y the y coordinate
+  * @param z the z coordinate
+  */
+ public Tuple3i(int x, int y, int z) {
+  this.x = x;
+  this.y = y;
+  this.z = z;
+ }
 
-	/**
-	 * The y coordinate.
-	 */
-	public int y;
+ /**
+  * Constructs and initializes a Tuple3i from the array of length 3.
+  *
+  * @param t the array of length 3 containing x, y, and z in order.
+  */
+ public Tuple3i(int[] t) {
+  this.x = t[0];
+  this.y = t[1];
+  this.z = t[2];
+ }
 
-	/**
-	 * The z coordinate.
-	 */
-	public int z;
+ /**
+  * Constructs and initializes a Tuple3i from the specified Tuple3i.
+  *
+  * @param t1 the Tuple3i containing the initialization x, y, and z data.
+  */
+ public Tuple3i(Tuple3i t1) {
+  this.x = t1.x;
+  this.y = t1.y;
+  this.z = t1.z;
+ }
 
-	/**
-	 * Constructs and initializes a Tuple3i from the specified x, y, and z coordinates.
-	 *
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @param z the z coordinate
-	 */
-	public Tuple3i(int x, int y, int z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+ /**
+  * Constructs and initializes a Tuple3i to (0,0,0).
+  */
+ public Tuple3i() {
+ }
 
-	/**
-	 * Constructs and initializes a Tuple3i from the array of length 3.
-	 *
-	 * @param t the array of length 3 containing x, y, and z in order.
-	 */
-	public Tuple3i(int[] t) {
-		this.x = t[0];
-		this.y = t[1];
-		this.z = t[2];
-	}
+ /**
+  * Sets the value of this tuple to the specified x, y, and z coordinates.
+  *
+  * @param x the x coordinate
+  * @param y the y coordinate
+  * @param z the z coordinate
+  * @return this for chaining
+  */
+ public T set(int x, int y, int z) {
+  this.x = x;
+  this.y = y;
+  this.z = z;
+  return (T) this;
+ }
 
-	/**
-	 * Constructs and initializes a Tuple3i from the specified Tuple3i.
-	 *
-	 * @param t1 the Tuple3i containing the initialization x, y, and z data.
-	 */
-	public Tuple3i(Tuple3i t1) {
-		this.x = t1.x;
-		this.y = t1.y;
-		this.z = t1.z;
-	}
+ /**
+  * Sets the value of this tuple to the specified coordinates in the array of length 3.
+  *
+  * @param t the array of length 3 containing x, y, and z in order.
+  * @return this for chaining
+  */
+ public T set(int[] t) {
+  this.x = t[0];
+  this.y = t[1];
+  this.z = t[2];
+  return (T) this;
+ }
 
-	/**
-	 * Constructs and initializes a Tuple3i to (0,0,0).
-	 */
-	public Tuple3i() {
+ /**
+  * Sets the value of this tuple to the value of tuple t1.
+  *
+  * @param t1 the tuple to be copied
+  * @return this for chaining
+  */
+ public T set(Tuple3i t1) {
+  this.x = t1.x;
+  this.y = t1.y;
+  this.z = t1.z;
+  return (T) this;
+ }
 
-	}
+ /**
+  * Copies the values of this tuple into the array t.
+  *
+  * @param t is the array
+  * @return t for chaining
+  */
+ public int[] get(int[] t) {
+  t[0] = this.x;
+  t[1] = this.y;
+  t[2] = this.z;
+  return t;
+ }
 
-	/**
-	 * Sets the value of this tuple to the specified x, y, and z coordinates.
-	 *
-	 * @param x the x coordinate
-	 * @param y the y coordinate
-	 * @param z the z coordinate
-	 * @return this for chaining
-	 */
-	public final T set(int x, int y, int z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		return (T)this;
-	}
+ /**
+  * Copies the values of this tuple into the tuple t.
+  *
+  * @param <S>
+  * @param t is the target tuple
+  * @return t for chaining
+  */
+ public <S extends Tuple3i> S get(S t) {
+  t.x = this.x;
+  t.y = this.y;
+  t.z = this.z;
+  return t;
+ }
 
-	/**
-	 * Sets the value of this tuple to the specified coordinates in the array of length 3.
-	 *
-	 * @param t the array of length 3 containing x, y, and z in order.
-	 * @return this for chaining
-	 */
-	public final T set(int[] t) {
-		this.x = t[0];
-		this.y = t[1];
-		this.z = t[2];
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the sum of tuples t1 and t2.
+  *
+  * @param t1 the first tuple
+  * @param t2 the second tuple
+  * @return this for chaining
+  */
+ public T add(Tuple3i t1, Tuple3i t2) {
+  this.x = t1.x + t2.x;
+  this.y = t1.y + t2.y;
+  this.z = t1.z + t2.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the value of tuple t1.
-	 *
-	 * @param t1 the tuple to be copied
-	 * @return this for chaining
-	 */
-	public final T set(Tuple3i t1) {
-		this.x = t1.x;
-		this.y = t1.y;
-		this.z = t1.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the sum of itself and t1.
+  *
+  * @param t1 the other tuple
+  * @return this for chaining
+  */
+ public T add(Tuple3i t1) {
+  this.x += t1.x;
+  this.y += t1.y;
+  this.z += t1.z;
+  return (T) this;
+ }
 
-	/**
-	 * Copies the values of this tuple into the array t.
-	 *
-	 * @param t is the array
-	 * @return t for chaining
-	 */
-	public final int[] get(int[] t) {
-		t[0] = this.x;
-		t[1] = this.y;
-		t[2] = this.z;
-		return t;
-	}
+ /**
+  * Sets the value of this tuple to the difference of tuples t1 and t2 (this = t1 - t2).
+  *
+  * @param t1 the first tuple
+  * @param t2 the second tuple
+  * @return this for chaining
+  */
+ public T sub(Tuple3i t1, Tuple3i t2) {
+  this.x = t1.x - t2.x;
+  this.y = t1.y - t2.y;
+  this.z = t1.z - t2.z;
+  return (T) this;
+ }
 
-	/**
-	 * Copies the values of this tuple into the tuple t.
-	 *
-	 * @param t is the target tuple
-	 * @return t for chaining
-	 */
-	public final <S extends Tuple3i> S get(S t) {
-		t.x = this.x;
-		t.y = this.y;
-		t.z = this.z;
-		return t;
-	}
+ /**
+  * Sets the value of this tuple to the difference of itself and t1 (this = this - t1).
+  *
+  * @param t1 the other tuple
+  * @return this for chaining
+  */
+ public T sub(Tuple3i t1) {
+  this.x -= t1.x;
+  this.y -= t1.y;
+  this.z -= t1.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the sum of tuples t1 and t2.
-	 *
-	 * @param t1 the first tuple
-	 * @param t2 the second tuple
-	 * @return this for chaining
-	 */
-	public final T add(Tuple3i t1, Tuple3i t2) {
-		this.x = t1.x + t2.x;
-		this.y = t1.y + t2.y;
-		this.z = t1.z + t2.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the negation of tuple t1.
+  *
+  * @param t1 the source tuple
+  * @return this for chaining
+  */
+ public T negate(Tuple3i t1) {
+  this.x = -t1.x;
+  this.y = -t1.y;
+  this.z = -t1.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the sum of itself and t1.
-	 *
-	 * @param t1 the other tuple
-	 * @return this for chaining
-	 */
-	public final T add(Tuple3i t1) {
-		this.x += t1.x;
-		this.y += t1.y;
-		this.z += t1.z;
-		return (T)this;
-	}
+ /**
+  * Negates the value of this tuple in place.
+  *
+  * @return this for chaining
+  */
+ public T negate() {
+  this.x = -this.x;
+  this.y = -this.y;
+  this.z = -this.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the difference of tuples t1 and t2 (this = t1 - t2).
-	 *
-	 * @param t1 the first tuple
-	 * @param t2 the second tuple
-	 * @return this for chaining
-	 */
-	public final T sub(Tuple3i t1, Tuple3i t2) {
-		this.x = t1.x - t2.x;
-		this.y = t1.y - t2.y;
-		this.z = t1.z - t2.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the scalar multiplication of tuple t1.
+  *
+  * @param s the scalar value
+  * @param t1 the source tuple
+  * @return this for chaining
+  */
+ public T scale(int s, Tuple3i t1) {
+  this.x = s * t1.x;
+  this.y = s * t1.y;
+  this.z = s * t1.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the difference of itself and t1 (this = this - t1).
-	 *
-	 * @param t1 the other tuple
-	 * @return this for chaining
-	 */
-	public final T sub(Tuple3i t1) {
-		this.x -= t1.x;
-		this.y -= t1.y;
-		this.z -= t1.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the scalar multiplication of the scale factor with this.
+  *
+  * @param s the scalar value
+  * @return this for chaining
+  */
+ public T scale(int s) {
+  this.x *= s;
+  this.y *= s;
+  this.z *= s;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the negation of tuple t1.
-	 *
-	 * @param t1 the source tuple
-	 * @return this for chaining
-	 */
-	public final T negate(Tuple3i t1) {
-		this.x = -t1.x;
-		this.y = -t1.y;
-		this.z = -t1.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the scalar multiplication of tuple t1 plus tuple t2 (this = s*t1
+  * + t2).
+  *
+  * @param s the scalar value
+  * @param t1 the tuple to be multipled
+  * @param t2 the tuple to be added
+  * @return this for chaining
+  */
+ public T scaleAdd(int s, Tuple3i t1, Tuple3i t2) {
+  this.x = s * t1.x + t2.x;
+  this.y = s * t1.y + t2.y;
+  this.z = s * t1.z + t2.z;
+  return (T) this;
+ }
 
-	/**
-	 * Negates the value of this tuple in place.
-	 *
-	 * @return this for chaining
-	 */
-	public final T negate() {
-		this.x = -this.x;
-		this.y = -this.y;
-		this.z = -this.z;
-		return (T)this;
-	}
+ /**
+  * Sets the value of this tuple to the scalar multiplication of itself and then adds tuple t1 (this
+  * = s*this + t1).
+  *
+  * @param s the scalar value
+  * @param t1 the tuple to be added
+  * @return this for chaining
+  */
+ public T scaleAdd(int s, Tuple3i t1) {
+  this.x = s * this.x + t1.x;
+  this.y = s * this.y + t1.y;
+  this.z = s * this.z + t1.z;
+  return (T) this;
+ }
 
-	/**
-	 * Sets the value of this tuple to the scalar multiplication of tuple t1.
-	 *
-	 * @param s the scalar value
-	 * @param t1 the source tuple
-	 * @return this for chaining
-	 */
-	public final T scale(int s, Tuple3i t1) {
-		this.x = s * t1.x;
-		this.y = s * t1.y;
-		this.z = s * t1.z;
-		return (T)this;
-	}
+ /**
+  * Returns a string that contains the values of this Tuple3i. The form is (x,y,z).
+  *
+  * @return the String representation
+  */
+ @Override
+ public String toString() {
+  return "(" + this.x + ", " + this.y + ", " + this.z + ")";
+ }
 
-	/**
-	 * Sets the value of this tuple to the scalar multiplication of the scale factor with this.
-	 *
-	 * @param s the scalar value
-	 * @return this for chaining
-	 */
-	public final T scale(int s) {
-		this.x *= s;
-		this.y *= s;
-		this.z *= s;
-		return (T)this;
-	}
+ /**
+  * Returns true if the Object t1 is of type Tuple3i and all of the data members of t1 are equal to
+  * the corresponding data members in this Tuple3i.
+  *
+  * @param t1 the object with which the comparison is made
+  */
+ @Override
+ public boolean equals(Object t1) {
+  try {
+   Tuple3i t2 = (Tuple3i) t1;
+   return (this.x == t2.x && this.y == t2.y && this.z == t2.z);
+  } catch (NullPointerException | ClassCastException e2) {
+   return false;
+  }
+ }
 
-	/**
-	 * Sets the value of this tuple to the scalar multiplication of tuple t1 plus tuple t2 (this = s*t1 + t2).
-	 *
-	 * @param s the scalar value
-	 * @param t1 the tuple to be multipled
-	 * @param t2 the tuple to be added
-	 * @return this for chaining
-	 */
-	public final T scaleAdd(int s, Tuple3i t1, Tuple3i t2) {
-		this.x = s * t1.x + t2.x;
-		this.y = s * t1.y + t2.y;
-		this.z = s * t1.z + t2.z;
-		return (T)this;
-	}
+ /**
+  * Returns a hash code value based on the data values in this object. Two different Tuple3i objects
+  * with identical data values (i.e., Tuple3i.equals returns true) will return the same hash code
+  * value. Two objects with different data members may return the same hash value, although this is
+  * not likely.
+  *
+  * @return the integer hash code value
+  */
+ @Override
+ public int hashCode() {
+  long bits = 1L;
+  bits = 31L * bits + (long) x;
+  bits = 31L * bits + (long) y;
+  bits = 31L * bits + (long) z;
+  return (int) (bits ^ (bits >> 32));
+ }
 
-	/**
-	 * Sets the value of this tuple to the scalar multiplication of itself and then adds tuple t1 (this = s*this + t1).
-	 *
-	 * @param s the scalar value
-	 * @param t1 the tuple to be added
-	 * @return this for chaining
-	 */
-	public final T scaleAdd(int s, Tuple3i t1) {
-		this.x = s * this.x + t1.x;
-		this.y = s * this.y + t1.y;
-		this.z = s * this.z + t1.z;
-		return (T)this;
-	}
+ /**
+  * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
+  *
+  * @param min the lowest value in the tuple after clamping
+  * @param max the highest value in the tuple after clamping
+  * @param t the source tuple, which will not be modified
+  * @return this for chaining
+  */
+ public T clamp(int min, int max, Tuple3i t) {
+  if (t.x > max) {
+   x = max;
+  } else if (t.x < min) {
+   x = min;
+  } else {
+   x = t.x;
+  }
+  if (t.y > max) {
+   y = max;
+  } else if (t.y < min) {
+   y = min;
+  } else {
+   y = t.y;
+  }
+  if (t.z > max) {
+   z = max;
+  } else if (t.z < min) {
+   z = min;
+  } else {
+   z = t.z;
+  }
+  return (T) this;
+ }
 
-	/**
-	 * Returns a string that contains the values of this Tuple3i. The form is (x,y,z).
-	 *
-	 * @return the String representation
-	 */
-	@Override
-	public String toString() {
-		return "(" + this.x + ", " + this.y + ", " + this.z + ")";
-	}
+ /**
+  * Clamps the minimum value of the tuple parameter to the min parameter and places the values into
+  * this tuple.
+  *
+  * @param min the lowest value in the tuple after clamping
+  * @param t the source tuple, which will not be modified
+  * @return this for chaining
+  */
+ public T clampMin(int min, Tuple3i t) {
+  if (t.x < min) {
+   x = min;
+  } else {
+   x = t.x;
+  }
+  if (t.y < min) {
+   y = min;
+  } else {
+   y = t.y;
+  }
+  if (t.z < min) {
+   z = min;
+  } else {
+   z = t.z;
+  }
+  return (T) this;
+ }
 
-	/**
-	 * Returns true if the Object t1 is of type Tuple3i and all of the data members of t1 are equal to the corresponding data members
-	 * in this Tuple3i.
-	 *
-	 * @param t1 the object with which the comparison is made
-	 */
-	@Override
-	public boolean equals(Object t1) {
-		try {
-			Tuple3i t2 = (Tuple3i) t1;
-			return (this.x == t2.x && this.y == t2.y && this.z == t2.z);
-		} catch (NullPointerException | ClassCastException e2) {
-			return false;
-		}
-	}
+ /**
+  * Clamps the maximum value of the tuple parameter to the max parameter and places the values into
+  * this tuple.
+  *
+  * @param max the highest value in the tuple after clamping
+  * @param t the source tuple, which will not be modified
+  * @return this for chaining
+  */
+ public T clampMax(int max, Tuple3i t) {
+  if (t.x > max) {
+   x = max;
+  } else {
+   x = t.x;
+  }
+  if (t.y > max) {
+   y = max;
+  } else {
+   y = t.y;
+  }
+  if (t.z > max) {
+   z = max;
+  } else {
+   z = t.z;
+  }
+  return (T) this;
+ }
 
-	/**
-	 * Returns a hash code value based on the data values in this object. Two different Tuple3i objects with identical data values
-	 * (i.e., Tuple3i.equals returns true) will return the same hash code value. Two objects with different data members may return
-	 * the same hash value, although this is not likely.
-	 *
-	 * @return the integer hash code value
-	 */
-	@Override
-	public int hashCode() {
-		long bits = 1L;
-		bits = 31L * bits + (long) x;
-		bits = 31L * bits + (long) y;
-		bits = 31L * bits + (long) z;
-		return (int) (bits ^ (bits >> 32));
-	}
+ /**
+  * Sets each component of the tuple parameter to its absolute value and places the modified values
+  * into this tuple.
+  *
+  * @param t the source tuple, which will not be modified
+  * @return this for chaining
+  */
+ public T abs(Tuple3i t) {
+  x = Math.abs(t.x);
+  y = Math.abs(t.y);
+  z = Math.abs(t.z);
+  return (T) this;
+ }
 
-	/**
-	 * Clamps the tuple parameter to the range [low, high] and places the values into this tuple.
-	 *
-	 * @param min the lowest value in the tuple after clamping
-	 * @param max the highest value in the tuple after clamping
-	 * @param t the source tuple, which will not be modified
-	 * @return this for chaining
-	 */
-	public final T clamp(int min, int max, Tuple3i t) {
-		if (t.x > max) {
-			x = max;
-		} else if (t.x < min) {
-			x = min;
-		} else {
-			x = t.x;
-		}
+ /**
+  * Clamps this tuple to the range [low, high].
+  *
+  * @param min the lowest value in this tuple after clamping
+  * @param max the highest value in this tuple after clamping
+  * @return this for chaining
+  */
+ public T clamp(int min, int max) {
+  if (x > max) {
+   x = max;
+  } else if (x < min) {
+   x = min;
+  }
+  if (y > max) {
+   y = max;
+  } else if (y < min) {
+   y = min;
+  }
+  if (z > max) {
+   z = max;
+  } else if (z < min) {
+   z = min;
+  }
+  return (T) this;
+ }
 
-		if (t.y > max) {
-			y = max;
-		} else if (t.y < min) {
-			y = min;
-		} else {
-			y = t.y;
-		}
+ /**
+  * Clamps the minimum value of this tuple to the min parameter.
+  *
+  * @param min the lowest value in this tuple after clamping
+  * @return this for chaining
+  */
+ public T clampMin(int min) {
+  if (x < min) {
+   x = min;
+  }
+  if (y < min) {
+   y = min;
+  }
+  if (z < min) {
+   z = min;
+  }
+  return (T) this;
+ }
 
-		if (t.z > max) {
-			z = max;
-		} else if (t.z < min) {
-			z = min;
-		} else {
-			z = t.z;
-		}
-		return (T)this;
-	}
+ /**
+  * Clamps the maximum value of this tuple to the max parameter.
+  *
+  * @param max the highest value in the tuple after clamping
+  * @return this for chaining
+  */
+ public T clampMax(int max) {
+  if (x > max) {
+   x = max;
+  }
+  if (y > max) {
+   y = max;
+  }
+  if (z > max) {
+   z = max;
+  }
+  return (T) this;
+ }
 
-	/**
-	 * Clamps the minimum value of the tuple parameter to the min parameter and places the values into this tuple.
-	 *
-	 * @param min the lowest value in the tuple after clamping
-	 * @param t the source tuple, which will not be modified
-	 * @return this for chaining
-	 */
-	public final T clampMin(int min, Tuple3i t) {
-		if (t.x < min) {
-			x = min;
-		} else {
-			x = t.x;
-		}
+ /**
+  * Sets each component of this tuple to its absolute value.
+  *
+  * @return this for chaining
+  */
+ public T abs() {
+  x = Math.abs(x);
+  y = Math.abs(y);
+  z = Math.abs(z);
+  return (T) this;
+ }
 
-		if (t.y < min) {
-			y = min;
-		} else {
-			y = t.y;
-		}
+ /**
+  * Sets each component of this tuple to its absolute value.
+  *
+  * @return this for chaining
+  */
+ public T absolute() {
+  abs();
+  return (T) this;
+ }
 
-		if (t.z < min) {
-			z = min;
-		} else {
-			z = t.z;
-		}
-		return (T)this;
-	}
+ /**
+  * Sets each component of the tuple parameter to its absolute value and places the modified values
+  * into this tuple.
+  *
+  * @param t the source tuple, which will not be modified
+  * @return this for chaining
+  */
+ public T absolute(Tuple3i t) {
+  abs(t);
+  return (T) this;
+ }
 
-	/**
-	 * Clamps the maximum value of the tuple parameter to the max parameter and places the values into this tuple.
-	 *
-	 * @param max the highest value in the tuple after clamping
-	 * @param t the source tuple, which will not be modified
-	 * @return this for chaining
-	 */
-	public final T clampMax(int max, Tuple3i t) {
-		if (t.x > max) {
-			x = max;
-		} else {
-			x = t.x;
-		}
+ /**
+  * Creates a new object of the same class as this object.
+  *
+  * @return a clone of this instance.
+  * @exception OutOfMemoryError if there is not enough memory.
+  * @see java.lang.Cloneable
+  * @since vecmath 1.3
+  */
+ @Override
+ public Object clone() {
+  // Since there are no arrays we can just use Object.clone()
+  try {
+   return super.clone();
+  } catch (CloneNotSupportedException e) {
+   // this shouldn't happen, since we are Cloneable
+   throw new InternalError();
+  }
+ }
 
-		if (t.y > max) {
-			y = max;
-		} else {
-			y = t.y;
-		}
+ /**
+  * Get the <i>x</i> coordinate.
+  *
+  * @return the <i>x</i> coordinate.
+  *
+  * @since vecmath 1.5
+  */
+ public int getX() {
+  return x;
+ }
 
-		if (t.z > max) {
-			z = max;
-		} else {
-			z = t.z;
-		}
-		return (T)this;
-	}
+ /**
+  * Set the <i>x</i> coordinate.
+  *
+  * @param x value to <i>x</i> coordinate.
+  * @return this for chaining
+  *
+  * @since vecmath 1.5
+  */
+ public T setX(int x) {
+  this.x = x;
+  return (T) this;
+ }
 
-	/**
-	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
-	 *
-	 * @param t the source tuple, which will not be modified
-	 * @return this for chaining
-	 */
-	public final T abs(Tuple3i t) {
-		x = Math.abs(t.x);
-		y = Math.abs(t.y);
-		z = Math.abs(t.z);
-		return (T)this;
-	}
+ /**
+  * Get the <i>y</i> coordinate.
+  *
+  * @return the <i>y</i> coordinate.
+  *
+  * @since vecmath 1.5
+  */
+ public int getY() {
+  return y;
+ }
 
-	/**
-	 * Clamps this tuple to the range [low, high].
-	 *
-	 * @param min the lowest value in this tuple after clamping
-	 * @param max the highest value in this tuple after clamping
-	 * @return this for chaining
-	 */
-	public final T clamp(int min, int max) {
-		if (x > max) {
-			x = max;
-		} else if (x < min) {
-			x = min;
-		}
+ /**
+  * Set the <i>y</i> coordinate.
+  *
+  * @param y value to <i>y</i> coordinate.
+  * @return this for chaining
+  *
+  * @since vecmath 1.5
+  */
+ public T setY(int y) {
+  this.y = y;
+  return (T) this;
+ }
 
-		if (y > max) {
-			y = max;
-		} else if (y < min) {
-			y = min;
-		}
+ /**
+  * Get the <i>z</i> coordinate.
+  *
+  * @return the <i>z</i> coordinate.
+  * @since vecmath 1.5
+  */
+ public int getZ() {
+  return z;
+ }
 
-		if (z > max) {
-			z = max;
-		} else if (z < min) {
-			z = min;
-		}
-		return (T)this;
-	}
+ /**
+  * Set the <i>z</i> coordinate.
+  *
+  * @param z value to <i>z</i> coordinate.
+  * @return this for chaining
+  *
+  * @since vecmath 1.5
+  */
+ public T setZ(int z) {
+  this.z = z;
+  return (T) this;
+ }
 
-	/**
-	 * Clamps the minimum value of this tuple to the min parameter.
-	 *
-	 * @param min the lowest value in this tuple after clamping
-	 * @return this for chaining
-	 */
-	public final T clampMin(int min) {
-		if (x < min) {
-			x = min;
-		}
+ /**
+  * Get an element of this tuple by index
+  *
+  * @param i 0 for x, 1 for y, 2 for z
+  * @return
+  */
+ public int getElement(int i) {
+  switch (i) {
+   case 0:
+    return x;
+   case 1:
+    return y;
+   case 2:
+    return z;
+   default:
+    throw new IndexOutOfBoundsException();
+  }
+ }
 
-		if (y < min) {
-			y = min;
-		}
-
-		if (z < min) {
-			z = min;
-		}
-		return (T)this;
-	}
-
-	/**
-	 * Clamps the maximum value of this tuple to the max parameter.
-	 *
-	 * @param max the highest value in the tuple after clamping
-	 * @return this for chaining
-	 */
-	public final T clampMax(int max) {
-		if (x > max) {
-			x = max;
-		}
-
-		if (y > max) {
-			y = max;
-		}
-
-		if (z > max) {
-			z = max;
-		}
-		return (T)this;
-	}
-
-	/**
-	 * Sets each component of this tuple to its absolute value.
-	 *
-	 * @return this for chaining
-	 */
-	public final T abs() {
-		x = Math.abs(x);
-		y = Math.abs(y);
-		z = Math.abs(z);
-		return (T)this;
-	}
-
-	/**
-	 * Sets each component of this tuple to its absolute value.
-	 *
-	 * @return this for chaining
-	 */
-	public T absolute() {
-		abs();
-		return (T) this;
-	}
-
-	/**
-	 * Sets each component of the tuple parameter to its absolute value and places the modified values into this tuple.
-	 *
-	 * @param t the source tuple, which will not be modified
-	 * @return this for chaining
-	 */
-	public T absolute(Tuple3i t) {
-		abs(t);
-		return (T) this;
-	}
-
-	/**
-	 * Creates a new object of the same class as this object.
-	 *
-	 * @return a clone of this instance.
-	 * @exception OutOfMemoryError if there is not enough memory.
-	 * @see java.lang.Cloneable
-	 * @since vecmath 1.3
-	 */
-	@Override
-	public Object clone() {
-		// Since there are no arrays we can just use Object.clone()
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException e) {
-			// this shouldn't happen, since we are Cloneable
-			throw new InternalError();
-		}
-	}
-
-	/**
-	 * Get the <i>x</i> coordinate.
-	 *
-	 * @return the <i>x</i> coordinate.
-	 *
-	 * @since vecmath 1.5
-	 */
-	public final int getX() {
-		return x;
-	}
-
-	/**
-	 * Set the <i>x</i> coordinate.
-	 *
-	 * @param x value to <i>x</i> coordinate.
-	 * @return this for chaining
-	 *
-	 * @since vecmath 1.5
-	 */
-	public final T setX(int x) {
-		this.x = x;
-		return (T)this;
-	}
-
-	/**
-	 * Get the <i>y</i> coordinate.
-	 *
-	 * @return the <i>y</i> coordinate.
-	 *
-	 * @since vecmath 1.5
-	 */
-	public final int getY() {
-		return y;
-	}
-
-	/**
-	 * Set the <i>y</i> coordinate.
-	 *
-	 * @param y value to <i>y</i> coordinate.
-	 * @return this for chaining
-	 *
-	 * @since vecmath 1.5
-	 */
-	public final T setY(int y) {
-		this.y = y;
-		return (T)this;
-	}
-
-	/**
-	 * Get the <i>z</i> coordinate.
-	 *
-	 * @return the <i>z</i> coordinate.
-	 * @since vecmath 1.5
-	 */
-	public final int getZ() {
-		return z;
-	}
-
-	/**
-	 * Set the <i>z</i> coordinate.
-	 *
-	 * @param z value to <i>z</i> coordinate.
-	 * @return this for chaining
-	 *
-	 * @since vecmath 1.5
-	 */
-	public final T setZ(int z) {
-		this.z = z;
-		return (T)this;
-	}
+ /**
+  * Set an element of this tuple
+  *
+  * @param i 0 for x, 1 for y, 2 for z
+  * @param value the new value
+  * @return this for chaining
+  */
+ public T setElement(int i, int value) {
+  switch (i) {
+   case 0:
+    x = value;
+    break;
+   case 1:
+    y = value;
+    break;
+   case 2:
+    z = value;
+    break;
+   default:
+    throw new IndexOutOfBoundsException();
+  }
+  return (T) this;
+ }
 }
