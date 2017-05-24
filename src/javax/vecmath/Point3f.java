@@ -91,8 +91,8 @@ public class Point3f extends Tuple3f<Point3f> implements java.io.Serializable {
   * @return the L-1 distance
   */
  public float distanceL1(Point3f p1) {
-  return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
-   - p1.z));
+  return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z -
+    p1.z));
  }
 
  /**

@@ -138,8 +138,9 @@ public class Color4f extends Tuple4f<Color4f> implements java.io.Serializable {
   byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);
   byte blue = (byte) Math.min(Math.max(z * 255.0f, 0.0f), 255.0f);
   byte alpha = (byte) Math.min(Math.max(w * 255.0f, 0.0f), 255.0f);
-  int bits = ((alpha << 24) & 0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00)
-   | ((blue) & 0xff);
+  int bits =
+   ((alpha << 24) & 0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) |
+    ((blue) & 0xff);
   return bits;
  }
 }

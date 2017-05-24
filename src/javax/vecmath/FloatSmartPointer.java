@@ -17,14 +17,13 @@ import java.io.Serializable;
 
 /**
  * Get and Set and single float value from an object, override get() and set() so they know how to
- * reference the data.  
+ * reference the data.
  *
  * @author Gregery Barton
  */
-public abstract class FloatSmartPointer<T> implements Serializable{
+public abstract class FloatSmartPointer<T> implements Serializable {
 
  private static final long serialVersionUID = -1096534732437268770L;
-
  final T object;
 
  public FloatSmartPointer(T object) {
@@ -39,15 +38,16 @@ public abstract class FloatSmartPointer<T> implements Serializable{
 
  public abstract void set(float value);
 
- public final float plusEquals(float a){
-  set(get()+a);
+ public final float plusEquals(float a) {
+  set(get() + a);
   return get();
  }
-  public final float timesEquals(float a){
-  set(get()*a);
+
+ public final float timesEquals(float a) {
+  set(get() * a);
   return get();
  }
- 
+
  public final T object() {
   return (T) object;
  }

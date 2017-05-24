@@ -220,9 +220,9 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   */
  @Override
  public String toString() {
-  return m00 + ", " + m01 + ", " + m02 + "\n"
-   + m10 + ", " + m11 + ", " + m12 + "\n"
-   + m20 + ", " + m21 + ", " + m22;
+  return m00 + ", " + m01 + ", " + m02 + "\n" +
+    m10 + ", " + m11 + ", " + m12 + "\n" +
+    m20 + ", " + m21 + ", " + m22;
  }
 
  /**
@@ -864,10 +864,9 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   m02 = xz + wy;
   m12 = yz - wx;
   m22 = 1.0f - (xx + yy);
- 
   return (T) this;
  }
- 
+
  /**
   * Sets the value of this matrix to the matrix conversion of the (single precision) axis and angle
   * argument.
@@ -1005,9 +1004,9 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   */
  public float determinant() {
   float total;
-  total = m00 * (m11 * m22 - m12 * m21)
-   + m01 * (m12 * m20 - m10 * m22)
-   + m02 * (m10 * m21 - m11 * m20);
+  total = m00 * (m11 * m22 - m12 * m21) +
+    m01 * (m12 * m20 - m10 * m22) +
+    m02 * (m10 * m21 - m11 * m20);
   return total;
  }
 
@@ -1364,15 +1363,15 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   */
  public T normalizeCP(Matrix3f m1) {
   {
-   float mag = 1.0f / sqrt(m1.m00 * m1.m00 + m1.m10 * m1.m10
-    + m1.m20 * m1.m20);
+   float mag = 1.0f / sqrt(m1.m00 * m1.m00 + m1.m10 * m1.m10 +
+     m1.m20 * m1.m20);
    m00 = m1.m00 * mag;
    m10 = m1.m10 * mag;
    m20 = m1.m20 * mag;
   }
   {
-   float mag = 1.0f / sqrt(m1.m01 * m1.m01 + m1.m11 * m1.m11 + m1.m21
-    * m1.m21);
+   float mag = 1.0f / sqrt(m1.m01 * m1.m01 + m1.m11 * m1.m11 + m1.m21 *
+     m1.m21);
    m01 = m1.m01 * mag;
    m11 = m1.m11 * mag;
    m21 = m1.m21 * mag;
@@ -1391,9 +1390,9 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   * @return true or false
   */
  public boolean equals(Matrix3f m1) {
-  return (m00 == m1.m00 && m01 == m1.m01 && m02 == m1.m02
-   && m10 == m1.m10 && m11 == m1.m11 && m12 == m1.m12
-   && m20 == m1.m20 && m21 == m1.m21 && m22 == m1.m22);
+  return (m00 == m1.m00 && m01 == m1.m01 && m02 == m1.m02 &&
+    m10 == m1.m10 && m11 == m1.m11 && m12 == m1.m12 &&
+    m20 == m1.m20 && m21 == m1.m21 && m22 == m1.m22);
  }
 
  /**
@@ -1407,9 +1406,9 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
  public boolean equals(Object o1) {
   try {
    Matrix3f m2 = (Matrix3f) o1;
-   return (m00 == m2.m00 && m01 == m2.m01 && m02 == m2.m02
-    && m10 == m2.m10 && m11 == m2.m11 && m12 == m2.m12
-    && m20 == m2.m20 && m21 == m2.m21 && m22 == m2.m22);
+   return (m00 == m2.m00 && m01 == m2.m01 && m02 == m2.m02 &&
+     m10 == m2.m10 && m11 == m2.m11 && m12 == m2.m12 &&
+     m20 == m2.m20 && m21 == m2.m21 && m22 == m2.m22);
   } catch (ClassCastException ex) {
    return false;
   }
@@ -1930,15 +1929,14 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   return (T) this;
  }
 
-  /**
-  * Transforms the tuple t1 using only the transpose this matrix and store the result
-  * back into t1.
+ /**
+  * Transforms the tuple t1 using only the transpose this matrix and store the result back into t1.
   *
   * @param <S> the tuple to transform
   * @param t1 the input point to be transformed.
   * @return point for chaining
   */
- public <S extends Tuple3f> S transposeTransform (S t1) {
+ public <S extends Tuple3f> S transposeTransform(S t1) {
   float x = m00 * t1.x + m10 * t1.y + m20 * t1.z;
   float y = m01 * t1.x + m11 * t1.y + m21 * t1.z;
   t1.z = m02 * t1.x + m12 * t1.y + m22 * t1.z;
@@ -1948,15 +1946,14 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
  }
 
  /**
-  * Transforms the t1 using using only the transpose of this matrix and place the result
-  * into t2.
+  * Transforms the t1 using using only the transpose of this matrix and place the result into t2.
   *
   * @param <S>
   * @param t1 the input point to be transformed.
   * @param t2 the transformed point
   * @return t2 for chaining
   */
- public <S extends Tuple3f> S transposeTransform (Tuple3f t1, S t2) {
+ public <S extends Tuple3f> S transposeTransform(Tuple3f t1, S t2) {
   float x = m00 * t1.x + m10 * t1.y + m20 * t1.z;
   float y = m01 * t1.x + m11 * t1.y + m21 * t1.z;
   t2.z = m02 * t1.x + m12 * t1.y + m22 * t1.z;

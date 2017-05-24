@@ -114,10 +114,10 @@ public abstract class Tuple4b<T extends Tuple4b> implements java.io.Serializable
   */
  @Override
  public String toString() {
-  return ("(" + ((int) this.x & 0xff)
-   + ", " + ((int) this.y & 0xff)
-   + ", " + ((int) this.z & 0xff)
-   + ", " + ((int) this.w & 0xff) + ")");
+  return ("(" + ((int) this.x & 0xff) +
+    ", " + ((int) this.y & 0xff) +
+    ", " + ((int) this.z & 0xff) +
+    ", " + ((int) this.w & 0xff) + ")");
  }
 
  /**
@@ -186,8 +186,8 @@ public abstract class Tuple4b<T extends Tuple4b> implements java.io.Serializable
   */
  public boolean equals(Tuple4b t1) {
   try {
-   return (this.x == t1.x && this.y == t1.y
-    && this.z == t1.z && this.w == t1.w);
+   return (this.x == t1.x && this.y == t1.y &&
+     this.z == t1.z && this.w == t1.w);
   } catch (NullPointerException e2) {
    return false;
   }
@@ -203,8 +203,8 @@ public abstract class Tuple4b<T extends Tuple4b> implements java.io.Serializable
  public boolean equals(Object t1) {
   try {
    Tuple4b t2 = (Tuple4b) t1;
-   return (this.x == t2.x && this.y == t2.y
-    && this.z == t2.z && this.w == t2.w);
+   return (this.x == t2.x && this.y == t2.y &&
+     this.z == t2.z && this.w == t2.w);
   } catch (NullPointerException | ClassCastException e2) {
    return false;
   }
@@ -220,10 +220,10 @@ public abstract class Tuple4b<T extends Tuple4b> implements java.io.Serializable
   */
  @Override
  public int hashCode() {
-  return ((((int) x & 0xff))
-   | (((int) y & 0xff) << 8)
-   | (((int) z & 0xff) << 16)
-   | (((int) w & 0xff) << 24));
+  return ((((int) x & 0xff)) |
+    (((int) y & 0xff) << 8) |
+    (((int) z & 0xff) << 16) |
+    (((int) w & 0xff) << 24));
  }
 
  /**

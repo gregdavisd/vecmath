@@ -762,8 +762,8 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
   */
  @Override
  public String toString() {
-  return m00 + ", " + m01 + "\n"
-   + m10 + ", " + m11 + "\n";
+  return m00 + ", " + m01 + "\n" +
+    m10 + ", " + m11 + "\n";
  }
 
  /**
@@ -794,8 +794,8 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
   * @return true or false
   */
  public boolean equals(Matrix2f m1) {
-  return (m00 == m1.m00 && m01 == m1.m01
-   && m10 == m1.m10 && m11 == m1.m11);
+  return (m00 == m1.m00 && m01 == m1.m01 &&
+    m10 == m1.m10 && m11 == m1.m11);
  }
 
  /**

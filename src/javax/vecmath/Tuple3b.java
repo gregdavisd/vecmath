@@ -106,9 +106,9 @@ public abstract class Tuple3b<T extends Tuple3b> implements java.io.Serializable
   */
  @Override
  public String toString() {
-  return ("(" + ((int) this.x & 0xff)
-   + ", " + ((int) this.y & 0xff)
-   + ", " + ((int) this.z & 0xff) + ")");
+  return ("(" + ((int) this.x & 0xff) +
+    ", " + ((int) this.y & 0xff) +
+    ", " + ((int) this.z & 0xff) + ")");
  }
 
  /**
@@ -206,9 +206,9 @@ public abstract class Tuple3b<T extends Tuple3b> implements java.io.Serializable
   */
  @Override
  public int hashCode() {
-  return ((((int) x & 0xff))
-   | (((int) y & 0xff) << 8)
-   | (((int) z & 0xff) << 16));
+  return ((((int) x & 0xff)) |
+    (((int) y & 0xff) << 8) |
+    (((int) z & 0xff) << 16));
  }
 
  /**

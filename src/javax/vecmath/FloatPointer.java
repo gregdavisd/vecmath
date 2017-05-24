@@ -20,7 +20,7 @@ import java.io.Serializable;
  *
  * @author Gregery Barton
  */
-public class FloatPointer  implements Serializable{
+public class FloatPointer implements Serializable {
 
  final private float[] array;
  final private int offset;

@@ -210,12 +210,12 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
   */
  public AxisAngle4f set(Quat4f q1) {
   float mag = q1.x * q1.x + q1.y * q1.y + q1.z * q1.z;
-   mag = sqrt(mag);
-   float invMag = 1.0f / mag;
-   x = (q1.x * invMag);
-   y = (q1.y * invMag);
-   z = (q1.z * invMag);
-   angle = (2.0f * atan2(mag, q1.w));
+  mag = sqrt(mag);
+  float invMag = 1.0f / mag;
+  x = (q1.x * invMag);
+  y = (q1.y * invMag);
+  z = (q1.z * invMag);
+  angle = (2.0f * atan2(mag, q1.w));
   return this;
  }
 
@@ -302,8 +302,8 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
   */
  public boolean equals(AxisAngle4f a1) {
   try {
-   return (this.x == a1.x && this.y == a1.y && this.z == a1.z
-    && this.angle == a1.angle);
+   return (this.x == a1.x && this.y == a1.y && this.z == a1.z &&
+     this.angle == a1.angle);
   } catch (NullPointerException e2) {
    return false;
   }
@@ -320,8 +320,8 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
  public boolean equals(Object o1) {
   try {
    AxisAngle4f a2 = (AxisAngle4f) o1;
-   return (this.x == a2.x && this.y == a2.y && this.z == a2.z
-    && this.angle == a2.angle);
+   return (this.x == a2.x && this.y == a2.y && this.z == a2.z &&
+     this.angle == a2.angle);
   } catch (NullPointerException | ClassCastException e2) {
    return false;
   }

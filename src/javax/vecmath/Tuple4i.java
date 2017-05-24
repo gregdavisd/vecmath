@@ -343,8 +343,8 @@ public abstract class Tuple4i<T extends Tuple4i> implements java.io.Serializable
  public boolean equals(Object t1) {
   try {
    Tuple4i t2 = (Tuple4i) t1;
-   return (this.x == t2.x && this.y == t2.y
-    && this.z == t2.z && this.w == t2.w);
+   return (this.x == t2.x && this.y == t2.y &&
+     this.z == t2.z && this.w == t2.w);
   } catch (NullPointerException | ClassCastException e2) {
    return false;
   }

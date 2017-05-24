@@ -467,8 +467,8 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
   * @return true or false
   */
  public boolean equals(Tuple4f t1) {
-  return (x == t1.x && y == t1.y && z == t1.z
-   && w == t1.w);
+  return (x == t1.x && y == t1.y && z == t1.z &&
+    w == t1.w);
  }
 
  /**
@@ -482,8 +482,8 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
  public boolean equals(Object t1) {
   try {
    Tuple4f t2 = (Tuple4f) t1;
-   return (x == t2.x && y == t2.y
-    && z == t2.z && w == t2.w);
+   return (x == t2.x && y == t2.y &&
+     z == t2.z && w == t2.w);
   } catch (NullPointerException | ClassCastException e2) {
    return false;
   }
@@ -930,8 +930,8 @@ public abstract class Tuple4f<T extends Tuple4f> implements java.io.Serializable
   * @return the squared length of this vector as a float
   */
  public float lengthSquared() {
-  return (x * x + y * y
-   + z * z + w * w);
+  return (x * x + y * y +
+    z * z + w * w);
  }
 
  /**

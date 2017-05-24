@@ -205,11 +205,9 @@ public class Quat4f<T extends Quat4f> extends Tuple4f<T> implements java.io.Seri
    setElement(j, (m1.getElement(j, i) + m1.getElement(i, j)) * s);
    setElement(k, (m1.getElement(k, i) + m1.getElement(i, k)) * s);
   }
- 
   return (T) this;
  }
 
-  
  /**
   * Sets the value of this quaternion to the equivalent rotation of the AxisAngle argument.
   *

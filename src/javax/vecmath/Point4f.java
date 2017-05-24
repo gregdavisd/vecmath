@@ -105,8 +105,8 @@ public class Point4f extends Tuple4f<Tuple4f> implements java.io.Serializable {
   * @return the L-1 distance
   */
  public float distanceL1(Point4f p1) {
-  return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z
-   - p1.z) + Math.abs(this.w - p1.w));
+  return (Math.abs(this.x - p1.x) + Math.abs(this.y - p1.y) + Math.abs(this.z -
+    p1.z) + Math.abs(this.w - p1.w));
  }
 
  /**

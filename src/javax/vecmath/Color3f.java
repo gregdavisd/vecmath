@@ -117,8 +117,8 @@ public class Color3f extends Tuple3f<Color3f> implements java.io.Serializable {
   byte red = (byte) Math.min(Math.max(x * 255.0f, 0.0f), 255.0f);
   byte green = (byte) Math.min(Math.max(y * 255.0f, 0.0f), 255.0f);
   byte blue = (byte) Math.min(Math.max(z * 255.0f, 0.0f), 255.0f);
-  int bits = (0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) | ((blue)
-   & 0x000000ff);
+  int bits = (0xff000000) | ((red << 16) & 0x00ff0000) | ((green << 8) & 0x0000ff00) | ((blue) &
+    0x000000ff);
   return bits;
  }
 }
