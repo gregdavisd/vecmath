@@ -815,7 +815,13 @@ public abstract class Tuple3f<T extends Tuple3f> implements java.io.Serializable
   * @return
   */
  public T cross(Tuple3f v2) {
-  cross(this, v2);
+  float tmp_x;
+  float tmp_y;
+  tmp_x =  y * v2.z -  z * v2.y;
+  tmp_y = v2.x *  z - v2.z *  x;
+  z =  x * v2.y -  y * v2.x;
+  x = tmp_x;
+  y = tmp_y;
   return (T) this;
  }
 
