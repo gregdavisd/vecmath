@@ -1,12 +1,6 @@
 package javax.vecmath;
 
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Arrays;
 
 /**
  * Jama = Java Matrix class.
@@ -47,7 +41,7 @@ import java.util.logging.Logger;
  * @author The MathWorks, Inc. and the National Institute of Standards and Technology.
  * @version 5 August 1998
  */
-public class Matrix implements Cloneable, java.io.Serializable {
+public class Matrix implements java.io.Serializable {
 
  static final long serialVersionUID = 1L;
  /*
@@ -115,7 +109,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
     throw new IllegalArgumentException("All rows must have the same length.");
    }
   }
-  this.A = A.clone();
+  this.A = new double[A.length][];
+  for (int i = 0; i < A.length; ++i) {
+   this.A[i] = Arrays.copyOf(A[i], A[i].length);
+  }
  }
 
  /**
@@ -126,7 +123,10 @@ public class Matrix implements Cloneable, java.io.Serializable {
   * @param n Number of colums.
   */
  public Matrix(double[][] A, int m, int n) {
-  this.A = A.clone();
+  this.A = new double[A.length][];
+  for (int i = 0; i < A.length; ++i) {
+   this.A[i] = Arrays.copyOf(A[i], A[i].length);
+  }
   this.m = m;
   this.n = n;
  }
@@ -188,21 +188,6 @@ public class Matrix implements Cloneable, java.io.Serializable {
    System.arraycopy(A[i], 0, C[i], 0, n);
   }
   return X;
- }
-
- /**
-  * Clone the Matrix object.
-  *
-  * @return
-  */
- @Override
- public Object clone() {
-  try {
-   super.clone();
-  } catch (CloneNotSupportedException ex) {
-   Logger.getLogger(Matrix.class.getName()).log(Level.SEVERE, null, ex);
-  }
-  return this.copy();
  }
 
  /**
@@ -748,79 +733,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
   }
   return A;
  }
-
- /**
-  * Print the matrix to stdout. Line the elements up in columns with a Fortran-like 'Fw.d' style
-  * format.
-  *
-  * @param w Column width.
-  * @param d Number of digits after the decimal.
-  */
- public void print(int w, int d) {
-  print(new PrintWriter(System.out, true), w, d);
- }
-
- /**
-  * Print the matrix to the output stream. Line the elements up in columns with a Fortran-like
-  * 'Fw.d' style format.
-  *
-  * @param output Output stream.
-  * @param w Column width.
-  * @param d Number of digits after the decimal.
-  */
- public void print(PrintWriter output, int w, int d) {
-  DecimalFormat format = new DecimalFormat();
-  format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
-  format.setMinimumIntegerDigits(1);
-  format.setMaximumFractionDigits(d);
-  format.setMinimumFractionDigits(d);
-  format.setGroupingUsed(false);
-  print(output, format, w + 2);
- }
-
- /**
-  * Print the matrix to stdout. Line the elements up in columns. Use the format object, and right
-  * justify within columns of width characters. Note that is the matrix is to be read back in, you
-  * probably will want to use a NumberFormat that is set to US Locale.
-  *
-  * @param format A Formatting object for individual elements.
-  * @param width Field width for each column.
-  * @see java.text.DecimalFormat#setDecimalFormatSymbols
-  */
- public void print(NumberFormat format, int width) {
-  print(new PrintWriter(System.out, true), format, width);
- }
-
- // DecimalFormat is a little disappointing coming from Fortran or C's printf.
- // Since it doesn't pad on the left, the elements will come out different
- // widths.  Consequently, we'll pass the desired column width in as an
- // argument and do the extra padding ourselves.
- /**
-  * Print the matrix to the output stream. Line the elements up in columns. Use the format object,
-  * and right justify within columns of width characters. Note that is the matrix is to be read back
-  * in, you probably will want to use a NumberFormat that is set to US Locale.
-  *
-  * @param output the output stream.
-  * @param format A formatting object to format the matrix elements
-  * @param width Column width.
-  * @see java.text.DecimalFormat#setDecimalFormatSymbols
-  */
- public void print(PrintWriter output, NumberFormat format, int width) {
-  output.println();  // start on new line.
-  for (int i = 0; i < m; i++) {
-   for (int j = 0; j < n; j++) {
-    String s = format.format(A[i][j]); // format the number
-    int padding = Math.max(1, width - s.length()); // At _least_ 1 space
-    for (int k = 0; k < padding; k++) {
-     output.print(' ');
-    }
-    output.print(s);
-   }
-   output.println();
-  }
-  output.println();   // end with blank line.
- }
-
+ 
  /*
 	 * ------------------------ Private Methods ------------------------
   */

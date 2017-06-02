@@ -255,7 +255,6 @@ public class Quat4f<T extends Quat4f> extends Tuple4f<T> implements java.io.Seri
 		 *
    */
   float omega, cosom, sinom, sclp, sclq;
-  int i;
   cosom = q1.dot(q2);
   if ((1.0f + cosom) > EPS) {
    if ((1.0f - cosom) > EPS) {

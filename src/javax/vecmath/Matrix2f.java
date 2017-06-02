@@ -43,7 +43,7 @@ import static javax.vecmath.VecMath.sin;
  * @author Gregery Barton
  * @param <T>
  */
-public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Cloneable {
+public class Matrix2f<T extends Matrix2f> implements java.io.Serializable  {
 
  static final long serialVersionUID = 1L;
  /**
@@ -765,27 +765,7 @@ public class Matrix2f<T extends Matrix2f> implements java.io.Serializable, Clone
   return m00 + ", " + m01 + "\n" +
     m10 + ", " + m11 + "\n";
  }
-
- /**
-  * Creates a new object of the same class as this object.
-  *
-  * @return a clone of this instance.
-  * @exception OutOfMemoryError if there is not enough memory.
-  * @see java.lang.Cloneable
-  * @since vecmath 1.3
-  */
- @Override
- public Object clone() {
-  Matrix2f m1 = null;
-  try {
-   m1 = (Matrix2f) super.clone();
-  } catch (CloneNotSupportedException e) {
-   // this shouldn't happen, since we are Cloneable
-   throw new InternalError();
-  }
-  return m1;
- }
-
+ 
  /**
   * Returns true if all of the data members of Matrix3f m1 are equal to the corresponding data
   * members in this Matrix3f.

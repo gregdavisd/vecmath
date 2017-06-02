@@ -20,7 +20,6 @@ package javax.vecmath;
 public class VecMath {
 
  public static final boolean DEBUG_BLOCKS = false;
- public static final boolean USE_STRICT_MATH = false;
  /**
   *
   */
@@ -32,19 +31,11 @@ public class VecMath {
   * @return
   */
  public static float sin(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.sin(x);
-  } else {
-   return (float) StrictMath.sin(x);
-  }
+  return (float) Math.sin(x);
  }
 
  public static float asin(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.asin(x);
-  } else {
-   return (float) StrictMath.asin(x);
-  }
+  return (float) Math.asin(x);
  }
 
  /**
@@ -53,11 +44,7 @@ public class VecMath {
   * @return
   */
  public static float cos(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.cos(x);
-  } else {
-   return (float) StrictMath.cos(x);
-  }
+  return (float) Math.cos(x);
  }
 
  /**
@@ -66,11 +53,7 @@ public class VecMath {
   * @return
   */
  public static float tan(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.tan(x);
-  } else {
-   return (float) StrictMath.tan(x);
-  }
+  return (float) Math.tan(x);
  }
 
  /**
@@ -79,11 +62,7 @@ public class VecMath {
   * @return
   */
  public static float atan(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.atan(x);
-  } else {
-   return (float) StrictMath.atan(x);
-  }
+  return (float) Math.atan(x);
  }
 
  /**
@@ -93,11 +72,7 @@ public class VecMath {
   * @return
   */
  public static float atan2(float x, float y) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.atan2(x, y);
-  } else {
-   return (float) StrictMath.atan2(x, y);
-  }
+  return (float) Math.atan2(x, y);
  }
 
  /**
@@ -106,11 +81,7 @@ public class VecMath {
   * @return
   */
  public static float sqrt(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.sqrt(x);
-  } else {
-   return (float) StrictMath.sqrt(x);
-  }
+  return (float) Math.sqrt(x);
  }
 
  /**
@@ -119,11 +90,7 @@ public class VecMath {
   * @return
   */
  public static float acos(float x) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.acos(x);
-  } else {
-   return (float) StrictMath.acos(x);
-  }
+  return (float) Math.acos(x);
  }
 
  /**
@@ -132,19 +99,11 @@ public class VecMath {
   * @return
   */
  public static double sin(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.sin(x);
-  } else {
-   return (double) StrictMath.sin(x);
-  }
+  return (double) Math.sin(x);
  }
 
  public static double asin(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.asin(x);
-  } else {
-   return (double) StrictMath.asin(x);
-  }
+  return (double) Math.asin(x);
  }
 
  /**
@@ -153,11 +112,7 @@ public class VecMath {
   * @return
   */
  public static double cos(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.cos(x);
-  } else {
-   return (double) StrictMath.cos(x);
-  }
+  return (double) Math.cos(x);
  }
 
  /**
@@ -166,11 +121,7 @@ public class VecMath {
   * @return
   */
  public static double tan(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.tan(x);
-  } else {
-   return (double) StrictMath.tan(x);
-  }
+  return (double) Math.tan(x);
  }
 
  /**
@@ -179,11 +130,7 @@ public class VecMath {
   * @return
   */
  public static double atan(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.atan(x);
-  } else {
-   return (double) StrictMath.atan(x);
-  }
+  return (double) Math.atan(x);
  }
 
  /**
@@ -193,11 +140,7 @@ public class VecMath {
   * @return
   */
  public static double atan2(double x, double y) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.atan2(x, y);
-  } else {
-   return (double) StrictMath.atan2(x, y);
-  }
+  return (double) Math.atan2(x, y);
  }
 
  /**
@@ -206,11 +149,7 @@ public class VecMath {
   * @return
   */
  public static double sqrt(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.sqrt(x);
-  } else {
-   return (double) StrictMath.sqrt(x);
-  }
+  return (double) Math.sqrt(x);
  }
 
  /**
@@ -219,27 +158,15 @@ public class VecMath {
   * @return
   */
  public static double acos(double x) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.acos(x);
-  } else {
-   return (double) StrictMath.acos(x);
-  }
+  return (double) Math.acos(x);
  }
 
  public static float pow(float x, float y) {
-  if (!USE_STRICT_MATH) {
-   return (float) Math.pow(x, y);
-  } else {
-   return (float) StrictMath.pow(x, y);
-  }
+  return (float) Math.pow(x, y);
  }
 
  public static double pow(double x, double y) {
-  if (!USE_STRICT_MATH) {
-   return (double) Math.pow(x, y);
-  } else {
-   return (double) StrictMath.pow(x, y);
-  }
+  return (double) Math.pow(x, y);
  }
 
  public static boolean different_epsilon(float a, float b, float epsilon) {

@@ -38,7 +38,7 @@ import static javax.vecmath.VecMath.sqrt;
  * An axis angle is a rotation of angle (radians) about the vector (x,y,z).
  *
  */
-public class AxisAngle4f implements java.io.Serializable, Cloneable {
+public class AxisAngle4f implements java.io.Serializable  {
 
  // Compatible with 1.1
  static final long serialVersionUID = -163246355858070601L;
@@ -344,26 +344,7 @@ public class AxisAngle4f implements java.io.Serializable, Cloneable {
   hash = 59 * hash + Float.floatToIntBits(this.angle);
   return hash;
  }
-
- /**
-  * Creates a new object of the same class as this object.
-  *
-  * @return a clone of this instance.
-  * @exception OutOfMemoryError if there is not enough memory.
-  * @see java.lang.Cloneable
-  * @since vecmath 1.3
-  */
- @Override
- public Object clone() {
-  // Since there are no arrays we can just use Object.clone()
-  try {
-   return super.clone();
-  } catch (CloneNotSupportedException e) {
-   // this shouldn't happen, since we are Cloneable
-   throw new InternalError();
-  }
- }
-
+ 
  /**
   * Get the axis angle, in radians.<br>
   * An axis angle is a rotation angle about the vector (x,y,z).

@@ -40,7 +40,7 @@ import static javax.vecmath.VecMath.sqrt;
  *
  * @param <T>
  */
-public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Cloneable {
+public class Matrix3f<T extends Matrix3f> implements java.io.Serializable  {
 
  // Compatible with 1.1
  static final long serialVersionUID = 329697160112089834L;
@@ -80,8 +80,7 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   * The third matrix element in the third row.
   */
  public float m22;
- private static final float EPS = 1.0E-8f;
-
+ 
  /**
   * Constructs and initializes a Matrix3f from the specified nine values.
   *
@@ -221,8 +220,8 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
  @Override
  public String toString() {
   return m00 + ", " + m01 + ", " + m02 + "\n" +
-    m10 + ", " + m11 + ", " + m12 + "\n" +
-    m20 + ", " + m21 + ", " + m22;
+   m10 + ", " + m11 + ", " + m12 + "\n" +
+   m20 + ", " + m21 + ", " + m22;
  }
 
  /**
@@ -424,6 +423,44 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
     throw new ArrayIndexOutOfBoundsException();
   }
   return v;
+ }
+
+ /**
+  * Copy this matrix into an array with row major element ordering.
+  *
+  * @param m1 The array to store the matrix elements
+  * @return m1
+  */
+ public float[] getRowMajor(float[] m1) {
+  m1[0] = m00;
+  m1[1] = m01;
+  m1[2] = m02;
+  m1[3] = m10;
+  m1[4] = m11;
+  m1[5] = m12;
+  m1[6] = m20;
+  m1[7] = m21;
+  m1[8] = m22;
+  return m1;
+ }
+
+ /**
+  * Copy this matrix into an array with column major element ordering.
+  *
+  * @param m1 The array to store the matrix elements
+  * @return m1
+  */
+ public float[] getColumnMajor(float[] m1) {
+  m1[0] = m00;
+  m1[1] = m10;
+  m1[2] = m20;
+  m1[3] = m01;
+  m1[4] = m11;
+  m1[5] = m21;
+  m1[6] = m02;
+  m1[7] = m12;
+  m1[8] = m22;
+  return m1;
  }
 
  /**
@@ -1005,8 +1042,8 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
  public float determinant() {
   float total;
   total = m00 * (m11 * m22 - m12 * m21) +
-    m01 * (m12 * m20 - m10 * m22) +
-    m02 * (m10 * m21 - m11 * m20);
+   m01 * (m12 * m20 - m10 * m22) +
+   m02 * (m10 * m21 - m11 * m20);
   return total;
  }
 
@@ -1364,14 +1401,14 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
  public T normalizeCP(Matrix3f m1) {
   {
    float mag = 1.0f / sqrt(m1.m00 * m1.m00 + m1.m10 * m1.m10 +
-     m1.m20 * m1.m20);
+    m1.m20 * m1.m20);
    m00 = m1.m00 * mag;
    m10 = m1.m10 * mag;
    m20 = m1.m20 * mag;
   }
   {
    float mag = 1.0f / sqrt(m1.m01 * m1.m01 + m1.m11 * m1.m11 + m1.m21 *
-     m1.m21);
+    m1.m21);
    m01 = m1.m01 * mag;
    m11 = m1.m11 * mag;
    m21 = m1.m21 * mag;
@@ -1391,8 +1428,8 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   */
  public boolean equals(Matrix3f m1) {
   return (m00 == m1.m00 && m01 == m1.m01 && m02 == m1.m02 &&
-    m10 == m1.m10 && m11 == m1.m11 && m12 == m1.m12 &&
-    m20 == m1.m20 && m21 == m1.m21 && m22 == m1.m22);
+   m10 == m1.m10 && m11 == m1.m11 && m12 == m1.m12 &&
+   m20 == m1.m20 && m21 == m1.m21 && m22 == m1.m22);
  }
 
  /**
@@ -1407,8 +1444,8 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   try {
    Matrix3f m2 = (Matrix3f) o1;
    return (m00 == m2.m00 && m01 == m2.m01 && m02 == m2.m02 &&
-     m10 == m2.m10 && m11 == m2.m11 && m12 == m2.m12 &&
-     m20 == m2.m20 && m21 == m2.m21 && m22 == m2.m22);
+    m10 == m2.m10 && m11 == m2.m11 && m12 == m2.m12 &&
+    m20 == m2.m20 && m21 == m2.m21 && m22 == m2.m22);
   } catch (ClassCastException ex) {
    return false;
   }
@@ -1633,26 +1670,7 @@ public class Matrix3f<T extends Matrix3f> implements java.io.Serializable, Clone
   return (T) this;
  }
 
- /**
-  * Creates a new object of the same class as this object.
-  *
-  * @return a clone of this instance.
-  * @exception OutOfMemoryError if there is not enough memory.
-  * @see java.lang.Cloneable
-  * @since vecmath 1.3
-  */
- @Override
- public Object clone() {
-  Matrix3f m1 = null;
-  try {
-   m1 = (Matrix3f) super.clone();
-  } catch (CloneNotSupportedException e) {
-   // this shouldn't happen, since we are Cloneable
-   throw new InternalError();
-  }
-  return m1;
- }
-
+ 
  /**
   * Get the first matrix element in the first row.
   *
