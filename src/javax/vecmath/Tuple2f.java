@@ -537,7 +537,7 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
   y = (1 - alpha) * y + alpha * t1.y;
   return (T) this;
  }
- 
+
  /**
   * Get the <i>x</i> coordinate.
   *
@@ -908,5 +908,23 @@ public abstract class Tuple2f<T extends Tuple2f> implements java.io.Serializable
  public T interpolate(Tuple2f t1, float t) {
   mix(t1, t);
   return (T) this;
+ }
+
+ /**
+  * Get the maximum value among the components (x,y)
+  *
+  * @return maximum value
+  */
+ public float max() {
+  return Math.max(x, y);
+ }
+
+ /**
+  * Get the minimum value among the components (x,y)
+  *
+  * @return maximum value
+  */
+ public float min() {
+  return Math.min(x, y);
  }
 }
