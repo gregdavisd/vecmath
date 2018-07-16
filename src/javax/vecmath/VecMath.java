@@ -18,8 +18,7 @@ package javax.vecmath;
  * @author Gregery Barton
  */
 public class VecMath {
-
- public static final boolean DEBUG_BLOCKS = false;
+ 
  /**
   *
   */
